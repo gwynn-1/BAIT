@@ -46,7 +46,7 @@ class BookCrudController extends CrudController
                  'type'  => 'text'],
              ['name'  => 'detail', // DB column name (will also be the name of the input)
                  'label' => 'Chi Tiết', // the human-readable label for the input
-                 'type'  => 'text'],
+                 'type'  => 'ckeditor'],
              ['name'  => 'id_type', // DB column name (will also be the name of the input)
                  'label' => 'Thể loại', // the human-readable label for the input
                  'type'  => 'select2',
