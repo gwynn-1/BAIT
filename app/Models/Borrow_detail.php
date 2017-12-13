@@ -38,11 +38,11 @@ class Borrow_detail extends Model
     */
 
     public function Reader(){
-        return $this->belongsTo("App\Models\Reader","id_reader","id");
+        return $this->belongsTo("App\Models\Reader",'id_reader','id');
     }
 
     public function Book(){
-        return $this->hasOne("App\Models\Book","id_book","id");
+        return $this->belongsTo("App\Models\Book",'id_book','id');
     }
 
     /*

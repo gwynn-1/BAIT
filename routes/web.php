@@ -17,6 +17,8 @@ Route::get('/', function () {
 
 Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
     // your CRUD resources and other admin routes here
+    Route::get("/dashboard","Admin\DashboardController@loadViewAction");
+
     CRUD::resource('book_type','Admin\Book_typeCrudController');
     CRUD::resource('book','Admin\BookCrudController');
     CRUD::resource('reader','Admin\ReaderCrudController');
@@ -31,10 +33,13 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
     Route::group(['prefix'=>'export-excel'],function (){
         Route::get('book_types','Admin\Book_typeCrudController@ExportExcelAction');
         Route::get('books','Admin\BookCrudController@ExportExcelAction');
+        Route::get('readers','Admin\ReaderCrudController@ExportExcelAction');
+        Route::get('borrow_details','Admin\Borrow_detailCrudController@ExportExcelAction');
     });
 
     Route::group(['prefix'=>'import-excel'],function (){
         Route::post('book_types','Admin\Book_typeCrudController@ImportExcelAction');
         Route::post('books','Admin\BookCrudController@ImportExcelAction');
+        Route::post('readers','Admin\ReaderCrudController@ImportExcelAction');
     });
 });

@@ -36,7 +36,7 @@ class Reader extends Model
     */
 
     public function Borrow_detail(){
-        return $this->hasMany("App\Models\Borrow_detail","id_reader","id");
+        return $this->hasMany("App\Models\Borrow_detail",'id_reader','id');
     }
 
     public function Comment_blog(){

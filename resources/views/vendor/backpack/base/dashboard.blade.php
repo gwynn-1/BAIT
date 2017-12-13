@@ -28,7 +28,24 @@
                     <div class="box-title">Thông báo</div>
                 </div>
 
-                <div class="box-body">Không có thông báo nào</div>
+                <div class="box-body">
+                @if($expire_date_count>0)
+                        <div class="alert alert-danger">
+                            Có {{$expire_date_count}} chi tiết mượn sách bị quá hạn.
+                            <a href="{{url(config('backpack.base.route_prefix'))}}/borrow_detail">Go to Chi Tiết Sách Mượn</a>
+
+                        </div>
+                @endif
+                @if($unreturn_date_count>0)
+                        <div class="alert alert-danger">
+                            Có {{$unreturn_date_count}} chi tiết mượn sách không trả sách đúng hạn.
+                            <a href="{{url(config('backpack.base.route_prefix'))}}/borrow_detail">Go to Chi Tiết Sách Mượn</a>
+                        </div>
+                @endif
+                @if($expire_date_count==0&&$unreturn_date_count==0)
+                        Không có thông báo nào
+                @endif
+                </div>
             </div>
         </div>
     </div>

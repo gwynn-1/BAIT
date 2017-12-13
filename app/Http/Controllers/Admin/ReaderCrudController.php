@@ -7,6 +7,10 @@ use Backpack\CRUD\app\Http\Controllers\CrudController;
 // VALIDATION: change the requests to match your own file names if you need form validation
 use App\Http\Requests\ReaderRequest as StoreRequest;
 use App\Http\Requests\ReaderRequest as UpdateRequest;
+use App\API\excelSpout;
+use App\Models\Reader;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class ReaderCrudController extends CrudController
 {
@@ -75,7 +79,7 @@ class ReaderCrudController extends CrudController
                  'label' => 'Trường', // the human-readable label for the input
                  'type'  => 'text'],
              ['name'  => 'email', // DB column name (will also be the name of the input)
-                 'label' => 'Hình ảnh',
+                 'label' => 'Email',
                  'type'=>'email'],
              ['name'  => 'sdt', // DB column name (will also be the name of the input)
                  'label' => 'Số điện thoại', // the human-readable label for the input
@@ -148,6 +152,39 @@ class ReaderCrudController extends CrudController
         // $this->crud->orderBy();
         // $this->crud->groupBy();
         // $this->crud->limit();
+    }
+
+    public function ExportExcelAction()
+    {
+        excelSpout::exportExcel(['ID','MSSV','Tên','Trường','Email','SĐT','facebook','created_at','updated_at']
+            ,"reader","readers");
+    }
+
+    public function ImportExcelAction()
+    {
+        return excelSpout::importExcelXLSX($_FILES['excelFile']
+            ,['ID','MSSV','Tên','Trường','Email','SĐT','facebook']
+            ,'readers',function($row){
+                Reader::where("id",$row[0])->update([
+                    "mssv"=>$row[1],
+                    "name"=>$row[2],
+                    "school"=>$row[3],
+                    'email'=>$row[4],
+                    'sdt'=>$row[5],
+                    'facebook'=>$row[6]
+                ]);
+            },function($row){
+                Reader::create([
+                    "id"=>$row[0],
+                    "mssv"=>$row[1],
+                    "name"=>$row[2],
+                    "school"=>$row[3],
+                    'email'=>$row[4],
+                    'sdt'=>$row[5],
+                    'facebook'=>$row[6],
+                    'password'=>"not-null"
+                ]);
+            });
     }
 
     public function store(StoreRequest $request)

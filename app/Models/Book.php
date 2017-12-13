@@ -83,6 +83,10 @@ class Book extends Model
         return $this->belongsTo("App\Models\Book_type","id_type","id");
     }
 
+    public function Borrow_detail(){
+        return $this->hasMany("App\Models\Borrow_detail",'id_book','id');
+    }
+
     /*
     |--------------------------------------------------------------------------
     | SCOPES

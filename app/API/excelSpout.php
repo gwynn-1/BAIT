@@ -16,8 +16,12 @@ use Illuminate\Support\Facades\Storage;
 
 class excelSpout
 {
-    static function exportExcel($title = [],$name,$table){
-        $customer = DB::table($table)->get();
+    static function exportExcel($title = [],$name,$table,$query = null){
+        if($query==null)
+            $customer = DB::table($table)->get();
+        else{
+            $customer = $query;
+        }
 
         $oExcel =  Writer\WriterFactory::create(Type::XLSX); // for XLSX files
         $oExcel->openToBrowser($name.".xlsx");

@@ -1,5 +1,4 @@
 @extends('backpack::layout')
-
 @section('header')
     <section class="content-header">
         <h1>
@@ -134,8 +133,7 @@
 
     <script type="text/javascript">
         jQuery(document).ready(function($) {
-
-                    @if ($crud->exportButtons())
+            @if ($crud->exportButtons())
             var dtButtons = function(buttons){
                     var extended = [];
                     for(var i = 0; i < buttons.length; i++){
@@ -347,6 +345,33 @@
             @endif
 
 
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            @if(isset($expire_rec))
+            $("tbody").on('DOMNodeInserted',"tr",function (e) {
+                 @if(count($expire_rec)>0)
+                    @foreach($expire_rec as $rec)
+                        if(e.target.firstChild.innerHTML=={{$rec->id}}){
+                            e.target.style.color = "red";
+                        }
+                    @endforeach
+                 @endif
+            });
+            @endif
+            @if(isset($unreturn_rec))
+            $("tbody").on('DOMNodeInserted',"tr",function (e) {
+                @if(count($unreturn_rec)>0)
+                        @foreach($unreturn_rec as $rec)
+                if(e.target.firstChild.innerHTML=={{$rec->id}}){
+                    e.target.style.color = "red";
+                    e.target.style.fontWeight = "bold";
+                }
+                @endforeach
+                @endif
+            });
+            @endif
         });
     </script>
 

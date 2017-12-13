@@ -26,7 +26,24 @@
                     <div class="box-title">Thông báo</div>
                 </div>
 
-                <div class="box-body">Không có thông báo nào</div>
+                <div class="box-body">
+                <?php if($expire_date_count>0): ?>
+                        <div class="alert alert-danger">
+                            Có <?php echo e($expire_date_count); ?> chi tiết mượn sách bị quá hạn.
+                            <a href="<?php echo e(url(config('backpack.base.route_prefix'))); ?>/borrow_detail">Go to Chi Tiết Sách Mượn</a>
+
+                        </div>
+                <?php endif; ?>
+                <?php if($unreturn_date_count>0): ?>
+                        <div class="alert alert-danger">
+                            Có <?php echo e($unreturn_date_count); ?> chi tiết mượn sách không trả sách đúng hạn.
+                            <a href="<?php echo e(url(config('backpack.base.route_prefix'))); ?>/borrow_detail">Go to Chi Tiết Sách Mượn</a>
+                        </div>
+                <?php endif; ?>
+                <?php if($expire_date_count==0&&$unreturn_date_count==0): ?>
+                        Không có thông báo nào
+                <?php endif; ?>
+                </div>
             </div>
         </div>
     </div>

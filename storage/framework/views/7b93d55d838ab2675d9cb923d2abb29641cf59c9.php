@@ -137,8 +137,7 @@
 
     <script type="text/javascript">
         jQuery(document).ready(function($) {
-
-                    <?php if($crud->exportButtons()): ?>
+            <?php if($crud->exportButtons()): ?>
             var dtButtons = function(buttons){
                     var extended = [];
                     for(var i = 0; i < buttons.length; i++){
@@ -350,6 +349,33 @@
             <?php endif; ?>
 
 
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            <?php if(isset($expire_rec)): ?>
+            $("tbody").on('DOMNodeInserted',"tr",function (e) {
+                 <?php if(count($expire_rec)>0): ?>
+                    <?php $__currentLoopData = $expire_rec; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $rec): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        if(e.target.firstChild.innerHTML==<?php echo e($rec->id); ?>){
+                            e.target.style.color = "red";
+                        }
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                 <?php endif; ?>
+            });
+            <?php endif; ?>
+            <?php if(isset($unreturn_rec)): ?>
+            $("tbody").on('DOMNodeInserted',"tr",function (e) {
+                <?php if(count($unreturn_rec)>0): ?>
+                        <?php $__currentLoopData = $unreturn_rec; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $rec): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                if(e.target.firstChild.innerHTML==<?php echo e($rec->id); ?>){
+                    e.target.style.color = "red";
+                    e.target.style.fontWeight = "bold";
+                }
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                <?php endif; ?>
+            });
+            <?php endif; ?>
         });
     </script>
 
