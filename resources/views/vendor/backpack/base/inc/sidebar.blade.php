@@ -29,8 +29,22 @@
             <li><a href="{{ backpack_url('repcomment_blog') }}"><i class="fa fa-comments"></i> <span>Reply Bình luận về Blog</span></a></li>
             <li><a href="{{ backpack_url('comment_book') }}"><i class="fa fa-comment-o"></i> <span>Bình luận về Sách</span></a></li>
             <li><a href="{{ backpack_url('repcomment_book') }}"><i class="fa fa-comments-o"></i> <span>Reply Bình luận về Sách</span></a></li>
+            @role("Staff")
+            <li><a href="{{ url(config('backpack.base.route_prefix', 'admin')."/user-read") }}"><i class="fa fa-user-circle"></i> <span>User</span></a></li>
+            @endrole
             <li><a href="{{ url(config('backpack.base.route_prefix', 'admin') . '/elfinder') }}"><i class="fa fa-files-o"></i> <span>File manager</span></a></li>
 
+            @hasrole("Admin")
+            <!-- Users, Roles Permissions -->
+            <li class="treeview">
+              <a href="#"><i class="fa fa-group"></i> <span>Users, Roles, Permissions</span> <i class="fa fa-angle-left pull-right"></i></a>
+              <ul class="treeview-menu">
+                <li><a href="{{ url(config('backpack.base.route_prefix', 'admin') . '/user') }}"><i class="fa fa-user"></i> <span>Users</span></a></li>
+                <li><a href="{{ url(config('backpack.base.route_prefix', 'admin') . '/role') }}"><i class="fa fa-group"></i> <span>Roles</span></a></li>
+                <li><a href="{{ url(config('backpack.base.route_prefix', 'admin') . '/permission') }}"><i class="fa fa-key"></i> <span>Permissions</span></a></li>
+              </ul>
+            </li>
+            @endhasrole
           <!-- ======================================= -->
           {{-- <li class="header">Other menus</li> --}}
         </ul>

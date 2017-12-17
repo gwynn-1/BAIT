@@ -15,9 +15,9 @@ class ComposerStaticInitaebeb1c6e5177beda187a32b3ee5ae47
         'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
         'f0906e6318348a765ffb6eb24e0d0938' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/helpers.php',
         '58571171fd5812e6e447dce228f52f4d' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/helpers.php',
+        'f18cc91337d49233e5754e93f3ed9ec3' => __DIR__ . '/..' . '/laravelcollective/html/src/helpers.php',
         'e7223560d890eab89cda23685e711e2c' => __DIR__ . '/..' . '/psy/psysh/src/Psy/functions.php',
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
-        'f18cc91337d49233e5754e93f3ed9ec3' => __DIR__ . '/..' . '/laravelcollective/html/src/helpers.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -54,6 +54,7 @@ class ComposerStaticInitaebeb1c6e5177beda187a32b3ee5ae47
             'Symfony\\Component\\Debug\\' => 24,
             'Symfony\\Component\\CssSelector\\' => 30,
             'Symfony\\Component\\Console\\' => 26,
+            'Spatie\\Permission\\' => 18,
         ),
         'R' => 
         array (
@@ -125,6 +126,7 @@ class ComposerStaticInitaebeb1c6e5177beda187a32b3ee5ae47
             'Box\\Spout\\' => 10,
             'Barryvdh\\elFinderFlysystemDriver\\' => 33,
             'Barryvdh\\Elfinder\\' => 18,
+            'Backpack\\PermissionManager\\' => 27,
             'Backpack\\Generators\\' => 20,
             'Backpack\\CRUD\\' => 14,
             'Backpack\\Base\\' => 14,
@@ -213,6 +215,10 @@ class ComposerStaticInitaebeb1c6e5177beda187a32b3ee5ae47
         'Symfony\\Component\\Console\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/console',
+        ),
+        'Spatie\\Permission\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/spatie/laravel-permission/src',
         ),
         'Ramsey\\Uuid\\' => 
         array (
@@ -354,6 +360,10 @@ class ComposerStaticInitaebeb1c6e5177beda187a32b3ee5ae47
         array (
             0 => __DIR__ . '/..' . '/barryvdh/laravel-elfinder/src',
         ),
+        'Backpack\\PermissionManager\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/backpack/permissionmanager/src',
+        ),
         'Backpack\\Generators\\' => 
         array (
             0 => __DIR__ . '/..' . '/backpack/generators/src',
@@ -427,9 +437,19 @@ class ComposerStaticInitaebeb1c6e5177beda187a32b3ee5ae47
     );
 
     public static $classMap = array (
+        'App\\API\\excelSpout' => __DIR__ . '/../..' . '/app/API/excelSpout.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
+        'App\\Http\\Controllers\\Admin\\Blog_newsCrudController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/Blog_newsCrudController.php',
+        'App\\Http\\Controllers\\Admin\\BookCrudController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/BookCrudController.php',
         'App\\Http\\Controllers\\Admin\\Book_typeCrudController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/Book_typeCrudController.php',
+        'App\\Http\\Controllers\\Admin\\Borrow_detailCrudController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/Borrow_detailCrudController.php',
+        'App\\Http\\Controllers\\Admin\\Comment_blogCrudController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/Comment_blogCrudController.php',
+        'App\\Http\\Controllers\\Admin\\Comment_bookCrudController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/Comment_bookCrudController.php',
+        'App\\Http\\Controllers\\Admin\\DashboardController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/DashboardController.php',
+        'App\\Http\\Controllers\\Admin\\ReaderCrudController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/ReaderCrudController.php',
+        'App\\Http\\Controllers\\Admin\\Repcomment_blogCrudController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/Repcomment_blogCrudController.php',
+        'App\\Http\\Controllers\\Admin\\Repcomment_bookCrudController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/Repcomment_bookCrudController.php',
         'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ForgotPasswordController.php',
         'App\\Http\\Controllers\\Auth\\LoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/LoginController.php',
         'App\\Http\\Controllers\\Auth\\RegisterController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/RegisterController.php',
@@ -441,8 +461,24 @@ class ComposerStaticInitaebeb1c6e5177beda187a32b3ee5ae47
         'App\\Http\\Middleware\\TrimStrings' => __DIR__ . '/../..' . '/app/Http/Middleware/TrimStrings.php',
         'App\\Http\\Middleware\\TrustProxies' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustProxies.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
+        'App\\Http\\Requests\\Blog_newsRequest' => __DIR__ . '/../..' . '/app/Http/Requests/Blog_newsRequest.php',
+        'App\\Http\\Requests\\BookRequest' => __DIR__ . '/../..' . '/app/Http/Requests/BookRequest.php',
         'App\\Http\\Requests\\Book_typeRequest' => __DIR__ . '/../..' . '/app/Http/Requests/Book_typeRequest.php',
+        'App\\Http\\Requests\\Borrow_detailRequest' => __DIR__ . '/../..' . '/app/Http/Requests/Borrow_detailRequest.php',
+        'App\\Http\\Requests\\Comment_blogRequest' => __DIR__ . '/../..' . '/app/Http/Requests/Comment_blogRequest.php',
+        'App\\Http\\Requests\\Comment_bookRequest' => __DIR__ . '/../..' . '/app/Http/Requests/Comment_bookRequest.php',
+        'App\\Http\\Requests\\ReaderRequest' => __DIR__ . '/../..' . '/app/Http/Requests/ReaderRequest.php',
+        'App\\Http\\Requests\\Repcomment_blogRequest' => __DIR__ . '/../..' . '/app/Http/Requests/Repcomment_blogRequest.php',
+        'App\\Http\\Requests\\Repcomment_bookRequest' => __DIR__ . '/../..' . '/app/Http/Requests/Repcomment_bookRequest.php',
+        'App\\Models\\Blog_news' => __DIR__ . '/../..' . '/app/Models/Blog_news.php',
+        'App\\Models\\Book' => __DIR__ . '/../..' . '/app/Models/Book.php',
         'App\\Models\\Book_type' => __DIR__ . '/../..' . '/app/Models/Book_type.php',
+        'App\\Models\\Borrow_detail' => __DIR__ . '/../..' . '/app/Models/Borrow_detail.php',
+        'App\\Models\\Comment_blog' => __DIR__ . '/../..' . '/app/Models/Comment_blog.php',
+        'App\\Models\\Comment_book' => __DIR__ . '/../..' . '/app/Models/Comment_book.php',
+        'App\\Models\\Reader' => __DIR__ . '/../..' . '/app/Models/Reader.php',
+        'App\\Models\\Repcomment_blog' => __DIR__ . '/../..' . '/app/Models/Repcomment_blog.php',
+        'App\\Models\\Repcomment_book' => __DIR__ . '/../..' . '/app/Models/Repcomment_book.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',
         'App\\Providers\\BroadcastServiceProvider' => __DIR__ . '/../..' . '/app/Providers/BroadcastServiceProvider.php',
@@ -513,6 +549,16 @@ class ComposerStaticInitaebeb1c6e5177beda187a32b3ee5ae47
         'Backpack\\Generators\\Console\\Commands\\RequestBackpackCommand' => __DIR__ . '/..' . '/backpack/generators/src/Console/Commands/RequestBackpackCommand.php',
         'Backpack\\Generators\\Console\\Commands\\ViewBackpackCommand' => __DIR__ . '/..' . '/backpack/generators/src/Console/Commands/ViewBackpackCommand.php',
         'Backpack\\Generators\\GeneratorsServiceProvider' => __DIR__ . '/..' . '/backpack/generators/src/GeneratorsServiceProvider.php',
+        'Backpack\\PermissionManager\\PermissionManagerServiceProvider' => __DIR__ . '/..' . '/backpack/permissionmanager/src/PermissionManagerServiceProvider.php',
+        'Backpack\\PermissionManager\\app\\Http\\Controllers\\PermissionCrudController' => __DIR__ . '/..' . '/backpack/permissionmanager/src/app/Http/Controllers/PermissionCrudController.php',
+        'Backpack\\PermissionManager\\app\\Http\\Controllers\\RoleCrudController' => __DIR__ . '/..' . '/backpack/permissionmanager/src/app/Http/Controllers/RoleCrudController.php',
+        'Backpack\\PermissionManager\\app\\Http\\Controllers\\UserCrudController' => __DIR__ . '/..' . '/backpack/permissionmanager/src/app/Http/Controllers/UserCrudController.php',
+        'Backpack\\PermissionManager\\app\\Http\\Requests\\PermissionCrudRequest' => __DIR__ . '/..' . '/backpack/permissionmanager/src/app/Http/Requests/PermissionCrudRequest.php',
+        'Backpack\\PermissionManager\\app\\Http\\Requests\\RoleCrudRequest' => __DIR__ . '/..' . '/backpack/permissionmanager/src/app/Http/Requests/RoleCrudRequest.php',
+        'Backpack\\PermissionManager\\app\\Http\\Requests\\UserStoreCrudRequest' => __DIR__ . '/..' . '/backpack/permissionmanager/src/app/Http/Requests/UserStoreCrudRequest.php',
+        'Backpack\\PermissionManager\\app\\Http\\Requests\\UserUpdateCrudRequest' => __DIR__ . '/..' . '/backpack/permissionmanager/src/app/Http/Requests/UserUpdateCrudRequest.php',
+        'Backpack\\PermissionManager\\app\\Models\\Permission' => __DIR__ . '/..' . '/backpack/permissionmanager/src/app/Models/Permission.php',
+        'Backpack\\PermissionManager\\app\\Models\\Role' => __DIR__ . '/..' . '/backpack/permissionmanager/src/app/Models/Role.php',
         'Barryvdh\\Elfinder\\Connector' => __DIR__ . '/..' . '/barryvdh/laravel-elfinder/src/Connector.php',
         'Barryvdh\\Elfinder\\Console\\PublishCommand' => __DIR__ . '/..' . '/barryvdh/laravel-elfinder/src/Console/PublishCommand.php',
         'Barryvdh\\Elfinder\\Elfinder' => __DIR__ . '/..' . '/barryvdh/laravel-elfinder/src/Elfinder.php',
@@ -3793,6 +3839,18 @@ class ComposerStaticInitaebeb1c6e5177beda187a32b3ee5ae47
         'SebastianBergmann\\ResourceOperations\\ResourceOperations' => __DIR__ . '/..' . '/sebastian/resource-operations/src/ResourceOperations.php',
         'SebastianBergmann\\Version' => __DIR__ . '/..' . '/sebastian/version/src/Version.php',
         'SessionUpdateTimestampHandlerInterface' => __DIR__ . '/..' . '/symfony/polyfill-php70/Resources/stubs/SessionUpdateTimestampHandlerInterface.php',
+        'Spatie\\Permission\\Contracts\\Permission' => __DIR__ . '/..' . '/spatie/laravel-permission/src/Contracts/Permission.php',
+        'Spatie\\Permission\\Contracts\\Role' => __DIR__ . '/..' . '/spatie/laravel-permission/src/Contracts/Role.php',
+        'Spatie\\Permission\\Exceptions\\PermissionDoesNotExist' => __DIR__ . '/..' . '/spatie/laravel-permission/src/Exceptions/PermissionDoesNotExist.php',
+        'Spatie\\Permission\\Exceptions\\PermissionMustNotBeEmpty' => __DIR__ . '/..' . '/spatie/laravel-permission/src/Exceptions/PermissionMustNotBeEmpty.php',
+        'Spatie\\Permission\\Exceptions\\RoleDoesNotExist' => __DIR__ . '/..' . '/spatie/laravel-permission/src/Exceptions/RoleDoesNotExist.php',
+        'Spatie\\Permission\\Models\\Permission' => __DIR__ . '/..' . '/spatie/laravel-permission/src/Models/Permission.php',
+        'Spatie\\Permission\\Models\\Role' => __DIR__ . '/..' . '/spatie/laravel-permission/src/Models/Role.php',
+        'Spatie\\Permission\\PermissionRegistrar' => __DIR__ . '/..' . '/spatie/laravel-permission/src/PermissionRegistrar.php',
+        'Spatie\\Permission\\PermissionServiceProvider' => __DIR__ . '/..' . '/spatie/laravel-permission/src/PermissionServiceProvider.php',
+        'Spatie\\Permission\\Traits\\HasPermissions' => __DIR__ . '/..' . '/spatie/laravel-permission/src/Traits/HasPermissions.php',
+        'Spatie\\Permission\\Traits\\HasRoles' => __DIR__ . '/..' . '/spatie/laravel-permission/src/Traits/HasRoles.php',
+        'Spatie\\Permission\\Traits\\RefreshesPermissionCache' => __DIR__ . '/..' . '/spatie/laravel-permission/src/Traits/RefreshesPermissionCache.php',
         'Symfony\\Component\\Console\\Application' => __DIR__ . '/..' . '/symfony/console/Application.php',
         'Symfony\\Component\\Console\\CommandLoader\\CommandLoaderInterface' => __DIR__ . '/..' . '/symfony/console/CommandLoader/CommandLoaderInterface.php',
         'Symfony\\Component\\Console\\CommandLoader\\ContainerCommandLoader' => __DIR__ . '/..' . '/symfony/console/CommandLoader/ContainerCommandLoader.php',

@@ -25,7 +25,8 @@ class Comment_bookRequest extends \Backpack\CRUD\app\Http\Requests\CrudRequest
     public function rules()
     {
         return [
-            // 'name' => 'required|min:5|max:255'
+            'id'=>'nullable|numeric',
+            'content' => 'required|min:10|max:700'
         ];
     }
 
@@ -38,6 +39,7 @@ class Comment_bookRequest extends \Backpack\CRUD\app\Http\Requests\CrudRequest
     {
         return [
             //
+            'content'=>'Nội dung'
         ];
     }
 
@@ -50,6 +52,9 @@ class Comment_bookRequest extends \Backpack\CRUD\app\Http\Requests\CrudRequest
     {
         return [
             //
+            "numeric"=>":attribute phải là định dạng số",
+            "required"=>":attribute không được bỏ trống",
+            "size"=>":attribute phải nằm trong khoảng :min và :max từ"
         ];
     }
 }

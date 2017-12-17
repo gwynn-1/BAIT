@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 13, 2017 at 05:27 PM
+-- Generation Time: Dec 17, 2017 at 07:37 AM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 7.1.7
 
@@ -25,29 +25,6 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `admin`
---
-
-CREATE TABLE `admin` (
-  `id` int(11) NOT NULL,
-  `name` varchar(150) NOT NULL,
-  `email` varchar(200) NOT NULL,
-  `password` varchar(200) NOT NULL,
-  `remember_token` varchar(100) DEFAULT NULL,
-  `created_at` datetime NOT NULL,
-  `updated_at` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `admin`
---
-
-INSERT INTO `admin` (`id`, `name`, `email`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'huytranle', 'huytranle13@gmail.com', '$2y$10$AqUCqXef9cExsUNB0DkFEuK.wcAE4D7/xyw9bsGNQFhBhc2b5YCqe', '4YsnHJabSQmTMoSQbmGoxCFJuU77Z53Sx9e6ghTyVa7ZMGskoC0x0XSaaTgo', '2017-12-07 07:48:45', '2017-12-07 07:48:45');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `blog_news`
 --
 
@@ -55,7 +32,7 @@ CREATE TABLE `blog_news` (
   `id` int(11) NOT NULL,
   `title` varchar(255) NOT NULL,
   `content` text NOT NULL,
-  `author` int(11) NOT NULL,
+  `author` varchar(100) NOT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -230,9 +207,10 @@ CREATE TABLE `borrow_detail` (
 
 INSERT INTO `borrow_detail` (`id`, `id_book`, `id_reader`, `borrow_date`, `return_date`, `is_return`, `is_keep`, `expire_date`, `created_at`, `updated_at`) VALUES
 (1, 1, 1, NULL, NULL, 2, 1, '2017-12-11 10:54:06', '2017-12-12 10:55:36', '2017-12-13 21:12:04'),
-(2, 4, 1, '2017-12-11 12:22:40', '2017-12-12 12:22:38', 0, 0, NULL, '2017-12-12 13:28:51', '2017-12-13 21:12:46'),
-(3, 2, 4, NULL, NULL, 2, 1, '2017-12-10 13:28:56', '2017-12-12 13:29:30', '2017-12-13 21:12:11'),
-(4, 8, 6, '2017-12-13 23:01:55', '2017-12-20 23:01:55', 0, 0, NULL, '2017-12-13 12:25:18', '2017-12-13 23:01:55');
+(2, 2, 4, NULL, NULL, 2, 1, '2017-12-10 13:28:56', '2017-12-12 13:29:30', '2017-12-13 21:12:11'),
+(3, 4, 1, '2017-12-11 12:22:40', '2017-12-12 12:22:38', 0, 0, NULL, '2017-12-12 13:28:51', '2017-12-13 21:12:46'),
+(4, 8, 6, '2017-12-13 23:01:55', '2017-12-21 23:01:55', 0, 0, NULL, '2017-12-13 12:25:18', '2017-12-17 10:24:18'),
+(5, 14, 1, NULL, NULL, 2, 1, '2017-12-23 10:27:42', '2017-12-17 10:27:56', '2017-12-17 10:27:56');
 
 -- --------------------------------------------------------
 
@@ -263,6 +241,90 @@ CREATE TABLE `comment_book` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `migrations`
+--
+
+CREATE TABLE `migrations` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `migration` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `batch` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `migrations`
+--
+
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
+(1, '2014_10_12_000000_create_users_table', 1),
+(2, '2014_10_12_100000_create_password_resets_table', 1),
+(3, '2016_05_10_130540_create_permission_tables', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `password_resets`
+--
+
+CREATE TABLE `password_resets` (
+  `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `permissions`
+--
+
+CREATE TABLE `permissions` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `permissions`
+--
+
+INSERT INTO `permissions` (`id`, `name`, `created_at`, `updated_at`) VALUES
+(1, 'Full', '2017-12-17 05:21:30', '2017-12-17 05:21:30'),
+(2, 'Full but Users', '2017-12-17 05:22:23', '2017-12-17 05:22:23');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `permission_roles`
+--
+
+CREATE TABLE `permission_roles` (
+  `permission_id` int(10) UNSIGNED NOT NULL,
+  `role_id` int(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `permission_roles`
+--
+
+INSERT INTO `permission_roles` (`permission_id`, `role_id`) VALUES
+(1, 1),
+(2, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `permission_users`
+--
+
+CREATE TABLE `permission_users` (
+  `user_id` int(10) UNSIGNED NOT NULL,
+  `permission_id` int(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -348,15 +410,73 @@ CREATE TABLE `repcomment_book` (
   `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `roles`
+--
+
+CREATE TABLE `roles` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `roles`
+--
+
+INSERT INTO `roles` (`id`, `name`, `created_at`, `updated_at`) VALUES
+(1, 'Admin', '2017-12-17 05:21:12', '2017-12-17 05:21:12'),
+(2, 'Staff', '2017-12-17 05:21:45', '2017-12-17 05:21:45');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `role_users`
+--
+
+CREATE TABLE `role_users` (
+  `role_id` int(10) UNSIGNED NOT NULL,
+  `user_id` int(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `role_users`
+--
+
+INSERT INTO `role_users` (`role_id`, `user_id`) VALUES
+(1, 1),
+(2, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+CREATE TABLE `users` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `name`, `email`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'Huy', 'huytranle13@gmail.com', '$2y$10$B08TU3sq1J2Xckv78/3.v.3OrKP6rsGgzouEqfWFM8J6qx9PvhLye', 'A40Ij7L6y6XPRMRTFNtI4Q8EyiRmSgHrPnFmYGqwuTwOatz066vFqFfWHWLr', '2017-12-17 05:19:59', '2017-12-17 05:19:59'),
+(2, 'Huy Vĩnh', 'huylevinh13@gmail.com', '$2y$10$NmmArNFwcyllYoNFigXI/.1N/hxuZdai9uwcvDU9aMkmDOnpoY/ju', 'nIknCsDSKKRfmNuBsvhqICrGB3TrTOg8ntMyOYSfZN62eP3Dv3PJKB6iiWME', '2017-12-17 05:30:10', '2017-12-17 05:30:10');
+
 --
 -- Indexes for dumped tables
 --
-
---
--- Indexes for table `admin`
---
-ALTER TABLE `admin`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `blog_news`
@@ -381,9 +501,9 @@ ALTER TABLE `book_type`
 -- Indexes for table `borrow_detail`
 --
 ALTER TABLE `borrow_detail`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_brdetail_reader` (`id_reader`),
-  ADD KEY `id_book` (`id_book`);
+  ADD PRIMARY KEY (`id_book`,`id_reader`),
+  ADD UNIQUE KEY `unique` (`id`),
+  ADD KEY `fk_brdetail_reader` (`id_reader`,`id_book`) USING BTREE;
 
 --
 -- Indexes for table `comment_blog`
@@ -400,6 +520,39 @@ ALTER TABLE `comment_book`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_book` (`id_book`),
   ADD KEY `id_reader` (`id_reader`);
+
+--
+-- Indexes for table `migrations`
+--
+ALTER TABLE `migrations`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `password_resets`
+--
+ALTER TABLE `password_resets`
+  ADD KEY `password_resets_email_index` (`email`);
+
+--
+-- Indexes for table `permissions`
+--
+ALTER TABLE `permissions`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `permissions_name_unique` (`name`);
+
+--
+-- Indexes for table `permission_roles`
+--
+ALTER TABLE `permission_roles`
+  ADD PRIMARY KEY (`permission_id`,`role_id`),
+  ADD KEY `permission_roles_role_id_foreign` (`role_id`);
+
+--
+-- Indexes for table `permission_users`
+--
+ALTER TABLE `permission_users`
+  ADD PRIMARY KEY (`user_id`,`permission_id`),
+  ADD KEY `permission_users_permission_id_foreign` (`permission_id`);
 
 --
 -- Indexes for table `readers`
@@ -424,14 +577,30 @@ ALTER TABLE `repcomment_book`
   ADD KEY `id_reader` (`id_reader`);
 
 --
+-- Indexes for table `roles`
+--
+ALTER TABLE `roles`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `roles_name_unique` (`name`);
+
+--
+-- Indexes for table `role_users`
+--
+ALTER TABLE `role_users`
+  ADD PRIMARY KEY (`role_id`,`user_id`),
+  ADD KEY `role_users_user_id_foreign` (`user_id`);
+
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `users_email_unique` (`email`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
---
--- AUTO_INCREMENT for table `admin`
---
-ALTER TABLE `admin`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `blog_news`
 --
@@ -451,7 +620,7 @@ ALTER TABLE `book_type`
 -- AUTO_INCREMENT for table `borrow_detail`
 --
 ALTER TABLE `borrow_detail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `comment_blog`
 --
@@ -462,6 +631,16 @@ ALTER TABLE `comment_blog`
 --
 ALTER TABLE `comment_book`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `migrations`
+--
+ALTER TABLE `migrations`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT for table `permissions`
+--
+ALTER TABLE `permissions`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `readers`
 --
@@ -478,6 +657,16 @@ ALTER TABLE `repcomment_blog`
 ALTER TABLE `repcomment_book`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
+-- AUTO_INCREMENT for table `roles`
+--
+ALTER TABLE `roles`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
 -- Constraints for dumped tables
 --
 
@@ -492,6 +681,8 @@ ALTER TABLE `books`
 --
 ALTER TABLE `borrow_detail`
   ADD CONSTRAINT `borrow_detail_ibfk_1` FOREIGN KEY (`id_book`) REFERENCES `books` (`id`),
+  ADD CONSTRAINT `borrow_detail_ibfk_2` FOREIGN KEY (`id_book`) REFERENCES `books` (`id`),
+  ADD CONSTRAINT `borrow_detail_ibfk_3` FOREIGN KEY (`id_book`) REFERENCES `books` (`id`),
   ADD CONSTRAINT `fk_brdetail_reader` FOREIGN KEY (`id_reader`) REFERENCES `readers` (`id`);
 
 --
@@ -509,6 +700,20 @@ ALTER TABLE `comment_book`
   ADD CONSTRAINT `comment_book_ibfk_2` FOREIGN KEY (`id_reader`) REFERENCES `readers` (`id`);
 
 --
+-- Constraints for table `permission_roles`
+--
+ALTER TABLE `permission_roles`
+  ADD CONSTRAINT `permission_roles_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `permission_roles_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `permission_users`
+--
+ALTER TABLE `permission_users`
+  ADD CONSTRAINT `permission_users_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `permission_users_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+
+--
 -- Constraints for table `repcomment_blog`
 --
 ALTER TABLE `repcomment_blog`
@@ -521,6 +726,13 @@ ALTER TABLE `repcomment_blog`
 ALTER TABLE `repcomment_book`
   ADD CONSTRAINT `repcomment_book_ibfk_1` FOREIGN KEY (`id_comment`) REFERENCES `comment_book` (`id`),
   ADD CONSTRAINT `repcomment_book_ibfk_2` FOREIGN KEY (`id_reader`) REFERENCES `readers` (`id`);
+
+--
+-- Constraints for table `role_users`
+--
+ALTER TABLE `role_users`
+  ADD CONSTRAINT `role_users_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `role_users_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

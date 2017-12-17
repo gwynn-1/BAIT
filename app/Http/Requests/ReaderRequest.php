@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
 
+
 class ReaderRequest extends \Backpack\CRUD\app\Http\Requests\CrudRequest
 {
     /**
@@ -25,7 +26,12 @@ class ReaderRequest extends \Backpack\CRUD\app\Http\Requests\CrudRequest
     public function rules()
     {
         return [
-            // 'name' => 'required|min:5|max:255'
+            'id'=>'nullable|numeric',
+            'name' => 'required|min:5|max:255',
+            'mssv'=>"required",
+            'school'=>"required",
+            'email'=>'required|email',
+            'sdt'=>'required|numeric',
         ];
     }
 
@@ -38,6 +44,10 @@ class ReaderRequest extends \Backpack\CRUD\app\Http\Requests\CrudRequest
     {
         return [
             //
+            "name"=>"Tên",
+            'mssv'=>"MSSV",
+            "school"=>'Trường',
+            "sdt"=>"Số điện thoại"
         ];
     }
 
@@ -50,6 +60,9 @@ class ReaderRequest extends \Backpack\CRUD\app\Http\Requests\CrudRequest
     {
         return [
             //
+            "numeric"=>":attribute phải là định dạng số",
+            "required"=>":attribute không được bỏ trống",
+            "email"=>":attribute phải là định dạng email"
         ];
     }
 }

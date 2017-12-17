@@ -28,6 +28,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
     CRUD::resource('comment_book','Admin\Comment_bookCrudController');
     CRUD::resource('repcomment_blog','Admin\Repcomment_blogCrudController');
     CRUD::resource('repcomment_book','Admin\Repcomment_bookCrudController');
+    CRUD::resource('user-read','Admin\UserCrudController');
 
 
     Route::group(['prefix'=>'export-excel'],function (){
@@ -35,11 +36,13 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
         Route::get('books','Admin\BookCrudController@ExportExcelAction');
         Route::get('readers','Admin\ReaderCrudController@ExportExcelAction');
         Route::get('borrow_details','Admin\Borrow_detailCrudController@ExportExcelAction');
+        Route::get('user-reads','Admin\UserCrudController@ExportExcelAction');
     });
 
     Route::group(['prefix'=>'import-excel'],function (){
         Route::post('book_types','Admin\Book_typeCrudController@ImportExcelAction');
         Route::post('books','Admin\BookCrudController@ImportExcelAction');
         Route::post('readers','Admin\ReaderCrudController@ImportExcelAction');
+        Route::post('borrow_details','Admin\Borrow_detailCrudController@ImportExcelAction');
     });
 });

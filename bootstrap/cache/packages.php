@@ -75,4 +75,18 @@
       0 => 'Backpack\\CRUD\\CrudServiceProvider',
     ),
   ),
+  'spatie/laravel-permission' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Spatie\\Permission\\PermissionServiceProvider',
+    ),
+  ),
+  'backpack/permissionmanager' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Backpack\\PermissionManager\\PermissionManagerServiceProvider',
+    ),
+  ),
 );

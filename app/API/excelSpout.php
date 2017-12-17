@@ -41,7 +41,7 @@ class excelSpout
             $des_file = 'uploads/' . basename($post_file["name"]);
             $excelFileType = pathinfo($target_file,PATHINFO_EXTENSION);
             if($excelFileType != "xlsx" ) {
-                return redirect()->back()->with("error","Sorry, only XLSX files are allowed.");
+                return redirect()->back()->with("error","Yêu cầu định dạng XLSX");
             }
             else {
                 move_uploaded_file($_FILES["excelFile"]["tmp_name"], $des_file);
@@ -67,11 +67,11 @@ class excelSpout
                         if (count($arr_diff) != 0) {
                             $reader->close();
                             Storage::delete('public/'.$file_name);
-                            return redirect()->back()->with("error", "Excel file not match pattern");
+                            return redirect()->back()->with("error", "File Excel không đúng theo mẫu");
                         }
                     } elseif ($key != 1 && $row[0] != "") {
                         $count_id = DB::table($table)->where("id", $row[0])->count();
-//                        dd($count_id);
+//                        dd($count_id,$row[0]);
                         if ($count_id > 0) {
                             //Update
                             $update($row);
@@ -85,10 +85,14 @@ class excelSpout
             $reader->close();
         }
         catch (\Exception $e){
+//            dd($e->getMessage());
             if( $e->getCode() == 22007) {
                 $reader->close();
                 Storage::delete('public/'.$file_name);
-                return redirect()->back()->with("error", "False Value Type");
+                return redirect()->back()->with("error", "Sai kiểu dữ liệu");
+            }
+            if($e->getCode() == 23000){
+                return redirect()->back()->with("error", "Không được trùng Sách và Độc giả");
             }
         }
     }

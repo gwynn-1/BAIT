@@ -7,6 +7,7 @@ use Backpack\CRUD\app\Http\Controllers\CrudController;
 // VALIDATION: change the requests to match your own file names if you need form validation
 use App\Http\Requests\Blog_newsRequest as StoreRequest;
 use App\Http\Requests\Blog_newsRequest as UpdateRequest;
+use Illuminate\Support\Facades\DB;
 
 class Blog_newsCrudController extends CrudController
 {
@@ -30,6 +31,8 @@ class Blog_newsCrudController extends CrudController
 
 //        $this->crud->setFromDb();
         $this->crud->setListView("backpack::crud.list-bait");
+        $this->crud->setEditView("backpack::crud.edit-bait");
+        $this->crud->setCreateView("backpack::crud.create-bait");
 
         // ------ CRUD FIELDS
          $this->crud->addField(
@@ -134,6 +137,7 @@ class Blog_newsCrudController extends CrudController
 
     public function store(StoreRequest $request)
     {
+        DB::statement("ALTER TABLE blog_news AUTO_INCREMENT=1");
         // your additional operations before save here
         $redirect_location = parent::storeCrud($request);
         // your additional operations after save here

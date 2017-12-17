@@ -25,7 +25,10 @@ class Blog_newsRequest extends \Backpack\CRUD\app\Http\Requests\CrudRequest
     public function rules()
     {
         return [
-            // 'name' => 'required|min:5|max:255'
+            'id'=>'nullable|numeric',
+            'title' => 'required|min:5|max:255',
+            'content'=>"required|min:20|max:1500",
+            'author'=>'required'
         ];
     }
 
@@ -38,6 +41,9 @@ class Blog_newsRequest extends \Backpack\CRUD\app\Http\Requests\CrudRequest
     {
         return [
             //
+            "title"=>'Tiêu đề',
+            'content'=>'Nội dung',
+            'author'=>'Tác giả'
         ];
     }
 
@@ -50,6 +56,9 @@ class Blog_newsRequest extends \Backpack\CRUD\app\Http\Requests\CrudRequest
     {
         return [
             //
+            "numeric"=>":attribute phải là định dạng số",
+            "required"=>":attribute không được bỏ trống",
+            "size"=>":attribute phải nằm trong khoảng :min và :max từ"
         ];
     }
 }

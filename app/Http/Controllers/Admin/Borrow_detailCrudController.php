@@ -8,6 +8,7 @@ use Backpack\CRUD\app\Http\Controllers\CrudController;
 use App\Http\Requests\Borrow_detailRequest as StoreRequest;
 use App\Http\Requests\Borrow_detailRequest as UpdateRequest;
 use Illuminate\Support\Facades\DB;
+use App\Models\Borrow_detail;
 use Carbon\Carbon;
 use App\API\excelSpout;
 
@@ -50,12 +51,13 @@ class Borrow_detailCrudController extends CrudController
 //        $this->crud->setFromDb();
         $this->crud->setListView("backpack::crud.list-bait");
         $this->crud->setEditView("backpack::crud.edit-bait");
+        $this->crud->setCreateView("backpack::crud.create-bait");
 
         // ------ CRUD FIELDS
          $this->crud->addField(
              ['name'  => 'id', // DB column name (will also be the name of the input)
              'label' => 'ID', // the human-readable label for the input
-             'type'  => 'text'], 'update');
+             'type'  => 'number'], 'create');
          $this->crud->addFields([
              ['name'  => 'id_reader', // DB column name (will also be the name of the input)
                  'label' => 'Độc giả', // the human-readable label for the input
@@ -216,10 +218,68 @@ class Borrow_detailCrudController extends CrudController
             ,"borrow-detail","borrow_detail",$query);
     }
 
+    public function UpdateByExcel($row){
+        if($row[6]!=0 && $row[6]!=1){
+            return redirect("admin/borrow_detail/edit")->with("error","Lỗi dữ liệu, dừng update tại id ".$row[0]);
+        }
+        if($row[5]!=0 && $row[5]!=1 && $row[5]!=2){
+            return redirect("admin/borrow_detail/edit")->with("error","Lỗi dữ liệu, dừng update tại id ".$row[0]);
+        }
+        $db_is_keep = DB::table("borrow_detail")->select("is_keep")->where("id",$row[0])->get();
+        if($db_is_keep[0]->is_keep == 1 && $row[6]==0){
+            Borrow_detail::where("id",$row[0])->update([
+                "id_book"=>$row[1],
+                "id_reader"=>$row[2],
+                "borrow_date"=>empty($row[3])?null:$row[3],
+                'return_date'=>empty($row[4])?null:$row[4],
+                'is_return'=>$row[5],
+                'is_keep'=>$row[6],
+                'expire_date'=>empty($row[7])?null:$row[7]
+            ]);
+        }
+        elseif ($db_is_keep[0]->is_keep == 0 && $row[6]==1){
+            return redirect("admin/borrow_detail/edit")->with("error","Lỗi logic, dừng update tại id ".$row[0]);
+        }
+    }
+
+    public function InsertByExcel($row){
+        if($row[5]!=0 && $row[5]!=1 && $row[5]!=2){
+            return redirect("admin/borrow_detail/edit")->with("error","Lỗi dữ liệu, dừng insert tại id ".$row[0]);
+        }
+        if($row[6]==0){
+            Borrow_detail::create([
+                "id"=>$row[0],
+                "id_book"=>$row[1],
+                "id_reader"=>$row[2],
+                "borrow_date"=>empty($row[3])?null:$row[3],
+                'return_date'=>empty($row[4])?null:$row[4],
+                'is_return'=>$row[5],
+                'is_keep'=>$row[6],
+                'expire_date'=>empty($row[7])?null:$row[7]
+            ]);
+        }
+        elseif($row[6]==1){
+            return redirect("admin/borrow_detail/edit")->with("error","Lỗi logic, dừng insert tại id ".$row[0]);
+        }
+        else{
+            return redirect("admin/borrow_detail/edit")->with("error","Lỗi dữ liệu, dừng insert tại id ".$row[0]);
+        }
+    }
+
+    public function ImportExcelAction()
+    {
+        return excelSpout::importExcelXLSX($_FILES['excelFile']
+            ,['ID','Sách','Độc giả','Ngày mượn','Ngày trả','Đã trả','CLB đang giữ sách','Ngày hết hạn']
+            ,'borrow_detail',
+                //update
+                function($row){$this->UpdateByExcel($row);},
+            //insert
+            function($row){ $this->InsertByExcel($row);});
+    }
+
     public function autoInsert($req){
         $db_is_keep = DB::table("borrow_detail")->select("is_keep")->where("id",$req->id)->get();
         $db_borrow_time = DB::table("books")->select("borrow_time")->where("id",$req->id_book)->get();
-//        dd($db_borrow_time[0]->borrow_time);
         if($db_is_keep[0]->is_keep == 1 && $req->is_keep==0){
             $req->merge([
                 "is_return"=>"0",
@@ -227,25 +287,27 @@ class Borrow_detailCrudController extends CrudController
                 "borrow_date"=>Carbon::now()->toDateTimeString(),
                 "return_date"=>Carbon::now()->addDays($db_borrow_time[0]->borrow_time)->toDateTimeString()
             ]);
-
-            $req->is_return = 0;
-            $req->expire_date = null;
-            $req->borrow_date = Carbon::now()->toDateTimeString();
-            $req->return_date = Carbon::now()->addDays($db_borrow_time[0]->borrow_time)->toDateTimeString();
-            return 1;
         }
         elseif ($db_is_keep[0]->is_keep==0 && $req->is_keep ==1){
             return 0;
         }
+        return 1;
     }
 
     public function store(StoreRequest $request)
     {
-        // your additional operations before save here
-        $redirect_location = parent::storeCrud($request);
-        // your additional operations after save here
-        // use $this->data['entry'] or $this->crud->entry
-        return $redirect_location;
+        try {
+            DB::statement("ALTER TABLE borrow_detail AUTO_INCREMENT=1");
+            // your additional operations before save here
+            $redirect_location = parent::storeCrud($request);
+            // your additional operations after save here
+            // use $this->data['entry'] or $this->crud->entry
+            return $redirect_location;
+        }
+        catch (\Exception $e){
+            if($e->getCode()==23000)
+                return redirect("admin/borrow_detail/create")->with("error","Không được trùng Sách và Độc giả");
+        }
     }
 
     public function update(UpdateRequest $request)
@@ -253,8 +315,6 @@ class Borrow_detailCrudController extends CrudController
         if($this->autoInsert($request)==0){
             return redirect("admin/borrow_detail/".$request->id."/edit")->with("logic_error","Không thể thực hiện thao tác này vì lỗi logic");
         }
-
-//        dd($request->input());
         // your additional operations before save here
         $redirect_location = parent::updateCrud($request);
         // your additional operations after save here

@@ -34,6 +34,8 @@ class ReaderCrudController extends CrudController
 
 //        $this->crud->setFromDb();
         $this->crud->setListView("backpack::crud.list-bait");
+        $this->crud->setEditView("backpack::crud.edit-bait");
+        $this->crud->setCreateView("backpack::crud.create-bait");
 
         // ------ CRUD FIELDS
          $this->crud->addField(
@@ -51,7 +53,7 @@ class ReaderCrudController extends CrudController
                  'label' => 'Trường', // the human-readable label for the input
                  'type'  => 'text'],
              ['name'  => 'email', // DB column name (will also be the name of the input)
-                 'label' => 'Hình ảnh',
+                 'label' => 'Email',
                  'type'=>'email'],
              ['name'  => 'sdt', // DB column name (will also be the name of the input)
                  'label' => 'Số điện thoại', // the human-readable label for the input
@@ -189,6 +191,7 @@ class ReaderCrudController extends CrudController
 
     public function store(StoreRequest $request)
     {
+        DB::statement("ALTER TABLE readers AUTO_INCREMENT=1");
         // your additional operations before save here
         $redirect_location = parent::storeCrud($request);
         // your additional operations after save here

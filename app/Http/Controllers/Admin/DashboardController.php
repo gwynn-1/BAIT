@@ -13,9 +13,9 @@ class DashboardController extends Controller
     //
     public function loadViewAction(){
         $this->data['title'] = trans('backpack::base.dashboard'); // set the page title
-        $expire_dates = DB::table("borrow_detail")->select("id")->whereDate("expire_date","<",Carbon::now())->count();
+        $expire_dates = DB::table("borrow_detail")->select("stt")->whereDate("expire_date","<",Carbon::now())->count();
         $unreturn_rec = DB::table("borrow_detail")
-                            ->select("id")
+                            ->select("stt")
                             ->whereDate("return_date","<",Carbon::now())
                             ->where("is_return","0")
                             ->where("is_keep","0")->count();

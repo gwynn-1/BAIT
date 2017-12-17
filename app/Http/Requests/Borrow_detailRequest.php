@@ -25,7 +25,6 @@ class Borrow_detailRequest extends \Backpack\CRUD\app\Http\Requests\CrudRequest
     public function rules()
     {
         return [
-            'id'=>'required|numeric',
             'return_date'=>'nullable|date|after:borrow_date',
             'borrow_date'=>'nullable|date',
             'expire_date'=>'nullable|date'
@@ -41,9 +40,10 @@ class Borrow_detailRequest extends \Backpack\CRUD\app\Http\Requests\CrudRequest
     {
         return [
             //
+            'id'=>'nullable|numeric',
             "return_date"=>"Ngày trả",
             "borrow_date"=>"Ngày mượn",
-            "expire_date"=>"Ngày hết hạn"
+            "expire_date"=>"Ngày hết hạn",
         ];
     }
 
@@ -58,7 +58,7 @@ class Borrow_detailRequest extends \Backpack\CRUD\app\Http\Requests\CrudRequest
             //
             "after"=>":attribute phải là ngày sau :date",
             "date"=>":attribute phải là định dạng ngày",
-            "numeric"=>":atribute phải là định dạng số",
+            "numeric"=>":attribute phải là định dạng số",
             "required"=>":attribute không được bỏ trống"
         ];
     }

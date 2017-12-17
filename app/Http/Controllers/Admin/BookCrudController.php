@@ -34,12 +34,14 @@ class BookCrudController extends CrudController
 
 //        $this->crud->setFromDb();
         $this->crud->setListView("backpack::crud.list-bait");
+        $this->crud->setEditView("backpack::crud.edit-bait");
+        $this->crud->setCreateView("backpack::crud.create-bait");
 
         // ------ CRUD FIELDS
          $this->crud->addField(
              ['name'  => 'id', // DB column name (will also be the name of the input)
              'label' => 'ID', // the human-readable label for the input
-             'type'  => 'text'], 'create');
+             'type'  => 'number'], 'create');
          $this->crud->addFields([
              ['name'  => 'name', // DB column name (will also be the name of the input)
                  'label' => 'Tên', // the human-readable label for the input
@@ -217,6 +219,7 @@ class BookCrudController extends CrudController
 
     public function store(StoreRequest $request)
     {
+        DB::statement("ALTER TABLE books AUTO_INCREMENT=1");
         // your additional operations before save here
         $redirect_location = parent::storeCrud($request);
         // your additional operations after save here

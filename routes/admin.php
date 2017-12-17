@@ -13,4 +13,5 @@ CRUD::resource('borrow_detail','Borrow_detailCrudController');
 CRUD::resource('comment_blog','Comment_blogCrudController');
 CRUD::resource('comment_book','Comment_bookCrudController');
 CRUD::resource('repcomment_blog','Repcomment_blogCrudController');
+CRUD::resource('user-read','UserCrudController');
 CRUD::resource('repcomment_book','Repcomment_bookCrudController');

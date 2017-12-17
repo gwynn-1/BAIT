@@ -9,6 +9,7 @@ use App\Http\Requests\Book_typeRequest as StoreRequest;
 use App\Http\Requests\Book_typeRequest as UpdateRequest;
 use App\Models\Book_type;
 use App\API\excelSpout;
+use Illuminate\Support\Facades\DB;
 
 class Book_typeCrudController extends CrudController
 {
@@ -32,13 +33,15 @@ class Book_typeCrudController extends CrudController
 
 //        $this->crud->setFromDb();
         $this->crud->setListView("backpack::crud.list-bait");
+        $this->crud->setEditView("backpack::crud.edit-bait");
+        $this->crud->setCreateView("backpack::crud.create-bait");
 
         // ------ CRUD FIELDS
-        // $this->crud->addField($options, 'update/create/both');
-         $this->crud->addFields([
+         $this->crud->addField(
              ['name'  => 'id', // DB column name (will also be the name of the input)
              'label' => 'ID', // the human-readable label for the input
-             'type'  => 'text'],
+             'type'  => 'text'], 'create');
+         $this->crud->addFields([
              ['name'  => 'name', // DB column name (will also be the name of the input)
                  'label' => 'Tên', // the human-readable label for the input
                  'type'  => 'text']
@@ -145,6 +148,7 @@ class Book_typeCrudController extends CrudController
 
     public function store(StoreRequest $request)
     {
+        DB::statement("ALTER TABLE book_type AUTO_INCREMENT=1");
         // your additional operations before save here
         $redirect_location = parent::storeCrud($request);
         // your additional operations after save here
