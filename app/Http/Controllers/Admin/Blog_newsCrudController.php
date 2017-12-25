@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Blog_news;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 
 // VALIDATION: change the requests to match your own file names if you need form validation
 use App\Http\Requests\Blog_newsRequest as StoreRequest;
 use App\Http\Requests\Blog_newsRequest as UpdateRequest;
 use Illuminate\Support\Facades\DB;
+use App\API\URLCreator;
+use App\API\excelSpout;
+use Illuminate\Support\Facades\Storage;
 
 class Blog_newsCrudController extends CrudController
 {
@@ -46,9 +50,23 @@ class Blog_newsCrudController extends CrudController
              ['name'  => 'content', // DB column name (will also be the name of the input)
                  'label' => 'Nội dung', // the human-readable label for the input
                  'type'  => 'ckeditor'],
+             ['name'  => 'main_image', // DB column name (will also be the name of the input)
+                 'label' => 'Hình ảnh', // the human-readable label for the input
+                 'upload' => true,
+                 'type'=>'image',
+                 'crop' => false, // set to true to allow cropping, false to disable
+                 'aspect_ratio' => 0, // ommit or set to 0 to allow any aspect ratio
+                 'prefix' => 'book_image/'],
              ['name'  => 'author', // DB column name (will also be the name of the input)
                  'label' => 'Tác giả', // the human-readable label for the input
-                 'type'  => 'text']
+                 'type'  => 'text'],
+             ['name'  => 'breaking', // DB column name (will also be the name of the input)
+                 'label' => 'Nổi bật', // the human-readable label for the input
+                 'type'        => 'radio',
+                 'options'     => [ // the key will be stored in the db, the value will be shown as label;
+                     0 => "sai",
+                     1 => "đúng"]
+             ],
          ], 'update/create/both');
         // $this->crud->removeField('name', 'update/create/both');
         // $this->crud->removeFields($array_of_names, 'update/create/both');
@@ -65,9 +83,19 @@ class Blog_newsCrudController extends CrudController
              ['name'  => 'content', // DB column name (will also be the name of the input)
                  'label' => 'Nội dung', // the human-readable label for the input
                  'type'  => 'text'],
+             ['name'  => 'main_image', // DB column name (will also be the name of the input)
+                 'label' => 'Hình ảnh', // the human-readable label for the input
+                 'type'  => 'image',
+                 'prefix'=>'book_image/',
+                 'width'=>'100px',
+                 'height'=>'150px'],
              ['name'  => 'author', // DB column name (will also be the name of the input)
                  'label' => 'Tác giả', // the human-readable label for the input
                  'type'  => 'text'],
+             ['name'  => 'breaking', // DB column name (will also be the name of the input)
+                 'label' => 'Nổi bật', // the human-readable label for the input
+                 'type'  => 'text'
+             ],
              ['name'  => 'created_at', // DB column name (will also be the name of the input)
                  'label' => 'Created At', // the human-readable label for the input
                  'type'  => 'text'],
@@ -135,6 +163,39 @@ class Blog_newsCrudController extends CrudController
         // $this->crud->limit();
     }
 
+    public function ExportExcelAction()
+    {
+        excelSpout::exportExcel(['id','title','content','author','breaking','url','created_at','updated_at']
+            ,"blog-news","blog_news");
+    }
+
+    public function ImportExcelAction()
+    {
+        return excelSpout::importExcelXLSX($_FILES['excelFile']
+            ,['id','title','content','author','breaking']
+            ,'books',function($row){
+                Book::where("id",$row[0])->update([
+                    "title"=>$row[1],
+                    "content"=>$row[2],
+                    "author"=>$row[3],
+                    'breaking'=>$row[4],
+                    'url_blog'=>URLCreator::htaccess_String($row[1])
+                ]);
+            },function($row){
+                Book::create([
+                    "id"=>$row[0],
+                    "title"=>$row[1],
+                    "content"=>$row[2],
+                    "author"=>$row[3],
+                    'breaking'=>$row[4],
+                ]);
+
+                Book::where("id",$row[0])->update([
+                    "url_blog"=>URLCreator::htaccess_String($row[1])
+                ]);
+            });
+    }
+
     public function store(StoreRequest $request)
     {
         DB::statement("ALTER TABLE blog_news AUTO_INCREMENT=1");
@@ -142,15 +203,24 @@ class Blog_newsCrudController extends CrudController
         $redirect_location = parent::storeCrud($request);
         // your additional operations after save here
         // use $this->data['entry'] or $this->crud->entry
+        Blog_news::where("title",$request->input("title"))->update([
+            "url_blog" => URLCreator::htaccess_String($request->input("title"))
+        ]);
         return $redirect_location;
     }
 
     public function update(UpdateRequest $request)
     {
+        $image = DB::table("blog_news")->select("main_image")->where("id",$request->input("id"))->get();
+        if($image[0]->main_image!=null && $image[0]->main_image!=basename($request->input("main_image")))
+            Storage::disk("public")->delete("book_image/".$image[0]->main_image);
         // your additional operations before save here
         $redirect_location = parent::updateCrud($request);
         // your additional operations after save here
         // use $this->data['entry'] or $this->crud->entry
+        Blog_news::where("id",$request->input("id"))->update([
+            "url_blog" => URLCreator::htaccess_String($request->input("title"))
+        ]);
         return $redirect_location;
     }
 }

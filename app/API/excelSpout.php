@@ -85,7 +85,7 @@ class excelSpout
             $reader->close();
         }
         catch (\Exception $e){
-//            dd($e->getMessage());
+            dd($e->getMessage());
             if( $e->getCode() == 22007) {
                 $reader->close();
                 Storage::delete('public/'.$file_name);

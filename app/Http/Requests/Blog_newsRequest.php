@@ -27,7 +27,7 @@ class Blog_newsRequest extends \Backpack\CRUD\app\Http\Requests\CrudRequest
         return [
             'id'=>'nullable|numeric',
             'title' => 'required|min:5|max:255',
-            'content'=>"required|min:20|max:1500",
+            'content'=>"required|min:20",
             'author'=>'required'
         ];
     }

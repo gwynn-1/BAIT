@@ -11,9 +11,15 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [
+    'as'=>'/',
+    'uses'=>'HomeController@index'
+]);
+
+Route::get('/search-ajax',[
+    'as'=>'/search-ajax',
+    'uses'=>'SearchController@searchAjax'
+]);
 
 Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
     // your CRUD resources and other admin routes here

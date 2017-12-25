@@ -8,6 +8,7 @@ use Backpack\CRUD\app\Http\Controllers\CrudController;
 use App\Http\Requests\BookRequest as StoreRequest;
 use App\Http\Requests\BookRequest as UpdateRequest;
 use App\API\excelSpout;
+use App\API\URLCreator;
 use App\Models\Book;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -73,7 +74,14 @@ class BookCrudController extends CrudController
                  'type'  => 'text'],
              ['name'  => 'borrow_time', // DB column name (will also be the name of the input)
                  'label' => 'Ngày được mượn', // the human-readable label for the input
-                 'type'  => 'text']
+                 'type'  => 'text'],
+             ['name'  => 'recommend_book', // DB column name (will also be the name of the input)
+                 'label' => 'Sách hay', // the human-readable label for the input
+                 'type'        => 'radio',
+                 'options'     => [ // the key will be stored in the db, the value will be shown as label;
+                     0 => "sai",
+                     1 => "đúng"]
+             ],
          ], 'create/update/both');
         // $this->crud->removeField('name', 'update/create/both');
         // $this->crud->removeFields($array_of_names, 'update/create/both');
@@ -114,6 +122,9 @@ class BookCrudController extends CrudController
              ['name'  => 'borrow_time', // DB column name (will also be the name of the input)
                  'label' => 'Ngày được mượn', // the human-readable label for the input
                  'type'  => 'text'],
+             ['name'  => 'recommend_book', // DB column name (will also be the name of the input)
+                 'label' => 'Sách hay', // the human-readable label for the input
+                 'type'        => 'text'],
              ['name'  => 'created_at', // DB column name (will also be the name of the input)
                  'label' => 'Created At', // the human-readable label for the input
                  'type'  => 'text'],
@@ -183,14 +194,14 @@ class BookCrudController extends CrudController
 
     public function ExportExcelAction()
     {
-        excelSpout::exportExcel(['id','tên','chi tiết','id thể loại','tác giả','hình ảnh','tổng số sách','sách còn lại','ngày được mượn','created_at','updated_at']
+        excelSpout::exportExcel(['id','tên','chi tiết','id thể loại','tác giả','hình ảnh','tổng số sách','sách còn lại','ngày được mượn','Sách hay','url','created_at','updated_at']
                                 ,"book","books");
     }
 
     public function ImportExcelAction()
     {
         return excelSpout::importExcelXLSX($_FILES['excelFile']
-            ,['id','tên','chi tiết','id thể loại','tác giả','hình ảnh','tổng số sách','sách còn lại','ngày được mượn']
+            ,['id','tên','chi tiết','id thể loại','tác giả','hình ảnh','tổng số sách','sách còn lại','ngày được mượn','Sách hay']
             ,'books',function($row){
             Book::where("id",$row[0])->update([
                 "name"=>$row[1],
@@ -200,7 +211,9 @@ class BookCrudController extends CrudController
                 'image'=>$row[5],
                 'total'=>$row[6],
                 'available'=>$row[7],
-                'borrow_time'=>$row[8]
+                'borrow_time'=>$row[8],
+                'recommend_book'=>$row[9]=="" ? 0 : $row[9],
+                'url_book'=>URLCreator::htaccess_String($row[1])
             ]);
         },function($row){
             Book::create([
@@ -212,7 +225,12 @@ class BookCrudController extends CrudController
                 'image'=>$row[5],
                 'total'=>$row[6],
                 'available'=>$row[7],
-                'borrow_time'=>$row[8]
+                'borrow_time'=>$row[8],
+                'recommend_book'=>$row[9]=="" ? 0 : $row[9],
+            ]);
+
+            Book::where("id",$row[0])->update([
+                "url_book"=>URLCreator::htaccess_String($row[1])
             ]);
         });
     }
@@ -224,18 +242,25 @@ class BookCrudController extends CrudController
         $redirect_location = parent::storeCrud($request);
         // your additional operations after save here
         // use $this->data['entry'] or $this->crud->entry
+
+        Book::where("name",$request->input("name"))->update([
+            "url_book" => URLCreator::htaccess_String($request->input("name"))
+        ]);
         return $redirect_location;
     }
 
     public function update(UpdateRequest $request)
     {
         $image = DB::table("books")->select("image")->where("id",$request->input("id"))->get();
-        if($image[0]->image!=null)
+        if($image[0]->image!=null && $image[0]->image!=basename($request->input("image")))
             Storage::disk("public")->delete("book_image/".$image[0]->image);
         // your additional operations before save here
         $redirect_location = parent::updateCrud($request);
         // your additional operations after save here
         // use $this->data['entry'] or $this->crud->entry
+        Book::where("id",$request->input("id"))->update([
+            "url_book" => URLCreator::htaccess_String($request->input("name"))
+        ]);
         return $redirect_location;
     }
 }

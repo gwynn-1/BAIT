@@ -23,7 +23,7 @@ class Book extends Model
     const CREATED_AT = "created_at";
     const UPDATED_AT = "updated_at";
     // protected $guarded = ['id'];
-     protected $fillable = ['id','name','detail','id_type','author','image','total','available','borrow_time'];
+     protected $fillable = ['id','name','detail','id_type','author','image','total','available','borrow_time','recommend_book'];
     // protected $hidden = [];
     // protected $dates = [];
 
