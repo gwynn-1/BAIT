@@ -16,6 +16,11 @@ Route::get('/', [
     'uses'=>'HomeController@index'
 ]);
 
+Route::get('/category/{ctname}',[
+    'as'=>'/category/{ctname}',
+    'uses'=>'CategoryController@index'
+]);
+
 Route::get('/search-ajax',[
     'as'=>'/search-ajax',
     'uses'=>'SearchController@searchAjax'
@@ -24,6 +29,7 @@ Route::get('/search-ajax',[
 Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
     // your CRUD resources and other admin routes here
     Route::get("/dashboard","Admin\DashboardController@loadViewAction");
+    Route::post("/borrow_detail/update","Admin\Borrow_detailCrudController@updateByAjax");
 
     CRUD::resource('book_type','Admin\Book_typeCrudController');
     CRUD::resource('book','Admin\BookCrudController');
@@ -49,6 +55,5 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
         Route::post('book_types','Admin\Book_typeCrudController@ImportExcelAction');
         Route::post('books','Admin\BookCrudController@ImportExcelAction');
         Route::post('readers','Admin\ReaderCrudController@ImportExcelAction');
-        Route::post('borrow_details','Admin\Borrow_detailCrudController@ImportExcelAction');
     });
 });

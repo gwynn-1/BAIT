@@ -7,6 +7,7 @@ use Backpack\CRUD\app\Http\Controllers\CrudController;
 // VALIDATION: change the requests to match your own file names if you need form validation
 use App\Http\Requests\Borrow_detailRequest as StoreRequest;
 use App\Http\Requests\Borrow_detailRequest as UpdateRequest;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Borrow_detail;
 use Carbon\Carbon;
@@ -71,31 +72,8 @@ class Borrow_detailCrudController extends CrudController
                  'entity'=>'books',
                  'attribute'=>'name',
                  'model'=>'App\Models\Book'],
-             ['name'  => 'borrow_date', // DB column name (will also be the name of the input)
-                 'label' => 'Ngày mượn',
-                 'type'=>'datetime_picker'],
-             ['name'  => 'return_date', // DB column name (will also be the name of the input)
-                 'label' => 'Ngày trả', // the human-readable label for the input
-                 'type'  => 'datetime_picker'],
-             ['name'  => 'is_return', // DB column name (will also be the name of the input)
-                 'label' => 'Đã trả', // the human-readable label for the input
-                 'type'        => 'radio',
-                 'options'     => [ // the key will be stored in the db, the value will be shown as label;
-                     0 => "0",
-                     1 => "1",
-                     2 =>"null"]
-                 ],
-             ['name'  => 'is_keep', // DB column name (will also be the name of the input)
-                 'label' => 'CLB đang giữ sách', // the human-readable label for the input
-                 'type'        => 'radio',
-                 'options'     => [ // the key will be stored in the db, the value will be shown as label;
-                     0 => "0",
-                     1 => "1"]
-             ],
-             ['name'  => 'expire_date', // DB column name (will also be the name of the input)
-                 'label' => 'Ngày hết hạn', // the human-readable label for the input
-                 'type'  => 'datetime_picker'],
-         ], 'update/create/both');
+
+         ], 'create');
         // $this->crud->removeField('name', 'update/create/both');
         // $this->crud->removeFields($array_of_names, 'update/create/both');
 
@@ -119,28 +97,28 @@ class Borrow_detailCrudController extends CrudController
                  'model'=>'App\Models\Book'],
              ['name'  => 'borrow_date', // DB column name (will also be the name of the input)
                  'label' => 'Ngày mượn',
-                 'type'=>'datetime'],
+                 'type'=>'datetime_picker'],
              ['name'  => 'return_date', // DB column name (will also be the name of the input)
                  'label' => 'Ngày trả', // the human-readable label for the input
-                 'type'  => 'datetime'],
+                 'type'  => 'datetime_picker'],
              ['name'  => 'is_return', // DB column name (will also be the name of the input)
                  'label' => 'Đã trả', // the human-readable label for the input
-                 'type'        => 'radio',
+                 'type'        => 'my-checkbox',
                  'options'     => [ // the key will be stored in the db, the value will be shown as label;
-                     0 => "chưa",
-                     1 => "rồi",
+                     0 => "0",
+                     1 => "1",
                      2 =>"null"]
              ],
              ['name'  => 'is_keep', // DB column name (will also be the name of the input)
                  'label' => 'CLB đang giữ sách', // the human-readable label for the input
-                 'type'        => 'radio',
+                 'type'        => 'my-checkbox',
                  'options'     => [ // the key will be stored in the db, the value will be shown as label;
-                     0 => "sai",
-                     1 => "đúng"]
+                     0 => "0",
+                     1 => "1"]
              ],
              ['name'  => 'expire_date', // DB column name (will also be the name of the input)
                  'label' => 'Ngày hết hạn', // the human-readable label for the input
-                 'type'  => 'datetime'],
+                 'type'  => 'datetime_picker'],
              ['name'  => 'created_at', // DB column name (will also be the name of the input)
                  'label' => 'Created At', // the human-readable label for the input
                  'type'  => 'datetime'],
@@ -165,7 +143,7 @@ class Borrow_detailCrudController extends CrudController
 
         // ------ CRUD ACCESS
         // $this->crud->allowAccess(['list', 'create', 'update', 'reorder', 'delete']);
-        // $this->crud->denyAccess(['list', 'create', 'update', 'reorder', 'delete']);
+         $this->crud->denyAccess([ 'update']);
 
         // ------ CRUD REORDER
         // $this->crud->enableReorder('label_name', MAX_TREE_LEVEL);
@@ -208,6 +186,32 @@ class Borrow_detailCrudController extends CrudController
         // $this->crud->limit();
     }
 
+    public function updateByAjax(Request $req){
+        $db_detail = DB::table("borrow_detail")->select("is_keep","id_book")->where("id",$req->id)->get();
+        $db_borrow_time = DB::table("books")->select("borrow_time")->where("id",$db_detail[0]->id_book)->get();
+        $detail_result = [
+            "is_keep"=>"0",
+            "is_return"=>"0",
+            "expire_date"=>null,
+            "borrow_date"=>Carbon::now()->toDateTimeString(),
+            "return_date"=>Carbon::now()->addDays($db_borrow_time[0]->borrow_time)->toDateTimeString()
+        ];
+        if($db_detail[0]->is_keep == 1 && $req->is_keep==0){
+//            $req->merge([
+//                "is_return"=>"0",
+//                "expire_date"=>null,
+//                "borrow_date"=>Carbon::now()->toDateTimeString(),
+//                "return_date"=>Carbon::now()->addDays($db_borrow_time[0]->borrow_time)->toDateTimeString()
+//            ]);
+
+            Borrow_detail::where("id",$req->id)->update($detail_result);
+            return $detail_result;
+        }
+        elseif ($db_detail[0]->is_keep==0 && $req->is_keep ==1){
+            return 0;
+        }
+    }
+
     public function ExportExcelAction()
     {
         $query = DB::table("borrow_detail")
@@ -216,65 +220,6 @@ class Borrow_detailCrudController extends CrudController
             ->select("borrow_detail.id","books.name as b_name","readers.name as r_name","borrow_detail.borrow_date","borrow_detail.return_date","borrow_detail.is_return","borrow_detail.is_keep","borrow_detail.expire_date","borrow_detail.created_at","borrow_detail.updated_at")->get();
         excelSpout::exportExcel(['ID','Sách','Độc giả','Ngày mượn','Ngày trả','Đã trả','CLB đang giữ sách','Ngày hết hạn','created_at','updated_at']
             ,"borrow-detail","borrow_detail",$query);
-    }
-
-    public function UpdateByExcel($row){
-        if($row[6]!=0 && $row[6]!=1){
-            return redirect("admin/borrow_detail/edit")->with("error","Lỗi dữ liệu, dừng update tại id ".$row[0]);
-        }
-        if($row[5]!=0 && $row[5]!=1 && $row[5]!=2){
-            return redirect("admin/borrow_detail/edit")->with("error","Lỗi dữ liệu, dừng update tại id ".$row[0]);
-        }
-        $db_is_keep = DB::table("borrow_detail")->select("is_keep")->where("id",$row[0])->get();
-        if($db_is_keep[0]->is_keep == 1 && $row[6]==0){
-            Borrow_detail::where("id",$row[0])->update([
-                "id_book"=>$row[1],
-                "id_reader"=>$row[2],
-                "borrow_date"=>empty($row[3])?null:$row[3],
-                'return_date'=>empty($row[4])?null:$row[4],
-                'is_return'=>$row[5],
-                'is_keep'=>$row[6],
-                'expire_date'=>empty($row[7])?null:$row[7]
-            ]);
-        }
-        elseif ($db_is_keep[0]->is_keep == 0 && $row[6]==1){
-            return redirect("admin/borrow_detail/edit")->with("error","Lỗi logic, dừng update tại id ".$row[0]);
-        }
-    }
-
-    public function InsertByExcel($row){
-        if($row[5]!=0 && $row[5]!=1 && $row[5]!=2){
-            return redirect("admin/borrow_detail/edit")->with("error","Lỗi dữ liệu, dừng insert tại id ".$row[0]);
-        }
-        if($row[6]==0){
-            Borrow_detail::create([
-                "id"=>$row[0],
-                "id_book"=>$row[1],
-                "id_reader"=>$row[2],
-                "borrow_date"=>empty($row[3])?null:$row[3],
-                'return_date'=>empty($row[4])?null:$row[4],
-                'is_return'=>$row[5],
-                'is_keep'=>$row[6],
-                'expire_date'=>empty($row[7])?null:$row[7]
-            ]);
-        }
-        elseif($row[6]==1){
-            return redirect("admin/borrow_detail/edit")->with("error","Lỗi logic, dừng insert tại id ".$row[0]);
-        }
-        else{
-            return redirect("admin/borrow_detail/edit")->with("error","Lỗi dữ liệu, dừng insert tại id ".$row[0]);
-        }
-    }
-
-    public function ImportExcelAction()
-    {
-        return excelSpout::importExcelXLSX($_FILES['excelFile']
-            ,['ID','Sách','Độc giả','Ngày mượn','Ngày trả','Đã trả','CLB đang giữ sách','Ngày hết hạn']
-            ,'borrow_detail',
-                //update
-                function($row){$this->UpdateByExcel($row);},
-            //insert
-            function($row){ $this->InsertByExcel($row);});
     }
 
     public function autoInsert($req){
@@ -298,6 +243,11 @@ class Borrow_detailCrudController extends CrudController
     {
         try {
             DB::statement("ALTER TABLE borrow_detail AUTO_INCREMENT=1");
+            $request->merge([
+                "is_keep"=>1,
+                "is_return"=>2,
+                "expire_date"=>Carbon::now()->addDays(7)->toDateTimeString()
+            ]);
             // your additional operations before save here
             $redirect_location = parent::storeCrud($request);
             // your additional operations after save here
@@ -305,6 +255,7 @@ class Borrow_detailCrudController extends CrudController
             return $redirect_location;
         }
         catch (\Exception $e){
+            dd($e->getMessage());
             if($e->getCode()==23000)
                 return redirect("admin/borrow_detail/create")->with("error","Không được trùng Sách và Độc giả");
         }

@@ -7,6 +7,8 @@
  */
 namespace App\API;
 
+use Illuminate\Support\Facades\DB;
+
 class URLCreator{
 
      private static function VN_to_URLstring($string){
@@ -23,11 +25,40 @@ class URLCreator{
              $string = str_replace($unicode,$nounicode,$string);
          }
          $string = str_replace(" ","-",$string);
+         $string = strtolower($string);
          return $string;
      }
 
-     static function htaccess_String($str){
+     private static function checkURL($table,$field,$str){
+         $urltype = URLCreator::VN_to_URLstring($str);
+         while((DB::table($table)->where($field,$urltype)->count())==1){
+             $rand_num = rand(1,10000);
+             $urltype = URLCreator::VN_to_URLstring($str)."-".$rand_num;
+         }
+         return $urltype;
+     }
+
+     static function htaccess_String($table,$field,$str,$mode){
          $str = str_replace(" - "," ",$str);
+         $str = str_replace(" [ ","",$str);
+         $str = str_replace(" ] ","",$str);
+         $str = str_replace(" ( ","",$str);
+         $str = str_replace(" ) ","",$str);
+         $str = str_replace(" { ","",$str);
+         $str = str_replace(" } ","",$str);
+         $str = str_replace(" : ","",$str);
+         $str = str_replace(" @ ","",$str);
+         $str = str_replace(" % ","",$str);
+         $str = str_replace(" $ ","",$str);
+         $str = str_replace(" ? ","",$str);
+         $str = str_replace(" / ","",$str);
+         $str = str_replace(" # ","",$str);
+         $str = str_replace("[","",$str);
+         $str = str_replace("]","",$str);
+         $str = str_replace("(","",$str);
+         $str = str_replace(")","",$str);
+         $str = str_replace("{","",$str);
+         $str = str_replace("}","",$str);
          $str = str_replace(":","",$str);
          $str = str_replace("-","",$str);
          $str = str_replace("@","",$str);
@@ -37,8 +68,12 @@ class URLCreator{
          $str = str_replace("/","",$str);
          $str = str_replace("#","",$str);
          $str = trim($str);
-         $str = URLCreator::VN_to_URLstring($str);
-         $str = strtolower($str);
+         if($mode == "create"){
+             $str = URLCreator::checkURL($table,$field,$str);
+         }
+         elseif($mode=="update"){
+             $str = URLCreator::VN_to_URLstring($str);
+         }
          return $str;
      }
 }

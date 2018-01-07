@@ -200,52 +200,59 @@ class BookCrudController extends CrudController
 
     public function ImportExcelAction()
     {
-        return excelSpout::importExcelXLSX($_FILES['excelFile']
-            ,['id','tên','chi tiết','id thể loại','tác giả','hình ảnh','tổng số sách','sách còn lại','ngày được mượn','Sách hay']
-            ,'books',function($row){
-            Book::where("id",$row[0])->update([
-                "name"=>$row[1],
-                "detail"=>$row[2],
-                "id_type"=>$row[3],
-                'author'=>$row[4],
-                'image'=>$row[5],
-                'total'=>$row[6],
-                'available'=>$row[7],
-                'borrow_time'=>$row[8],
-                'recommend_book'=>$row[9]=="" ? 0 : $row[9],
-                'url_book'=>URLCreator::htaccess_String($row[1])
-            ]);
-        },function($row){
-            Book::create([
-                "id"=>$row[0],
-                "name"=>$row[1],
-                "detail"=>$row[2],
-                "id_type"=>$row[3],
-                'author'=>$row[4],
-                'image'=>$row[5],
-                'total'=>$row[6],
-                'available'=>$row[7],
-                'borrow_time'=>$row[8],
-                'recommend_book'=>$row[9]=="" ? 0 : $row[9],
-            ]);
+        try{
+            return excelSpout::importExcelXLSX($_FILES['excelFile']
+                ,['id','tên','chi tiết','id thể loại','tác giả','hình ảnh','tổng số sách','sách còn lại','ngày được mượn','Sách hay']
+                ,'books',function($row){
+                    Book::where("id",$row[0])->update([
+                        "name"=>$row[1],
+                        "detail"=>$row[2],
+                        "id_type"=>$row[3],
+                        'author'=>$row[4],
+                        'image'=>$row[5],
+                        'total'=>$row[6],
+                        'available'=>$row[7],
+                        'borrow_time'=>$row[8],
+                        'recommend_book'=>$row[9]=="" ? 0 : $row[9],
+                        'url_book'=>URLCreator::htaccess_String("books","url_book",$row[1],"update")
+                    ]);
+                },function($row){
+                    Book::create([
+                        "id"=>$row[0],
+                        "name"=>$row[1],
+                        "detail"=>$row[2],
+                        "id_type"=>$row[3],
+                        'author'=>$row[4],
+                        'image'=>$row[5],
+                        'total'=>$row[6],
+                        'available'=>$row[7],
+                        'borrow_time'=>$row[8],
+                        'recommend_book'=>$row[9]=="" ? 0 : $row[9]
+                    ]);
 
-            Book::where("id",$row[0])->update([
-                "url_book"=>URLCreator::htaccess_String($row[1])
-            ]);
-        });
+                    Book::where("id",$row[0])->update([
+                        "url_book"=>URLCreator::htaccess_String("books","url_book",$row[1],"create")
+                    ]);
+                });
+        }catch (\Exception $e){
+            if($e->getCode()==23000){
+                return redirect()->back()->with("error", "Không được trùng Sách");
+            }
+        }
+
     }
 
     public function store(StoreRequest $request)
     {
         DB::statement("ALTER TABLE books AUTO_INCREMENT=1");
+        $request->merge([
+            "url_book" => URLCreator::htaccess_String('books','url_book',$request->input("name"),"create")
+        ]);
         // your additional operations before save here
         $redirect_location = parent::storeCrud($request);
         // your additional operations after save here
         // use $this->data['entry'] or $this->crud->entry
 
-        Book::where("name",$request->input("name"))->update([
-            "url_book" => URLCreator::htaccess_String($request->input("name"))
-        ]);
         return $redirect_location;
     }
 
@@ -254,13 +261,14 @@ class BookCrudController extends CrudController
         $image = DB::table("books")->select("image")->where("id",$request->input("id"))->get();
         if($image[0]->image!=null && $image[0]->image!=basename($request->input("image")))
             Storage::disk("public")->delete("book_image/".$image[0]->image);
+
+        $request->merge([
+            "url_book" => URLCreator::htaccess_String('books','url_book',$request->input("name"),"update")
+        ]);
         // your additional operations before save here
         $redirect_location = parent::updateCrud($request);
         // your additional operations after save here
         // use $this->data['entry'] or $this->crud->entry
-        Book::where("id",$request->input("id"))->update([
-            "url_book" => URLCreator::htaccess_String($request->input("name"))
-        ]);
         return $redirect_location;
     }
 }

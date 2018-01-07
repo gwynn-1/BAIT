@@ -13,10 +13,6 @@
                     </a>
                 </li>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                
-                
-                
-                
             </ul>
             <ul class="amazingslider-thumbnails" style="display:none;">
                 <?php $__currentLoopData = $breaking_news; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $br): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -24,9 +20,6 @@
                             <img src="book_image/<?php echo e($br->main_image); ?>" alt="slider-111"  title="<?php echo e($br->title); ?>" />
                     </li>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                
-                
-                
             </ul>
             <div class="amazingslider-engine"><a href="http://amazingslider.com" title="jQuery Slideshow">jQuery Slideshow</a></div>
         </div>

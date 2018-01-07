@@ -10,6 +10,8 @@ use App\Http\Requests\Book_typeRequest as UpdateRequest;
 use App\Models\Book_type;
 use App\API\excelSpout;
 use Illuminate\Support\Facades\DB;
+use App\API\URLCreator;
+use Mockery\Exception;
 
 class Book_typeCrudController extends CrudController
 {
@@ -57,6 +59,9 @@ class Book_typeCrudController extends CrudController
                  'type'  => 'text'],
              ['name'  => 'name', // DB column name (will also be the name of the input)
                  'label' => 'Tên', // the human-readable label for the input
+                 'type'  => 'text'],
+             ['name'  => 'type_url', // DB column name (will also be the name of the input)
+                 'label' => 'URL String', // the human-readable label for the input
                  'type'  => 'text'],
              ['name'  => 'created_at', // DB column name (will also be the name of the input)
                  'label' => 'Created At', // the human-readable label for the input
@@ -127,28 +132,34 @@ class Book_typeCrudController extends CrudController
 
     public function ExportExcelAction()
     {
-        excelSpout::exportExcel(["id",'tên','created_at','updated_at'],"book-type","book_type");
+        excelSpout::exportExcel(["id",'tên','type_url','created_at','updated_at'],"book-type","book_type");
     }
 
     public function ImportExcelAction()
     {
-        return excelSpout::importExcelXLSX($_FILES['excelFile'],["id",'tên'],'book_type',function($row){
-            Book_type::where("id",$row[0])->update([
-                "name"=>$row[1],
-            ]);
-        },function($row){
-            Book_type::create([
-                "id"=>$row[0],
-                "name"=>$row[1],
-            ]);
-        });
+            return excelSpout::importExcelXLSX($_FILES['excelFile'],["id",'tên'],'book_type',function($row){
+                Book_type::where("id",$row[0])->update([
+                    "name"=>$row[1],
+                    "type_url"=> URLCreator::htaccess_String('book_type','type_url',$row[1],"update")
+                ]);
+            },function($row){
+                Book_type::create([
+                    "id"=>$row[0],
+                    "name"=>$row[1],
+                    "type_url"=>URLCreator::htaccess_String('book_type','type_url',$row[1],"create")
+                ]);
+            });
+
     }
-
-
 
     public function store(StoreRequest $request)
     {
         DB::statement("ALTER TABLE book_type AUTO_INCREMENT=1");
+        $request->merge([
+            "type_url" => URLCreator::htaccess_String('book_type','type_url',$request->input("name"),"create")
+        ]);
+//        dd($request->input("type_url"));
+
         // your additional operations before save here
         $redirect_location = parent::storeCrud($request);
         // your additional operations after save here
@@ -158,6 +169,10 @@ class Book_typeCrudController extends CrudController
 
     public function update(UpdateRequest $request)
     {
+        $request->merge([
+            "type_url" => URLCreator::htaccess_String('book_type','type_url',$request->input("name"),"update")
+        ]);
+//        dd($request->input("type_url"));
         // your additional operations before save here
         $redirect_location = parent::updateCrud($request);
         // your additional operations after save here

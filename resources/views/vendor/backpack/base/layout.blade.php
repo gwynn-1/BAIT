@@ -57,9 +57,9 @@
         <!-- Logo -->
         <a href="{{ url('admin') }}" class="logo">
           <!-- mini logo for sidebar mini 50x50 pixels -->
-          <span class="logo-mini">{!! config('backpack.base.logo_mini') !!}</span>
+          <span class="logo-mini"><img src="{{ asset('') }}/images/logo-bait.png" width="40" height="40"/></span>
           <!-- logo for regular state and mobile devices -->
-          <span class="logo-lg">{!! config('backpack.base.logo_lg') !!}</span>
+          <span class="logo-lg"><img src="{{ asset('') }}/images/logo-bait.png" width="45" height="45"/>    <b>Admin</b></span>
         </a>
         <!-- Header Navbar: style can be found in header.less -->
         <nav class="navbar navbar-static-top" role="navigation">

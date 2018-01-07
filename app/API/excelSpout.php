@@ -85,14 +85,10 @@ class excelSpout
             $reader->close();
         }
         catch (\Exception $e){
-            dd($e->getMessage());
             if( $e->getCode() == 22007) {
                 $reader->close();
                 Storage::delete('public/'.$file_name);
                 return redirect()->back()->with("error", "Sai kiểu dữ liệu");
-            }
-            if($e->getCode() == 23000){
-                return redirect()->back()->with("error", "Không được trùng Sách và Độc giả");
             }
         }
     }

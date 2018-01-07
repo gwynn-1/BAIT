@@ -15,7 +15,7 @@
 <?php $__env->startSection('content'); ?>
     <!-- Default box -->
     <div class="row">
-
+        <link rel="stylesheet" href="<?php echo e(asset('')); ?>/css/pretty-checkbox.css"/>
         <!-- THE ACTUAL CONTENT -->
         <div class="col-md-12">
             <div class="box">
@@ -27,7 +27,7 @@
                             Export Excel
                         </span>
                     </a>
-
+                    <?php if($crud->entity_name!="borrow_detail"): ?>
                     <?php echo Form::open(array('url'=>url(config('backpack.base.route_prefix'), 'import-excel')."/".$crud->entity_name_plural, 'files' => true,'name'=>'form','onchange'=>'document.form.submit();' ,'class'=>'btn btn-default ladda-button excel-btn')); ?>
 
 
@@ -40,6 +40,7 @@
                     <?php endif; ?>
                     <?php echo Form::close(); ?>
 
+                    <?php endif; ?>
 
                     <div id="datatable_button_stack" class="pull-right text-right"></div>
                 </div>
@@ -347,8 +348,6 @@
 
             register_details_row_button_action();
             <?php endif; ?>
-
-
         });
     </script>
     <script>
@@ -359,6 +358,7 @@
                     <?php $__currentLoopData = $expire_rec; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $rec): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         if(e.target.firstChild.innerHTML==<?php echo e($rec->id); ?>){
                             e.target.style.color = "red";
+                            e.target.querySelector(".my-checkbox-is_keep").disabled = true;
                         }
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                  <?php endif; ?>
@@ -371,11 +371,38 @@
                 if(e.target.firstChild.innerHTML==<?php echo e($rec->id); ?>){
                     e.target.style.color = "red";
                     e.target.style.fontWeight = "bold";
+                    e.target.querySelector(".my-checkbox-is_keep").disabled = true;
+                    e.target.querySelector(".my-checkbox-is_return").disabled = true;
                 }
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 <?php endif; ?>
             });
             <?php endif; ?>
+            function fn1() {
+
+                return $.Deferred().resolve();
+            }
+            function fn2(thischeckbox) {
+
+            }
+
+            $(document).on("change",".my-checkbox-is_keep",function(){
+//               alert($(this).prop("checked"));
+
+                var thischeckbox= $(this);
+                $.ajax({
+                    url:"borrow_detail/update",
+                    method:"POST",
+                    data:{
+                        is_keep:$(this).prop("checked"),
+                        id:$(this).parents("tr").children(":first-child").html()
+                    }
+                }).done(function(data){
+                    if(data.is_return==0){
+                        $("#crudTable").DataTable().ajax.reload();
+                    }
+                });
+            });
         });
     </script>
 

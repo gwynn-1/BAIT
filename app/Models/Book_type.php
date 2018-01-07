@@ -21,7 +21,7 @@ class Book_type extends Model
     const CREATED_AT = "created_at";
     const UPDATED_AT = "updated_at";
     // protected $guarded = ['id'];
-     protected $fillable = ['id','name'];
+     protected $fillable = ['id','name','type_url'];
     // protected $hidden = [];
     // protected $dates = [];
 

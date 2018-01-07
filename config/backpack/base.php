@@ -15,8 +15,8 @@ return [
     'project_name' => 'BAIT Admin',
 
     // Menu logos
-    'logo_lg'   => '<b>BAIT</b> Admin',
-    'logo_mini' => '<b>B</b>A',
+    'logo_lg'   => '',
+    'logo_mini' => '<b>B</b>AIT',
 
     // Developer or company name. Shown in footer.
     'developer_name' => 'Huy Tran',
@@ -28,7 +28,7 @@ return [
     'show_powered_by' => true,
 
     // The AdminLTE skin. Affects menu color and primary/secondary colors used throughout the application.
-    'skin' => 'skin-green',
+    'skin' => 'skin-black',
     // Options: skin-black, skin-blue, skin-purple, skin-red, skin-yellow, skin-green, skin-blue-light, skin-black-light, skin-purple-light, skin-green-light, skin-red-light, skin-yellow-light
 
     // Date & Datetime Format Syntax: https://github.com/jenssegers/date#usage

@@ -20,7 +20,7 @@ class Borrow_detail extends Model
      public $timestamps = true;
     const CREATED_AT = "created_at";
     const UPDATED_AT = "updated_at";
-    // protected $guarded = ['id'];
+     protected $guarded = [];
      protected $fillable = ['id','id_book','id_reader','borrow_date','return_date','is_return','is_keep','expire_date'];
     // protected $hidden = [];
     // protected $dates = [];
@@ -30,6 +30,7 @@ class Borrow_detail extends Model
     | FUNCTIONS
     |--------------------------------------------------------------------------
     */
+
 
     /*
     |--------------------------------------------------------------------------
