@@ -7,7 +7,7 @@
                         Quan tâm sách
                     </div>
                     <div class="item-book-image">
-                        <a href="book/{{$book->id}}/{{$book->url_book}}" class="link-to-book">
+                        <a href="b/{{$book->id}}/{{$book->url_book}}" class="link-to-book">
                             @if($book->image==null)
                                 <img class="book-image-sec" src="images/convallis-pharetra.jpg" alt="">
                             @else
@@ -17,7 +17,7 @@
                     </div>
                 </div>
                 <div class="book-title">
-                    <a href="book/{{$book->id}}/{{$book->url_book}}">{{$book->name}}</a>
+                    <a href="b/{{$book->id}}/{{$book->url_book}}">{{$book->name}}</a>
                     @if($book->available>0)
                         <p class="available-book book-status">
                             Còn sách

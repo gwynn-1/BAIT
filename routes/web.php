@@ -20,6 +20,10 @@ Route::get('/category/{ctname}',[
     'as'=>'/category/{ctname}',
     'uses'=>'CategoryController@index'
 ]);
+Route::get('/b/{id}/{url}',[
+    'as'=>'/b/{id}/{url}',
+    'uses'=>'ProductController@index'
+]);
 
 Route::get('/search-ajax',[
     'as'=>'/search-ajax',

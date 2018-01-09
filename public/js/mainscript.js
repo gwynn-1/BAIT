@@ -14,7 +14,7 @@ function sendAjax() {
             $(".autocomplete").hide();
             $(".autocomplete ul").html("");
             $.each(data,function (index,item) {
-                $(".autocomplete ul").append("<li><a href='/book/"+item.id+"/"+ item.url_book+"'>"+item.name+"</a></li>");
+                $(".autocomplete ul").append("<li><a href='/b/"+item.id+"/"+ item.url_book+"'>"+item.name+"</a></li>");
             });
             $(".autocomplete").show();
         }

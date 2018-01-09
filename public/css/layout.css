@@ -29,6 +29,7 @@
 @media all and (max-width:767px){
     .category-filter{
         float: none !important;
+        overflow: hidden;
         margin: auto;
         border: 1px solid #F2F2F2;
         width: 161px !important;
@@ -40,7 +41,7 @@
         margin: auto;
         border: 1px solid #F2F2F2;
         margin-top: 40px;
-        margin-bottom: 20px; 
+        /*margin-bottom: 20px; */
     }
 
     .border{
@@ -50,6 +51,19 @@
     .search-box form{
         border: none !important;
         display: unset !important;
+    }
+
+    .autocomplete{
+        left:0px !important;
+        top:0px !important;
+    }
+    .autocomplete ul{
+        background-color: white;
+        box-shadow: 0px 3px 5px grey;
+        position: absolute;
+        top:100%;
+        left: 0px;
+        margin-top: 0px !important;
     }
 
     .sticky{
@@ -68,7 +82,7 @@
     .borrow-box{
         margin-left: auto !important;
         margin-right: auto;
-        margin-top: 20px;
+        margin-top: 40px;
         margin-bottom: 40px; 
     }
 
@@ -266,7 +280,7 @@ body,html{
     left:165px;
     top:50px;
     box-shadow: 0px 3px 5px grey;
-    z-index: 100;
+    z-index: 101;
 }
 
 .autocomplete ul{
@@ -316,6 +330,7 @@ body,html{
 
 .borrow-box{
     height: 52px;
+    display: block;
     width: 154px;
     background-color:#308C01; 
     margin-left: 5px;
@@ -362,8 +377,14 @@ body,html{
     background-color: #308C01;
 }
 
+.cart-block .cart-item-block img{
+    display: block;
+    float: left;
+}
+
 .cart-block .cart-item-block{
     width: 100%;
+    overflow: hidden;
     padding: 10px;
 }
 
@@ -406,13 +427,15 @@ body,html{
 }
 
 .cart-item-block .item-info{
-    float: right;
+    overflow: hidden;
     margin-right: 5px;
 }
 
 .item-info .delete-item{
     display: flex;
     justify-content: flex-end;
+    align-items: center;
+    height: 20px;
 }
 
 .delete-item span{
@@ -431,6 +454,7 @@ body,html{
 .item-info .book-author{
     color: gray;
     font-size: 12px;
+    padding: 0 5px;
 }
 
 .header-menu{
@@ -841,7 +865,7 @@ body,html{
 
 .book-image-sec{
     width: 323px;
-    height: 369px;
+    /*height: 369px;*/
 }
 
 .available-book{

@@ -62,7 +62,7 @@
                             Quan tâm sách
                         </div>
                         <div class="item-book-image">
-                            <a href="#" class="link-to-book">
+                            <a href="b/<?php echo e($r_books->id); ?>/<?php echo e($r_books->url_book); ?>" class="link-to-book">
                                 <?php if($r_books->image==null): ?>
                                 <img class="book-image-sec" src="images/convallis-pharetra.jpg" alt="">
                                 <?php else: ?>
@@ -72,7 +72,7 @@
                         </div>
                     </div>
                     <div class="book-title">
-                        <a href="#"><?php echo e($r_books->name); ?></a>
+                        <a href="b/<?php echo e($r_books->id); ?>/<?php echo e($r_books->url_book); ?>"><?php echo e($r_books->name); ?></a>
                             <?php if($r_books->available>0): ?>
                             <p class="available-book book-status">
                                 Còn sách
