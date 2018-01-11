@@ -25,6 +25,11 @@ Route::get('/b/{id}/{url}',[
     'uses'=>'ProductController@index'
 ]);
 
+Route::get('/bn/{id}/{url}',[
+    'as'=>'/bn/{id}/{url}',
+    'uses'=>'BlogNewsController@index'
+]);
+
 Route::get('/search-ajax',[
     'as'=>'/search-ajax',
     'uses'=>'SearchController@searchAjax'

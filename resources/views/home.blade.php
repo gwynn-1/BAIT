@@ -10,7 +10,7 @@
             <ul class="amazingslider-slides" style="display:none;">
                 @foreach($breaking_news as $br)
                 <li>
-                    <a href="blognews/{{$br->id}}/{{$br->url_blog}}">
+                    <a href="bn/{{$br->id}}/{{$br->url_blog}}">
                         <img src="book_image/{{$br->main_image}}" alt="slider-111"  title="{{$br->title}}" />
                     </a>
                 </li>
@@ -35,7 +35,7 @@
                 @foreach($blog_news as $bn)
                 <div class="item-blog item">
                     <div>
-                        <a href="blognews/{{$bn->id}}/{{$bn->url_blog}}">
+                        <a href="bn/{{$bn->id}}/{{$bn->url_blog}}">
                             @if($bn->main_image==null)
                                 <img src="images/blog-and-news.jpg" alt="blog">
                             @else
@@ -44,7 +44,7 @@
                         </a>
                     </div>
                     <div class="item-title">
-                        <a href="blognews/{{$bn->id}}/{{$bn->url_blog}}">{{$bn->title}}</a>
+                        <a href="bn/{{$bn->id}}/{{$bn->url_blog}}">{{$bn->title}}</a>
                     </div>
                     <div class="border-blog-item"></div>
                 </div>

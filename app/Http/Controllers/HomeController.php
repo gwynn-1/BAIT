@@ -10,6 +10,7 @@ class HomeController extends Controller
 {
     //
     public function index(Request $res){
+        try{
         $books = DB::table("books")->select("id","name","image","available","url_book")->paginate(8);
         if($res->ajax()){
             return view("ajax-paging.ajax-paging-index",["books"=>$books]);
@@ -18,5 +19,8 @@ class HomeController extends Controller
         $breaking_news = DB::table("blog_news")->select("id","title","main_image","url_blog")->where("breaking","1")->get();
         $blog_news = DB::table("blog_news")->select("id","title","main_image","url_blog")->limit(6)->get();
         return view("home",["title"=>"Home","recommend_book"=>$recommend_book,"books"=>$books,"breaking_news"=>$breaking_news,"blog_news"=>$blog_news]);
+        }catch (\Exception $e){
+            return view("errors.404");
+        }
     }
 }

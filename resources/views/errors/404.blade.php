@@ -1,6 +1,7 @@
 <html>
   <head>
     <title>BAIT :: Error 404</title>
+    <base href="{{URL::asset("")}}">
     <link rel="stylesheet" href="css/error.css">
     <link href='//fonts.googleapis.com/css?family=Lato:100' rel='stylesheet' type='text/css'>
   </head>

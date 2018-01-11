@@ -8,7 +8,7 @@
             <ul class="amazingslider-slides" style="display:none;">
                 <?php $__currentLoopData = $breaking_news; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $br): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <li>
-                    <a href="blognews/<?php echo e($br->id); ?>/<?php echo e($br->url_blog); ?>">
+                    <a href="bn/<?php echo e($br->id); ?>/<?php echo e($br->url_blog); ?>">
                         <img src="book_image/<?php echo e($br->main_image); ?>" alt="slider-111"  title="<?php echo e($br->title); ?>" />
                     </a>
                 </li>
@@ -33,7 +33,7 @@
                 <?php $__currentLoopData = $blog_news; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $bn): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <div class="item-blog item">
                     <div>
-                        <a href="blognews/<?php echo e($bn->id); ?>/<?php echo e($bn->url_blog); ?>">
+                        <a href="bn/<?php echo e($bn->id); ?>/<?php echo e($bn->url_blog); ?>">
                             <?php if($bn->main_image==null): ?>
                                 <img src="images/blog-and-news.jpg" alt="blog">
                             <?php else: ?>
@@ -42,7 +42,7 @@
                         </a>
                     </div>
                     <div class="item-title">
-                        <a href="blognews/<?php echo e($bn->id); ?>/<?php echo e($bn->url_blog); ?>"><?php echo e($bn->title); ?></a>
+                        <a href="bn/<?php echo e($bn->id); ?>/<?php echo e($bn->url_blog); ?>"><?php echo e($bn->title); ?></a>
                     </div>
                     <div class="border-blog-item"></div>
                 </div>

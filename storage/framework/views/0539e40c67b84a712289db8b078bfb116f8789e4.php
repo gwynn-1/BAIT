@@ -81,7 +81,7 @@
                         </form>
                     </div>
                     <div class="borrow-box">
-                        <a href="#" class="link-to-borrow">
+                        <a href="javascript:void()" class="link-to-borrow">
                                 <span>
                                 Quan tâm : <span>2</span> sách
                                 </span>
