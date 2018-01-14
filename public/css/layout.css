@@ -1,3 +1,28 @@
+/* vietnamese */
+@font-face {
+    font-family: 'Arimo';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Arimo Regular'), local('Arimo-Regular'), url(https://fonts.gstatic.com/s/arimo/v11/eSHy7hCA8QR4qTF-59v60g.woff2) format('woff2');
+    unicode-range: U+0102-0103, U+0110-0111, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+    font-family: 'Arimo';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Arimo Regular'), local('Arimo-Regular'), url(https://fonts.gstatic.com/s/arimo/v11/V41d6938Z8eBLYL302F8Ig.woff2) format('woff2');
+    unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+    font-family: 'Arimo';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Arimo Regular'), local('Arimo-Regular'), url(https://fonts.gstatic.com/s/arimo/v11/HNu4Nzh6q8Es60EMNZhs9w.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2212, U+2215;
+}
+
 @media all and (max-width:992px){
     .sticky{
         width: auto !important;
@@ -13,7 +38,6 @@
 }
 
 @media all and (max-width:1250px){
-    
     .item-all-book{
         width: 195px !important;
     }
@@ -29,10 +53,9 @@
 @media all and (max-width:767px){
     .category-filter{
         float: none !important;
-        overflow: hidden;
+        display: inline-block;
         margin: auto;
         border: 1px solid #F2F2F2;
-        width: 161px !important;
         margin-top: 20px;
     }
 
@@ -133,12 +156,14 @@ body,html{
     width: 80%;
     height: 100%;
     margin: auto;
-    display: none;
+    font-family: Arimo;
+
 }
 
 .user-field{
     width: 80%;
     height: 100%;
+    display: none;
     margin: auto;
 }
 
@@ -149,6 +174,7 @@ body,html{
     font-size:14px;
     cursor: default;
 }
+
 #user{
     font-weight: bold;
     font-size: 15px;
@@ -167,12 +193,9 @@ body,html{
     cursor: pointer;
     font-size: 11px;
     padding: 0px 8px;
-}
-
-.login-signup-button p{
-    margin: 5px;
     text-transform: uppercase;
     font-weight: bold;
+    border: none;
 }
 
 .login-signup-button:hover{
@@ -229,6 +252,7 @@ body,html{
 
 .category-filter{
     float: left;
+    width: auto;
 }
 
 .search-field{
@@ -253,7 +277,7 @@ body,html{
 
 .nice-select{
     height: 49px;
-    width: 159px;
+    width: auto;
 }
 
 #txtsearch{
@@ -342,6 +366,7 @@ body,html{
     align-items: center;
     justify-content: center;
     color:white;
+    font-family: Arimo;
     font-size: 12px;
     text-decoration: none;
 }
@@ -428,6 +453,7 @@ body,html{
 .cart-item-block .item-info{
     overflow: hidden;
     margin-right: 5px;
+    font-family: Arimo;
 }
 
 .item-info .delete-item{
@@ -447,12 +473,12 @@ body,html{
 
 .item-info .book-name{
     color: black;
-    font-size: 14px;
+    font-size: 12px;
 }
 
 .item-info .book-author{
     color: gray;
-    font-size: 12px;
+    font-size: 10px;
     padding: 0 5px;
 }
 
@@ -510,10 +536,15 @@ body,html{
 .text-category{
     text-transform: uppercase;
     color: white;
+    -webkit-user-select: none;  /* Chrome all / Safari all */
+    -moz-user-select: none;     /* Firefox all */
+    -ms-user-select: none;      /* IE 10+ */
+    user-select: none;
     font-size: 18px;
     font-weight: bold;
     margin-left: 20px;
-    cursor: default; 
+    cursor: default;
+    font-family: Arimo;
 }
 
 .dropdown-category{
@@ -527,6 +558,7 @@ body,html{
 
 .dropdown-category ul{
     padding: 0px;
+    font-family: Arimo;
 }
 
 .dropdown-category ul li{
@@ -582,6 +614,7 @@ body,html{
 .menu-main nav ul li a{
     display: block;
     color: white;
+    font-family: Arimo;
     text-decoration: none;
     font-size: 13px;
     text-transform: uppercase;
@@ -598,6 +631,23 @@ body,html{
     margin: auto;
     height: 65px;
     background-color: #333333;
+}
+
+#another-school{
+    display: none;
+}
+
+.btnsignup-sec{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+.btnsignup{
+    height: 50px;
+    width: auto;
+    padding: 10px 15px;
+    font-size: 14px;
 }
 
 .menu-head{
@@ -657,7 +707,11 @@ body,html{
     -ms-transition: color 300ms linear;
     transition: color 300ms linear;
 }
-
+ .modal-title{
+     font-size: 24px;
+     color: #308C01;
+     font-weight: bold;
+ }
 
 #nav-category ul li:last-child{
     border-bottom:none !important;
@@ -717,6 +771,7 @@ body,html{
 
 .describe #des-content{
     text-align: center;
+    font-family: Arimo;
 }
 
 .describe #des-content h2{
@@ -751,6 +806,7 @@ body,html{
     color: #444444;
     text-transform: uppercase;
     font-size: 16px;
+    font-family: Arimo;
     font-weight: bold;
     margin-bottom: 20px;
     padding: 15px 0 15px 15px;
@@ -798,6 +854,7 @@ body,html{
     text-decoration: none;
     font-size: 14px;
     font-weight: bold;
+    font-family: Arimo;
 }
 
 .item-book{
@@ -844,10 +901,15 @@ body,html{
     height: 65px;
 }
 
+.book-title p{
+font-family: Arimo;
+}
+
 .book-title a{
     color: #313131;
     text-decoration: none;
     font-size: 15px;
+    font-family: Arimo;
 }
 
 .book-title a:hover{
@@ -865,7 +927,7 @@ body,html{
 
 .book-image-sec{
     width: 323px;
-    height: 369px;
+    height: auto;
 }
 
 .available-book{
@@ -886,6 +948,7 @@ body,html{
     background-color:#333333;
     position: absolute;
     width: 120px;
+    font-family: Arimo;
     font-size: 12px;
     text-align: center;
     display: none;
@@ -937,4 +1000,3 @@ body,html{
 .current-category{
     color: #308C01 !important;
 }
-

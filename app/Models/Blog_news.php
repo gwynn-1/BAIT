@@ -22,7 +22,7 @@ class Blog_news extends Model
     protected $primaryKey = 'id';
      public $timestamps = true;
     // protected $guarded = ['id'];
-     protected $fillable = ['id','title','main_image','content','author','breaking'];
+     protected $fillable = ['id','title','main_image','content','description','author','breaking'];
     const CREATED_AT = "created_at";
     const UPDATED_AT = "updated_at";
     // protected $hidden = [];
@@ -83,7 +83,7 @@ class Blog_news extends Model
             // 0. Make the image
             $image = Image::make($value);
             // 1. Generate a filename.
-            $readablename = URLCreator::htaccess_String($this->attributes["title"]);
+            $readablename = URLCreator::htaccess_String("blog_news","url_blog",$this->attributes["title"],"update");
 //            dd($readablename);
             $filename = $readablename.'-'.time().'.jpg';
             // 2. Store the image on disk.

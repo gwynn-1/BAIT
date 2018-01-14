@@ -36,7 +36,7 @@ class CategoryController extends Controller
             ->join("book_type", "books.id_type", "=", "book_type.id")
             ->select("books.name", "books.id", "books.available", "books.image", "books.url_book")
             ->where("book_type.type_url", $ctname)
-            ->where("books.name", "like", '%' . $req->input("textvalue") . '%')
+            ->where("books.name_book", "like", '%' . $req->input("textvalue") . '%')
             ->paginate(9);
         return $books;
     }

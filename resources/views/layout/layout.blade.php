@@ -6,11 +6,13 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <base href="{{URL::asset("")}}">
     <link rel="icon" type="image/png" href="images/logo-bait.png"/>
+
+
     <script src="js/jquery-3.2.1.min.js"></script>
-    <script src="js/jquery-ui.min.js"></script>
     <script src="js/jquery.nice-select.min.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
     <link rel="stylesheet" href="css/jquery-ui.min.css">
-    <link rel="stylesheet" href="bootstrap-3.3.7-dist/js/bootstrap.min.js">
+    <script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="owl-carousel/assets/owl.carousel.min.css">
@@ -29,14 +31,116 @@
 </div>
 <div id="main-page">
     <div id="account-field">
-        <div class="login-signup">
-            <div class="login-signup-button">
-                <p>Login</p>
+        <div class="login-signup container">
+            <button type="button" class="login-signup-button" data-toggle="modal" data-target="#modallogin">
+                Login
+            </button>
+
+            <div id="modallogin" class="modal fade" role="dialog">
+                <div class="modal-dialog modal-md">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Đăng nhập ngay</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form method="POST" class="form-horizontal" action="">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3" for="readername">Tên đăng nhập</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" name="readername" required class="form-control" id="readername">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3" for="pwd">Password</label>
+                                    <div class="col-sm-9">
+                                        <input type="password" required class="form-control" id="pwd">
+                                    </div>
+                                </div>
+
+                                <div class="form-group btnsignup-sec">
+                                    <button type="submit" class="btnsignup login-signup-button">Đăng nhập</button>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
             </div>
-            <div class="login-signup-button">
-                <p>Sign up</p>
+            <button type="button" id="btnsignup" class="login-signup-button" data-toggle="modal" data-target="#modalsignup">
+                Sign up
+            </button>
+
+            <div id="modalsignup" class="modal fade" role="dialog">
+                <div class="modal-dialog modal-md">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Đăng ký ngay</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form method="POST" class="form-horizontal" action="">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3" for="readername">Tên đăng nhập</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" name="readername" required class="form-control" id="readername">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3" for="pwd">Password</label>
+                                    <div class="col-sm-9">
+                                        <input type="password" required class="form-control" id="pwd">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3" for="email">Email</label>
+                                    <div class="col-sm-9">
+                                        <input type="email" required class="form-control" id="email">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3" for="school">Trường</label>
+                                    <div class="col-sm-5">
+                                        <select class="form-control" required id="school" name="school" autocomplete="off">
+                                            <option value="UIT">UIT - ĐH Công nghệ thông tin</option>
+                                            <option value="USSH">USSH - ĐH Xã hội nhân văn</option>
+                                            <option value="IU">IU - ĐH Quốc Tế</option>
+                                            <option value="US">US - ĐH Khoa học tự nhiên</option>
+                                            <option value="UT">UT - ĐH Bách khoa</option>
+                                            <option value="other">Khác</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <input type="text" id="another-school" class="form-control" placeholder="Trường khác">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3" for="mssv">MSSV</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="mssv">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3" for="sdt">Điện thoại</label>
+                                    <div class="col-sm-9">
+                                        <input type="tel" class="form-control" id="sdt">
+                                    </div>
+                                </div>
+                                <div class="form-group btnsignup-sec">
+                                    <button type="submit" class="btnsignup login-signup-button">Đăng ký</button>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </div>
+
         <div class="user-field">
             <div class="logout-button login-signup-button">
                 <p>Thoát</p>
@@ -59,7 +163,7 @@
                     <div class="search-box">
                         <form action="" enctype="multipart/form-data">
                             <div class="category-filter">
-                                <select name="category" id="category">
+                                <select name="category" id="category" autocomplete="off">
                                     <option value="All" selected>Tất cả</option>
                                     @foreach($book_type as $bt)
                                     <option value="{{$bt->id}}">{{$bt->name}}</option>
@@ -143,7 +247,7 @@
                             <li><a href="/">Trang chủ</a></li>
                             <li><a href="#">Về chúng tôi</a></li>
                             <li><a href="#">Liên hệ</a></li>
-                            <li><a href="#">Blog & Tin tức</a></li>
+                            <li><a href="/blognews">Blog & Tin tức</a></li>
                         </ul>
                     </nav>
                 </div>

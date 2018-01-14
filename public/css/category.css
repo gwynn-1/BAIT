@@ -42,6 +42,7 @@
 .category-menu ul{
     padding: 0px;
     margin: 0px;
+    font-family: Arimo;
 }
 
 .category-menu ul li{
@@ -49,6 +50,13 @@
     margin: 0 21px;
     padding: 10px 0;
     border-bottom: 1px solid #F2F2F2;
+}
+
+.category-menu ul li a:hover{
+    color: #308C01;
+    -webkit-transition: color 200ms linear;
+    -ms-transition: color 200ms linear;
+    transition: color 200ms linear;
 }
 
 .category-menu ul li:last-child{
@@ -68,6 +76,7 @@
     margin-top: 21px;
     border: 1px solid #F2F2F2;
     padding: 15px 20px;
+    font-family: Arimo;
 }
 
 .txtsort{

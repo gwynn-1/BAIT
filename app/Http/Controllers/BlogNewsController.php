@@ -17,6 +17,19 @@ class BlogNewsController extends Controller
         }catch (\Exception $e){
             return view("errors.404");
         }
+    }
 
+    public function indexblog(Request $req){
+        $blog_news = DB::table("blog_news")->select("id","title","main_image","description","url_blog")->paginate(5);
+        if($req->ajax()){
+            return view("ajax-paging.ajax-paging-bn-all",["blog_news"=>$blog_news]);
+        }
+        if(!empty($req->input("ts"))){
+            $blog_news = DB::table("blog_news")
+                ->select("id","title","main_image","description","url_blog")
+                ->where("title","like","%".$req->input("ts")."%")
+                ->paginate(5);
+        }
+        return view("blog-news-all",["title"=>"Blog & News :: All","blog_news"=>$blog_news]);
     }
 }

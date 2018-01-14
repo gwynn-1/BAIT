@@ -50,6 +50,9 @@ class Blog_newsCrudController extends CrudController
              ['name'  => 'content', // DB column name (will also be the name of the input)
                  'label' => 'Nội dung', // the human-readable label for the input
                  'type'  => 'ckeditor'],
+             ['name'  => 'description', // DB column name (will also be the name of the input)
+                 'label' => 'Mô tả', // the human-readable label for the input
+                 'type'  => 'text'],
              ['name'  => 'main_image', // DB column name (will also be the name of the input)
                  'label' => 'Hình ảnh', // the human-readable label for the input
                  'upload' => true,
@@ -82,6 +85,9 @@ class Blog_newsCrudController extends CrudController
                  'type'  => 'text'],
              ['name'  => 'content', // DB column name (will also be the name of the input)
                  'label' => 'Nội dung', // the human-readable label for the input
+                 'type'  => 'text'],
+             ['name'  => 'description', // DB column name (will also be the name of the input)
+                 'label' => 'Mô tả', // the human-readable label for the input
                  'type'  => 'text'],
              ['name'  => 'main_image', // DB column name (will also be the name of the input)
                  'label' => 'Hình ảnh', // the human-readable label for the input
@@ -165,33 +171,35 @@ class Blog_newsCrudController extends CrudController
 
     public function ExportExcelAction()
     {
-        excelSpout::exportExcel(['id','title','content','author','breaking','url','created_at','updated_at']
+        excelSpout::exportExcel(['id','title','content','description','author','breaking','url','created_at','updated_at']
             ,"blog-news","blog_news");
     }
 
     public function ImportExcelAction()
     {
         return excelSpout::importExcelXLSX($_FILES['excelFile']
-            ,['id','title','content','author','breaking']
+            ,['id','title','content','description','author','breaking']
             ,'books',function($row){
                 Book::where("id",$row[0])->update([
                     "title"=>$row[1],
                     "content"=>$row[2],
-                    "author"=>$row[3],
-                    'breaking'=>$row[4],
-                    'url_blog'=>URLCreator::htaccess_String($row[1])
+                    'description'=>$row[3],
+                    "author"=>$row[4],
+                    'breaking'=>$row[5],
+                    'url_blog'=>URLCreator::htaccess_String("blog_news","url_blog",$row[1],"update")
                 ]);
             },function($row){
                 Book::create([
                     "id"=>$row[0],
                     "title"=>$row[1],
                     "content"=>$row[2],
-                    "author"=>$row[3],
-                    'breaking'=>$row[4],
+                    'description'=>$row[3],
+                    "author"=>$row[4],
+                    'breaking'=>$row[5],
                 ]);
 
                 Book::where("id",$row[0])->update([
-                    "url_blog"=>URLCreator::htaccess_String($row[1])
+                    "url_blog"=>URLCreator::htaccess_String("blog_news","url_blog",$row[1],"create")
                 ]);
             });
     }
@@ -204,7 +212,7 @@ class Blog_newsCrudController extends CrudController
         // your additional operations after save here
         // use $this->data['entry'] or $this->crud->entry
         Blog_news::where("title",$request->input("title"))->update([
-            "url_blog" => URLCreator::htaccess_String($request->input("title"))
+            "url_blog" => URLCreator::htaccess_String("blog_news","url_blog",$request->input("title"),"create")
         ]);
         return $redirect_location;
     }
@@ -219,7 +227,7 @@ class Blog_newsCrudController extends CrudController
         // your additional operations after save here
         // use $this->data['entry'] or $this->crud->entry
         Blog_news::where("id",$request->input("id"))->update([
-            "url_blog" => URLCreator::htaccess_String($request->input("title"))
+            "url_blog" => URLCreator::htaccess_String("blog_news","url_blog",$request->input("title"),"update")
         ]);
         return $redirect_location;
     }

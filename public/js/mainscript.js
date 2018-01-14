@@ -36,6 +36,15 @@ $(document).ready(function(){
         }, 500);
     });
 
+    $("#school").change(function () {
+        if($(this).val() == "other"){
+            $("#another-school").show(100);
+        }
+        else {
+            $("#another-school").hide(100);
+        }
+    });
+
     $("#txtsearch").focus(function(){
         $("#btn-search").animate({
             backgroundColor:"#308C01"

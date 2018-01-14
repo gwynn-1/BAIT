@@ -75,6 +75,7 @@
     width: 150px;
     text-align: center;
     text-transform: uppercase;
+    font-family: Arimo;
     color: white;
     font-size: 22px;
     background-color: #308C01;
@@ -119,6 +120,7 @@
     background-color: #308C01;
     border-radius: 5px;
     padding: 5px 10px;
+    font-family: Arimo;
     font-size: 15px;
     border: none;
     color: white;
@@ -184,6 +186,7 @@
     color: #333333;
     font-weight: bold;
     font-size: 14px;
+    font-family: Arimo;
 }
 
 .dynamic-news-block:hover .news-blog-image{

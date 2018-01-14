@@ -30,6 +30,16 @@ Route::get('/bn/{id}/{url}',[
     'uses'=>'BlogNewsController@index'
 ]);
 
+Route::get('/blognews',[
+    'as'=>'/blognews',
+    'uses'=>'BlogNewsController@indexblog'
+]);
+
+Route::post('/blognews',[
+    'as'=>'/blognews',
+    'uses'=>'BlogNewsController@indexPostBlog'
+]);
+
 Route::get('/search-ajax',[
     'as'=>'/search-ajax',
     'uses'=>'SearchController@searchAjax'
