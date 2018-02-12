@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Models\Reader;
 use App\Models\ReaderEmailToken;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
@@ -43,7 +44,7 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+        $this->middleware('readers');
     }
 
     /**
@@ -89,7 +90,6 @@ class RegisterController extends Controller
     }
 
     public function generateCaptcha(){
-
         return captcha_img();
     }
 
@@ -160,5 +160,10 @@ class RegisterController extends Controller
         }catch (\Exception $e){
             return false;
         }
+    }
+
+    protected function guard()
+    {
+        return Auth::guard("readers");
     }
 }

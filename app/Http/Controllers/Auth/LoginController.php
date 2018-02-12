@@ -66,7 +66,7 @@ class LoginController extends Controller
 
     protected function validateLogin(Request $request)
     {
-        $validator = Validator::make($request->input(), [
+        $validator = Validator::make($request->all(), [
             'username' => 'required|string|min:5|max:255',
             'password' => 'required|string|min:6|max:255',
         ],[

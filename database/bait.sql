@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 14, 2018 at 07:21 AM
+-- Generation Time: Feb 12, 2018 at 05:28 AM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 7.1.7
 
@@ -198,11 +198,11 @@ CREATE TABLE `book_type` (
 --
 
 INSERT INTO `book_type` (`id`, `name`, `type_url`, `created_at`, `updated_at`) VALUES
-(1, 'Kĩ năng', 'ki-nang', '2017-12-07 18:15:30', '2017-12-07 18:15:30'),
-(2, 'Văn học', 'van-hoc', '2017-12-07 18:15:30', '2017-12-07 18:15:30'),
-(3, 'Ngoại ngữ', 'ngoai-ngu', '2017-12-07 18:15:30', '2017-12-07 18:15:30'),
-(4, 'Danh nhân', 'danh-nhan', '2017-12-07 18:15:30', '2017-12-07 18:16:14'),
-(5, 'Khoa học - Công nghệ', 'khoa-hoc-cong-nghe', '2017-12-07 18:15:30', '2017-12-07 18:15:30');
+(1, 'Kĩ năng', 'ki-nang', '2017-12-07 18:15:30', '2018-01-16 20:57:25'),
+(2, 'Văn học', 'van-hoc', '2017-12-07 18:15:30', '2018-01-16 20:57:25'),
+(3, 'Ngoại ngữ', 'ngoai-ngu', '2017-12-07 18:15:30', '2018-01-16 20:57:25'),
+(4, 'Danh nhân', 'danh-nhan', '2017-12-07 18:15:30', '2018-01-16 20:57:26'),
+(5, 'Khoa học - Công nghệ', 'khoa-hoc-cong-nghe', '2017-12-07 18:15:30', '2018-01-16 20:57:26');
 
 -- --------------------------------------------------------
 
@@ -231,7 +231,7 @@ INSERT INTO `borrow_detail` (`id`, `id_book`, `id_reader`, `borrow_date`, `retur
 (3, 10, 10, NULL, NULL, 2, 1, '2017-12-21 10:54:06', '2018-01-02 13:43:39', '2018-01-02 13:43:39'),
 (1, 10, 20, '2018-01-07 21:03:14', '2018-01-14 21:03:14', 0, 0, NULL, '2018-01-02 11:17:06', '2018-01-07 21:03:14'),
 (2, 15, 2, NULL, NULL, 2, 1, '2017-12-21 10:54:06', '2018-01-02 11:38:51', '2018-01-02 11:38:51'),
-(5, 18, 20, NULL, NULL, 2, 1, '2018-01-19 14:58:05', '2018-01-12 14:58:05', '2018-01-12 14:58:05'),
+(5, 18, 20, '2018-01-14 20:49:14', '2018-01-21 20:49:14', 0, 0, NULL, '2018-01-12 14:58:05', '2018-01-14 20:49:14'),
 (4, 29, 3, NULL, NULL, 2, 1, '2018-01-14 00:00:00', '2018-01-02 14:41:58', '2018-01-07 21:15:47');
 
 -- --------------------------------------------------------
@@ -357,12 +357,14 @@ CREATE TABLE `permission_users` (
 CREATE TABLE `readers` (
   `id` int(11) NOT NULL,
   `mssv` varchar(20) DEFAULT NULL,
-  `name` varchar(200) NOT NULL,
-  `school` varchar(250) NOT NULL,
-  `email` varchar(200) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `username` varchar(255) NOT NULL DEFAULT '',
+  `school` varchar(255) NOT NULL,
+  `email` varchar(2255) NOT NULL,
   `sdt` int(11) DEFAULT NULL,
-  `facebook` varchar(150) DEFAULT NULL,
-  `password` varchar(20) NOT NULL,
+  `facebook` varchar(255) DEFAULT NULL,
+  `password` varchar(255) NOT NULL,
+  `remember_token` varchar(255) DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -371,37 +373,58 @@ CREATE TABLE `readers` (
 -- Dumping data for table `readers`
 --
 
-INSERT INTO `readers` (`id`, `mssv`, `name`, `school`, `email`, `sdt`, `facebook`, `password`, `created_at`, `updated_at`) VALUES
-(1, '15520464', 'Nguyễn Văn Lương', 'UIT', '15520464@gm.uit.edu.vn', 1634891751, '', 'not-null', '2017-12-12 10:39:46', '2017-12-12 10:42:11'),
-(2, '16521387', 'Trần Hoàng Tuấn', 'UIT', '16521387@gm.uit.edu.vn', 1653888175, '', 'not-null', '2017-12-12 10:39:46', '2017-12-12 10:42:11'),
-(3, '15520234', 'Nguyễn Văn Hiếu', 'UIT', '15520234@gm.uit.edu.vn', 1655253842, '', 'not-null', '2017-12-12 10:39:46', '2017-12-12 10:42:11'),
-(4, '15520713', 'Đỗ Như Quỳnh', 'UIT', '15520713@gm.uit.edu.vn', 971415075, '', 'not-null', '2017-12-12 10:39:46', '2017-12-12 10:42:11'),
-(5, '16521016', 'Dương Thị Xuân Quỳnh', 'UIT', '16521016@gm.uit.edu.vn', 1672711439, '', 'not-null', '2017-12-12 10:39:46', '2017-12-12 10:42:11'),
-(6, '16520449', 'Trần Văn Hoàng', 'UIT', '16520449@gm.uit.edu.vn', 915498459, '', 'not-null', '2017-12-12 10:39:46', '2017-12-12 10:42:11'),
-(7, '16521269', 'Nguyễn Sơn Trà', 'UIT', '16521269@gm.uit.edu.vn', 1664562396, '', 'not-null', '2017-12-12 10:39:46', '2017-12-12 10:42:11'),
-(8, '16521340', 'Phan Nhật Trường', 'UIT', '16521340@gm.uit.edu.vn', 1697529049, '', 'not-null', '2017-12-12 10:39:46', '2017-12-12 10:42:11'),
-(9, '16521287', 'Nguyễn Văn Trí', 'UIT', '16521287@gm.uit.edu.vn', 947654407, '', 'not-null', '2017-12-12 10:39:46', '2017-12-12 10:42:11'),
-(10, '16520695', 'Phan Vĩnh Long', 'UIT', '16520695@gm.uit.edu.vn', 971823458, '', 'not-null', '2017-12-12 10:39:46', '2017-12-12 10:42:11'),
-(11, '16521582', 'Nguyễn Đình Vinh', 'UIT', '16521582@gm.uit.edu.vn', 912033870, '', 'not-null', '2017-12-12 10:39:46', '2017-12-12 10:42:11'),
-(12, 'K164020235', 'Lê Thị Hồ Thương', 'UEL', 'thuonglth16402@st.uel.edu.vn', 1666674293, '', 'not-null', '2017-12-12 10:39:46', '2017-12-12 10:42:12'),
-(13, 'K164020239', 'Võ Thị Xuân Trang', 'UEL', 'trangvtx16402@st.uel.edu.vn', 1627713530, '', 'not-null', '2017-12-12 10:39:46', '2017-12-12 10:42:12'),
-(14, 'K164020131', 'Phan Thị Như Hoa', 'UEL', 'hoaptn16402@st.uel.edu.vn', 1637984678, '', 'not-null', '2017-12-12 10:39:47', '2017-12-12 10:42:12'),
-(15, '17520933', 'Võ Thị Ngọc Phương', 'UIT', '17520933@gm.uit.edu.vn', 1674434680, '', 'not-null', '2017-12-12 10:39:47', '2017-12-12 10:42:12'),
-(16, '17521109', 'Lê Phan Vũ Thuận', 'UIT', '17521109@gm.uit.edu.vn', 1635162579, '', 'not-null', '2017-12-12 10:43:19', '2017-12-12 10:43:19'),
-(17, '17520328', 'Trần Quang Đạo', 'UIT', '17520328@gm.uit.edu.vn', 1673599258, '', 'not-null', '2017-12-12 10:43:19', '2017-12-12 10:43:19'),
-(18, '16521084', 'Trần Đình Tạo', 'UIT', 'trandinhtao1998@gmail.com', 1673206562, '', 'not-null', '2017-12-12 10:43:19', '2017-12-12 10:43:19'),
-(19, '17520702', 'Nguyễn Huỳnh Lợi', 'UIT', '17520702@gm.uit.edu.vn', 961178682, '', 'not-null', '2017-12-12 10:43:19', '2017-12-12 10:43:19'),
-(20, '16520191', 'Nguyễn Hữu Đạt', 'UIT', '16520191@gm.uit.edu.vn', 1629480055, '', 'not-null', '2017-12-12 10:43:19', '2017-12-12 10:43:19'),
-(21, '17520926', 'Nguyễn Thị Bích Phượng', 'UIT', '17520926@gm.uit.edu.vn', 914129953, '', 'not-null', '2017-12-12 10:43:19', '2017-12-12 10:43:19'),
-(22, '1656030112', 'Trần Thị Như Quỳnh', 'USSH', 'trannhuquynhbck16@gmail.com', 973003935, '', 'not-null', '2017-12-12 10:43:19', '2017-12-12 10:43:19'),
-(23, '1756110054', 'Lê Huỳnh Tuyết Hương', 'USSH', 'toilamotmauxanh@gmail.com', 919177427, '', 'not-null', '2017-12-12 10:43:19', '2017-12-12 10:43:19'),
-(24, '17520452', 'Vũ Anh Hào', 'UIT', '17520452@gm.uit.edu.vn', 928291447, '', 'not-null', '2017-12-12 10:43:19', '2017-12-12 10:43:19'),
-(25, '17521295', 'Cáp Hữu Anh Đức', 'UIT', 'ken.manucian.125@gmail.com', 1245248345, '', 'not-null', '2017-12-12 10:43:19', '2017-12-12 10:43:19'),
-(26, '14520786', 'Phùng Thanh Tài', 'UIT', 'taipt1301@gmail.com', 961118679, '', 'not-null', '2017-12-12 10:43:19', '2017-12-12 10:43:19'),
-(27, '1757060071', 'Nguyễn Thị Mai Lan', 'USSH', 'nhoklan89810@gmail.com', 1692895398, '', 'not-null', '2017-12-12 10:43:20', '2017-12-12 10:43:20'),
-(28, '16520373', 'Đặng Văn Hiệp', 'UIT', '16520373@gm.uit.edu.vn', 1237897572, '', 'not-null', '2017-12-12 10:43:20', '2017-12-12 10:43:20'),
-(29, '17520929', 'Phan Lê Kim Phượng', 'UIT', '17520929@gm.uit.edu.vn', 934034906, '', 'not-null', '2017-12-12 10:43:20', '2017-12-12 10:43:20'),
-(30, '15520317', 'Trần Lê Vĩnh Huy', 'UIT', 'huytranle13@gmail.com', 961430298, '', 'not-null', '2018-01-11 10:11:41', '2018-01-11 10:11:41');
+INSERT INTO `readers` (`id`, `mssv`, `name`, `username`, `school`, `email`, `sdt`, `facebook`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, '15520464', 'Nguyễn Văn Lương', 'luong', 'UIT', '15520464@gm.uit.edu.vn', 1634891751, '', 'not-null', NULL, '2017-12-12 10:39:46', '2018-01-17 17:04:04'),
+(2, '16521387', 'Trần Hoàng Tuấn', 'tuan', 'UIT', '16521387@gm.uit.edu.vn', 1653888175, '', 'not-null', NULL, '2017-12-12 10:39:46', '2018-01-17 17:04:04'),
+(3, '15520234', 'Nguyễn Văn Hiếu', 'hieu', 'UIT', '15520234@gm.uit.edu.vn', 1655253842, '', 'not-null', NULL, '2017-12-12 10:39:46', '2018-01-17 17:04:04'),
+(4, '15520713', 'Đỗ Như Quỳnh', 'quynh1', 'UIT', '15520713@gm.uit.edu.vn', 971415075, '', 'not-null', NULL, '2017-12-12 10:39:46', '2018-01-17 17:04:04'),
+(5, '16521016', 'Dương Thị Xuân Quỳnh', 'quynh2', 'UIT', '16521016@gm.uit.edu.vn', 1672711439, '', 'not-null', NULL, '2017-12-12 10:39:46', '2018-01-17 17:04:04'),
+(6, '16520449', 'Trần Văn Hoàng', 'hoang', 'UIT', '16520449@gm.uit.edu.vn', 915498459, '', 'not-null', NULL, '2017-12-12 10:39:46', '2018-01-17 17:04:04'),
+(7, '16521269', 'Nguyễn Sơn Trà', 'tra', 'UIT', '16521269@gm.uit.edu.vn', 1664562396, '', 'not-null', NULL, '2017-12-12 10:39:46', '2018-01-17 17:04:04'),
+(8, '16521340', 'Phan Nhật Trường', 'truong', 'UIT', '16521340@gm.uit.edu.vn', 1697529049, '', 'not-null', NULL, '2017-12-12 10:39:46', '2018-01-17 17:04:04'),
+(9, '16521287', 'Nguyễn Văn Trí', 'tri', 'UIT', '16521287@gm.uit.edu.vn', 947654407, '', 'not-null', NULL, '2017-12-12 10:39:46', '2018-01-17 17:04:04'),
+(10, '16520695', 'Phan Vĩnh Long', 'long', 'UIT', '16520695@gm.uit.edu.vn', 971823458, '', 'not-null', NULL, '2017-12-12 10:39:46', '2018-01-17 17:04:04'),
+(11, '16521582', 'Nguyễn Đình Vinh', 'vinh', 'UIT', '16521582@gm.uit.edu.vn', 912033870, '', 'not-null', NULL, '2017-12-12 10:39:46', '2018-01-17 17:04:04'),
+(12, 'K164020235', 'Lê Thị Hồ Thương', 'thuong', 'UEL', 'thuonglth16402@st.uel.edu.vn', 1666674293, '', 'not-null', NULL, '2017-12-12 10:39:46', '2018-01-17 17:04:04'),
+(13, 'K164020239', 'Võ Thị Xuân Trang', 'trang', 'UEL', 'trangvtx16402@st.uel.edu.vn', 1627713530, '', 'not-null', NULL, '2017-12-12 10:39:46', '2018-01-17 17:04:04'),
+(14, 'K164020131', 'Phan Thị Như Hoa', 'hoa', 'UEL', 'hoaptn16402@st.uel.edu.vn', 1637984678, '', 'not-null', NULL, '2017-12-12 10:39:47', '2018-01-17 17:04:04'),
+(15, '17520933', 'Võ Thị Ngọc Phương', 'phuong1', 'UIT', '17520933@gm.uit.edu.vn', 1674434680, '', 'not-null', NULL, '2017-12-12 10:39:47', '2018-01-17 17:04:04'),
+(16, '17521109', 'Lê Phan Vũ Thuận', 'thuan', 'UIT', '17521109@gm.uit.edu.vn', 1635162579, '', 'not-null', NULL, '2017-12-12 10:43:19', '2018-01-17 17:04:45'),
+(17, '17520328', 'Trần Quang Đạo', 'dao', 'UIT', '17520328@gm.uit.edu.vn', 1673599258, '', 'not-null', NULL, '2017-12-12 10:43:19', '2018-01-17 17:04:46'),
+(18, '16521084', 'Trần Đình Tạo', 'tao', 'UIT', 'trandinhtao1998@gmail.com', 1673206562, '', 'not-null', NULL, '2017-12-12 10:43:19', '2018-01-17 17:04:46'),
+(19, '17520702', 'Nguyễn Huỳnh Lợi', 'loi', 'UIT', '17520702@gm.uit.edu.vn', 961178682, '', 'not-null', NULL, '2017-12-12 10:43:19', '2018-01-17 17:04:46'),
+(20, '16520191', 'Nguyễn Hữu Đạt', 'dat', 'UIT', '16520191@gm.uit.edu.vn', 1629480055, '', 'not-null', NULL, '2017-12-12 10:43:19', '2018-01-17 17:04:46'),
+(21, '17520926', 'Nguyễn Thị Bích Phượng', 'phuong', 'UIT', '17520926@gm.uit.edu.vn', 914129953, '', 'not-null', NULL, '2017-12-12 10:43:19', '2018-01-17 17:04:46'),
+(22, '1656030112', 'Trần Thị Như Quỳnh', 'quynh3', 'USSH', 'trannhuquynhbck16@gmail.com', 973003935, '', 'not-null', NULL, '2017-12-12 10:43:19', '2018-01-17 17:04:46'),
+(23, '1756110054', 'Lê Huỳnh Tuyết Hương', 'huong', 'USSH', 'toilamotmauxanh@gmail.com', 919177427, '', 'not-null', NULL, '2017-12-12 10:43:19', '2018-01-17 17:04:46'),
+(24, '17520452', 'Vũ Anh Hào', 'hao', 'UIT', '17520452@gm.uit.edu.vn', 928291447, '', 'not-null', NULL, '2017-12-12 10:43:19', '2018-01-17 17:04:46'),
+(25, '17521295', 'Cáp Hữu Anh Đức', 'duc', 'UIT', 'ken.manucian.125@gmail.com', 1245248345, '', 'not-null', NULL, '2017-12-12 10:43:19', '2018-01-17 17:04:46'),
+(26, '14520786', 'Phùng Thanh Tài', 'tai', 'UIT', 'taipt1301@gmail.com', 961118679, '', 'not-null', NULL, '2017-12-12 10:43:19', '2018-01-17 17:04:46'),
+(27, '1757060071', 'Nguyễn Thị Mai Lan', 'lan', 'USSH', 'nhoklan89810@gmail.com', 1692895398, '', 'not-null', NULL, '2017-12-12 10:43:20', '2018-01-17 17:04:46'),
+(28, '16520373', 'Đặng Văn Hiệp', 'hiep', 'UIT', '16520373@gm.uit.edu.vn', 1237897572, '', 'not-null', NULL, '2017-12-12 10:43:20', '2018-01-17 17:04:46'),
+(29, '17520929', 'Phan Lê Kim Phượng', 'phuong2', 'UIT', '17520929@gm.uit.edu.vn', 934034906, '', 'not-null', NULL, '2017-12-12 10:43:20', '2018-01-17 17:04:46'),
+(30, '15520317', 'Trần Lê Vĩnh Huy', 'huytranle13', 'UIT', 'huytranle13@gmail.com', 961430298, 'fb/Huy.Ai.Ti', '$2y$10$Ysn4DTkZS3Du6dfS52RWX.tjC7PtQnQfCNl8VIC1mO5X.K1P8nlkW', 'AxMEf5RjoSSVG5YHWAXE1WyVzbPUpDq6sCaRO6NS84k2xypb33sec3HzetSr', '2018-02-09 10:05:24', '2018-02-09 10:05:24');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `reader_emailtoken`
+--
+
+CREATE TABLE `reader_emailtoken` (
+  `id` int(11) NOT NULL,
+  `id_reader` int(11) NOT NULL,
+  `token` varchar(255) NOT NULL,
+  `token_date` datetime DEFAULT NULL,
+  `is_token` tinyint(4) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `reader_emailtoken`
+--
+
+INSERT INTO `reader_emailtoken` (`id`, `id_reader`, `token`, `token_date`, `is_token`) VALUES
+(1, 30, 'pWVyC2usdff8ORdqqmaZsJNe4F6ft4XA', '2018-02-09 10:05:24', 1);
 
 -- --------------------------------------------------------
 
@@ -494,7 +517,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Huy', 'huytranle13@gmail.com', '$2y$10$B08TU3sq1J2Xckv78/3.v.3OrKP6rsGgzouEqfWFM8J6qx9PvhLye', 'QgwdiJa7qoI935LUcZHY6xJLsTKr4T5lfdrtfGYsrSzHJRY5JhLSZ8cEt9u1', '2017-12-17 05:19:59', '2017-12-17 05:19:59'),
+(1, 'Huy', 'huytranle13@gmail.com', '$2y$10$B08TU3sq1J2Xckv78/3.v.3OrKP6rsGgzouEqfWFM8J6qx9PvhLye', 'hwvejsyf3sYKT8ndvRAKE84n8xNMZp2Tp4TLrB8CZZ3zcby5iWNQJ1cEcKVS', '2017-12-17 05:19:59', '2017-12-17 05:19:59'),
 (2, 'Huy Vĩnh', 'huylevinh13@gmail.com', '$2y$10$NmmArNFwcyllYoNFigXI/.1N/hxuZdai9uwcvDU9aMkmDOnpoY/ju', 'nIknCsDSKKRfmNuBsvhqICrGB3TrTOg8ntMyOYSfZN62eP3Dv3PJKB6iiWME', '2017-12-17 05:30:10', '2017-12-17 05:30:10');
 
 --
@@ -582,7 +605,16 @@ ALTER TABLE `permission_users`
 -- Indexes for table `readers`
 --
 ALTER TABLE `readers`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `Unique_username` (`username`);
+
+--
+-- Indexes for table `reader_emailtoken`
+--
+ALTER TABLE `reader_emailtoken`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `token_unique` (`token`),
+  ADD UNIQUE KEY `id_reader_unique` (`id_reader`);
 
 --
 -- Indexes for table `repcomment_blog`
@@ -670,6 +702,11 @@ ALTER TABLE `permissions`
 --
 ALTER TABLE `readers`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+--
+-- AUTO_INCREMENT for table `reader_emailtoken`
+--
+ALTER TABLE `reader_emailtoken`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `repcomment_blog`
 --

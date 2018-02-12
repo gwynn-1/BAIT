@@ -79,7 +79,7 @@
                             <h4 class="modal-title">Đăng ký ngay</h4>
                         </div>
                         <div class="modal-body">
-                            @if ($errors->any()&& !$errors->has("login_failed"))
+                            @if ($errors->any() && !$errors->has("login_failed"))
                                 <script>
                                     $(document).ready(function () {
                                         $("#modalsignup").modal('show');
