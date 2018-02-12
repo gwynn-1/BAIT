@@ -51,7 +51,7 @@
         font-size: 13px !important;
     }
 
-    .item-book .book-image-sec{
+    .item-rec-book .book-image-sec{
         height: 275px !important;
     }
 }
@@ -64,15 +64,13 @@
     .item-all-book{
         width: 160px !important;
     }
+
+    /*.item-rec-book .borrow-button{*/
+        /*left: -90px !important;*/
+    /*}*/
 }
 
-@media all and (max-width:480px){
-    .item-book .book-image-sec{
-        height: 458px !important;
-    }
-}
-
-@media all and (max-width:767px) and (min-width: 481px){
+@media all and (max-width:767px) and (min-width: 591px){
     .category-filter{
         float: none !important;
         display: inline-block;
@@ -81,9 +79,10 @@
         margin-top: 20px;
     }
 
-    .item-book .book-image-sec{
-        height: 235px !important;
-    }
+    /*.item .item-book-image a .book-image-sec{*/
+        /*width: 178px !important;*/
+        /*height: auto !important;*/
+    /*}*/
 
     .item-all-book .book-title a{
         font-size: 15px !important;
@@ -136,7 +135,7 @@
         margin-left: auto !important;
         margin-right: auto;
         margin-top: 40px;
-        margin-bottom: 40px; 
+        margin-bottom: 40px;
     }
 
     .header-menu-mobile{
@@ -146,12 +145,115 @@
     .header-menu{
         display: none !important;
     }
+
     .item-all-book{
-        width: 350px !important;
+        width: 300px !important;
     }
+
     .item-all-book .book-image-sec{
-        height: 398px !important;
-        width: 348px !important;
+        height: auto !important;
+        width: 298px !important;
+    }
+
+    .item-rec-book .book-title a{
+        font-size: 12px;
+    }
+
+    .item-rec-book .book-image-sec{
+        height: 245px !important;
+    }
+}
+@media all and (max-width: 590px){
+    .category-filter{
+        float: none !important;
+        display: inline-block;
+        margin: auto;
+        border: 1px solid #F2F2F2;
+        margin-top: 20px;
+    }
+
+    /*.item .item-book-image a .book-image-sec{*/
+    /*width: 178px !important;*/
+    /*height: auto !important;*/
+    /*}*/
+
+    .item-all-book .book-title a{
+        font-size: 15px !important;
+    }
+
+    .search-field{
+        float: none !important;
+        margin: auto;
+        border: 1px solid #F2F2F2;
+        margin-top: 40px;
+        /*margin-bottom: 20px; */
+    }
+
+    .border{
+        display: none;
+    }
+
+    .search-box form{
+        border: none !important;
+        display: unset !important;
+    }
+
+    .autocomplete{
+        left:0px !important;
+        top:0px !important;
+    }
+    .autocomplete ul{
+        background-color: white;
+        box-shadow: 0px 3px 5px grey;
+        position: absolute;
+        top:100%;
+        left: 0px;
+        margin-top: 0px !important;
+    }
+
+    .sticky{
+        display: inline-block !important;
+    }
+
+    .search-box{
+        display: inline-block !important;
+    }
+
+    #sticky-box{
+        display: inline !important;
+        height: 295px !important;
+    }
+
+    .borrow-box{
+        margin-left: auto !important;
+        margin-right: auto;
+        margin-top: 40px;
+        margin-bottom: 40px;
+    }
+
+    .header-menu-mobile{
+        display: block !important;
+    }
+
+    .header-menu{
+        display: none !important;
+    }
+
+    .item-all-book{
+        width: 300px !important;
+    }
+
+    .item-all-book .book-image-sec{
+        height: auto !important;
+        width: 298px !important;
+    }
+
+    .item-rec-book .book-title a{
+        font-size: 16px;
+    }
+
+    .item-rec-book .book-image-sec{
+        height: 506px !important;
     }
 }
 
@@ -197,7 +299,7 @@ body,html{
 .user-field{
     width: 80%;
     height: 100%;
-    display: none;
+    /*display: none;*/
     margin: auto;
 }
 
@@ -803,6 +905,11 @@ body,html{
     color: white;
 }
 
+.captcha-img{
+    margin: 0 10px 10px 0;
+    display: inline-block;
+}
+
 .describe #des-content{
     text-align: center;
     font-family: Arimo;
@@ -1013,6 +1120,7 @@ font-family: Arimo;
 
 .item-all-book{
     width: 290px;
+    height: auto;
     margin: auto; 
     display: block;
 }
@@ -1029,6 +1137,11 @@ font-family: Arimo;
 .item-book-col{
     padding: 0;
     margin-bottom: 15px;
+}
+
+.item-rec-book{
+    width: 100%;
+    height: auto;
 }
 
 .current-category{

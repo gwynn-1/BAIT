@@ -120,13 +120,23 @@ $(document).ready(function(){
             0:{
                 items:1
             },
-            500:{
+            590:{
                 items:3
             },
             900:{
                 items:4
             }
         }
+    });
+
+    $(".captcha-reset").click(function () {
+       $.ajax({
+           url:"signup/get-captcha",
+           type:"GET",
+           success: function (data) {
+               $(".captcha-img").html(data)
+           }
+       });
     });
 });
 

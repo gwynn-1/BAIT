@@ -19,7 +19,7 @@ class Reader extends Model
     protected $primaryKey = 'id';
      public $timestamps = true;
     // protected $guarded = ['id'];
-     protected $fillable = ['id','mssv','name','school','email','sdt','facebook','password'];
+     protected $fillable = ['id','mssv','username','name','school','email','sdt','facebook','password'];
     // protected $hidden = [];
     // protected $dates = [];
 

@@ -6,13 +6,6 @@
       0 => 'Fideloper\\Proxy\\TrustedProxyServiceProvider',
     ),
   ),
-  'laravel/tinker' => 
-  array (
-    'providers' => 
-    array (
-      0 => 'Laravel\\Tinker\\TinkerServiceProvider',
-    ),
-  ),
   'jenssegers/date' => 
   array (
     'providers' => 
@@ -22,13 +15,6 @@
     'aliases' => 
     array (
       'Date' => 'Jenssegers\\Date\\Date',
-    ),
-  ),
-  'backpack/base' => 
-  array (
-    'providers' => 
-    array (
-      0 => 'Backpack\\Base\\BaseServiceProvider',
     ),
   ),
   'backpack/generators' => 
@@ -68,13 +54,6 @@
       'Html' => 'Collective\\Html\\HtmlFacade',
     ),
   ),
-  'backpack/crud' => 
-  array (
-    'providers' => 
-    array (
-      0 => 'Backpack\\CRUD\\CrudServiceProvider',
-    ),
-  ),
   'spatie/laravel-permission' => 
   array (
     'providers' => 
@@ -87,6 +66,42 @@
     'providers' => 
     array (
       0 => 'Backpack\\PermissionManager\\PermissionManagerServiceProvider',
+    ),
+  ),
+  'mews/captcha' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Mews\\Captcha\\CaptchaServiceProvider',
+    ),
+    'aliases' => 
+    array (
+      'Captcha' => 'Mews\\Captcha\\Facades\\Captcha',
+    ),
+  ),
+  'backpack/base' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Backpack\\Base\\BaseServiceProvider',
+    ),
+  ),
+  'backpack/crud' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Backpack\\CRUD\\CrudServiceProvider',
+    ),
+    'aliases' => 
+    array (
+      'CRUD' => 'Backpack\\CRUD\\CrudServiceProvider',
+    ),
+  ),
+  'laravel/tinker' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Laravel\\Tinker\\TinkerServiceProvider',
     ),
   ),
 );

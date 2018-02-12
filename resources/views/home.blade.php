@@ -58,7 +58,7 @@
             </div>
             <div class="owl-carousel owl-theme owl-carousel-book">
                 @foreach($recommend_book as $r_books)
-                <div class="item item-book">
+                <div class="item item-book item-rec-book">
                     <div class="head-item">
                         <div class="borrow-button">
                             Quan tâm sách

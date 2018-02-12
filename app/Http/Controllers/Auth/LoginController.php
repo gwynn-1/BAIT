@@ -4,6 +4,10 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
 
 class LoginController extends Controller
 {
@@ -25,7 +29,8 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
+    protected $guard = "readers";
 
     /**
      * Create a new controller instance.
@@ -34,6 +39,53 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest')->except('logout');
+        $this->middleware('readers')->except('logout');
+    }
+
+    public function username()
+    {
+        return "username";
+    }
+
+    protected function authenticated(Request $request, $user)
+    {
+        return redirect("/");
+    }
+
+    public function guard()
+    {
+        return Auth::guard($this->guard);
+    }
+
+    protected function sendFailedLoginResponse(Request $request)
+    {
+        throw ValidationException::withMessages([
+            "login_failed" => [trans('auth.failed')],
+        ]);
+    }
+
+    protected function validateLogin(Request $request)
+    {
+        $validator = Validator::make($request->input(), [
+            'username' => 'required|string|min:5|max:255',
+            'password' => 'required|string|min:6|max:255',
+        ],[
+            "min"=>":attribute phải lớn hơn :min kí tự",
+            "max"=>':attribute phải bé hơn :max kí tự',
+            "required"=>":attribute bắt buộc phải nhập",
+            "string"=>":attribute bắt buộc nhập chữ",
+        ]);
+
+        $validator->setAttributeNames([
+            "username" => "Tên đăng nhập",
+            "password"=>"Password"
+        ]);
+        return $validator;
+    }
+
+    public function logout(Request $request)
+    {
+        $this->guard()->logout();
+        return redirect("/");
     }
 }

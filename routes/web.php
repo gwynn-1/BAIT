@@ -25,6 +25,17 @@ Route::get('/b/{id}/{url}',[
     'uses'=>'ProductController@index'
 ]);
 
+Route::group(['prefix'=>'signup'],function (){
+    Route::get('get-captcha','Auth\RegisterController@generateCaptcha');
+    Route::post('/','Auth\RegisterController@register');
+});
+
+Route::post("login","Auth\LoginController@login");
+
+Route::post("logout","Auth\LoginController@logout");
+
+Route::get("/registration/{token}/{tokendate}","Auth\RegisterController@confirmSignup");
+
 Route::get('/bn/{id}/{url}',[
     'as'=>'/bn/{id}/{url}',
     'uses'=>'BlogNewsController@index'
@@ -68,11 +79,13 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
         Route::get('readers','Admin\ReaderCrudController@ExportExcelAction');
         Route::get('borrow_details','Admin\Borrow_detailCrudController@ExportExcelAction');
         Route::get('user-reads','Admin\UserCrudController@ExportExcelAction');
+        Route::get('blog_news','Admin\Blog_newsCrudController@ExportExcelAction');
     });
 
     Route::group(['prefix'=>'import-excel'],function (){
         Route::post('book_types','Admin\Book_typeCrudController@ImportExcelAction');
         Route::post('books','Admin\BookCrudController@ImportExcelAction');
         Route::post('readers','Admin\ReaderCrudController@ImportExcelAction');
+        Route::post('blog_news','Admin\Blog_newsCrudController@ImportExcelAction');
     });
 });

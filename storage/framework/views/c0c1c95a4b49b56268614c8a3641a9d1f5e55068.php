@@ -56,7 +56,7 @@
             </div>
             <div class="owl-carousel owl-theme owl-carousel-book">
                 <?php $__currentLoopData = $recommend_book; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $r_books): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                <div class="item item-book">
+                <div class="item item-book item-rec-book">
                     <div class="head-item">
                         <div class="borrow-button">
                             Quan tâm sách

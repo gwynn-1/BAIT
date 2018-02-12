@@ -22,6 +22,44 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 - Nothing
 
 
+## [0.8.7] - 2018-01-18
+
+## Added
+- progress bar to installer;
+- debug option to installer;
+- configurable timeout option to installer;
+
+## Fixed
+- hide secondary pace loader to avoid CRUD list page three-separate-loaders syndrome;
+
+
+## [0.8.6] - 2018-01-10
+
+## Fixed
+- ajax datatable loading screen;
+
+
+## [0.8.5] - 2018-01-03
+
+## Added
+- user image to My Account side menu;
+- link on general sidebar user image;
+- link on general sidebar user name;
+
+## Fixed
+- Greek translation;
+- French translation;
+
+
+## [0.8.4] - 2017-12-12
+
+## Fixed
+- Chinese translation;
+- Upon installation, vendor path is calculated instead of relying on base_path() - merged #223, fixes #222;
+
+## Added
+- BACKPACK_REGISTRATION_OPEN environment variable;
+
 ## [0.8.3] - 2017-12-02
 
 ## Fixed

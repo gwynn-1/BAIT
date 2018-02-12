@@ -14,6 +14,7 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         //
+        '\App\Console\Commands\DeleteExpireSignupToken'
     ];
 
     /**
@@ -26,6 +27,7 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
+        $schedule->command("command:delete-expire-signuptoken")->everyFiveMinutes();
     }
 
     /**
