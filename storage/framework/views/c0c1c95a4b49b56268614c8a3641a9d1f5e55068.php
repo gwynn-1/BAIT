@@ -3,6 +3,8 @@
     <script src="sliderengine/amazingslider.js"></script>
     <link rel="stylesheet" type="text/css" href="sliderengine/amazingslider-1.css">
     <script src="sliderengine/initslider-1.js"></script>
+
+
     <div id="amazingslider-wrapper-1">
         <div id="amazingslider-1">
             <ul class="amazingslider-slides" style="display:none;">
@@ -17,7 +19,7 @@
             <ul class="amazingslider-thumbnails" style="display:none;">
                 <?php $__currentLoopData = $breaking_news; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $br): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <li>
-                            <img src="book_image/<?php echo e($br->main_image); ?>" alt="slider-111"  title="<?php echo e($br->title); ?>" />
+                        <img src="book_image/<?php echo e($br->main_image); ?>" alt="slider-111"  title="<?php echo e($br->title); ?>" />
                     </li>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </ul>
@@ -58,7 +60,7 @@
                 <?php $__currentLoopData = $recommend_book; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $r_books): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <div class="item item-book item-rec-book">
                     <div class="head-item">
-                        <div class="borrow-button">
+                        <div class="borrow-button" data-id="<?php echo e($r_books->id); ?>" data-author="<?php echo e($r_books->author); ?>" data-name="<?php echo e($r_books->name); ?>" data-image="<?php echo e(($r_books->image==null) ? "images/convallis-pharetra.jpg": "book_image/".$r_books->image); ?>">
                             Quan tâm sách
                         </div>
                         <div class="item-book-image">

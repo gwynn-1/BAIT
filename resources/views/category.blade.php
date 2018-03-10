@@ -3,7 +3,8 @@
 @section('section-body')
     <section>
         <link rel="stylesheet" href="css/category.css"/>
-        <link rel="stylesheet" href="css/pretty-checkbox.css"/>
+
+        @include('layout.cart-notification')
         <div class="main-section-body">
             <div class="content-title">
                 <a href="/">Home</a>
@@ -17,7 +18,7 @@
                     </div>
                     <div class="category-menu">
                         <ul>
-                            @foreach($book_type as $bt)
+                            @foreach($data['book_type'] as $bt)
                                 @if($bt->name == $current_category[0]->name)
                                     <li><a class="current-category" href="category/{{$bt->type_url}}">{{$bt->name}}</a></li>
                                 @else

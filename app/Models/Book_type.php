@@ -31,6 +31,14 @@ class Book_type extends Model
     |--------------------------------------------------------------------------
     */
 
+    public function getBookTypeByUrl($url){
+        return self::select("name","id")->where("type_url",$url)->get();
+    }
+
+    public function getBookTypeById($id){
+        return self::select("name")->where("id",$id)->first();
+    }
+
     /*
     |--------------------------------------------------------------------------
     | RELATIONS

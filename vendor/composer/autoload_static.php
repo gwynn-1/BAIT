@@ -100,6 +100,7 @@ class ComposerStaticInitaebeb1c6e5177beda187a32b3ee5ae47
             'GuzzleHttp\\Psr7\\' => 16,
             'GuzzleHttp\\Promise\\' => 19,
             'GuzzleHttp\\' => 11,
+            'Gloudemans\\Shoppingcart\\' => 24,
         ),
         'F' => 
         array (
@@ -310,6 +311,10 @@ class ComposerStaticInitaebeb1c6e5177beda187a32b3ee5ae47
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/guzzle/src',
         ),
+        'Gloudemans\\Shoppingcart\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/gloudemans/shoppingcart/src',
+        ),
         'Fideloper\\Proxy\\' => 
         array (
             0 => __DIR__ . '/..' . '/fideloper/proxy/src',
@@ -458,6 +463,7 @@ class ComposerStaticInitaebeb1c6e5177beda187a32b3ee5ae47
         'App\\API\\TokenCreator' => __DIR__ . '/../..' . '/app/API/TokenCreator.php',
         'App\\API\\URLCreator' => __DIR__ . '/../..' . '/app/API/URLCreator.php',
         'App\\API\\excelSpout' => __DIR__ . '/../..' . '/app/API/excelSpout.php',
+        'App\\Console\\Commands\\DeleteExpireSignupToken' => __DIR__ . '/../..' . '/app/Console/Commands/DeleteExpireSignupToken.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Http\\Controllers\\Admin\\Blog_newsCrudController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/Blog_newsCrudController.php',
@@ -485,6 +491,7 @@ class ComposerStaticInitaebeb1c6e5177beda187a32b3ee5ae47
         'App\\Http\\Middleware\\CheckPermission' => __DIR__ . '/../..' . '/app/Http/Middleware/CheckPermission.php',
         'App\\Http\\Middleware\\EncryptCookies' => __DIR__ . '/../..' . '/app/Http/Middleware/EncryptCookies.php',
         'App\\Http\\Middleware\\RedirectIfAuthenticated' => __DIR__ . '/../..' . '/app/Http/Middleware/RedirectIfAuthenticated.php',
+        'App\\Http\\Middleware\\RedirectIfNotReader' => __DIR__ . '/../..' . '/app/Http/Middleware/RedirectIfNotReader.php',
         'App\\Http\\Middleware\\TrimStrings' => __DIR__ . '/../..' . '/app/Http/Middleware/TrimStrings.php',
         'App\\Http\\Middleware\\TrustProxies' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustProxies.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
@@ -515,6 +522,7 @@ class ComposerStaticInitaebeb1c6e5177beda187a32b3ee5ae47
         'App\\Providers\\BroadcastServiceProvider' => __DIR__ . '/../..' . '/app/Providers/BroadcastServiceProvider.php',
         'App\\Providers\\EventServiceProvider' => __DIR__ . '/../..' . '/app/Providers/EventServiceProvider.php',
         'App\\Providers\\RouteServiceProvider' => __DIR__ . '/../..' . '/app/Providers/RouteServiceProvider.php',
+        'App\\Readers' => __DIR__ . '/../..' . '/app/Readers.php',
         'App\\User' => __DIR__ . '/../..' . '/app/User.php',
         'ArithmeticError' => __DIR__ . '/..' . '/symfony/polyfill-php70/Resources/stubs/ArithmeticError.php',
         'AssertionError' => __DIR__ . '/..' . '/symfony/polyfill-php70/Resources/stubs/AssertionError.php',
@@ -1620,6 +1628,16 @@ class ComposerStaticInitaebeb1c6e5177beda187a32b3ee5ae47
         'File_Iterator' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Iterator.php',
         'File_Iterator_Facade' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Facade.php',
         'File_Iterator_Factory' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Factory.php',
+        'Gloudemans\\Shoppingcart\\CanBeBought' => __DIR__ . '/..' . '/gloudemans/shoppingcart/src/CanBeBought.php',
+        'Gloudemans\\Shoppingcart\\Cart' => __DIR__ . '/..' . '/gloudemans/shoppingcart/src/Cart.php',
+        'Gloudemans\\Shoppingcart\\CartItem' => __DIR__ . '/..' . '/gloudemans/shoppingcart/src/CartItem.php',
+        'Gloudemans\\Shoppingcart\\CartItemOptions' => __DIR__ . '/..' . '/gloudemans/shoppingcart/src/CartItemOptions.php',
+        'Gloudemans\\Shoppingcart\\Contracts\\Buyable' => __DIR__ . '/..' . '/gloudemans/shoppingcart/src/Contracts/Buyable.php',
+        'Gloudemans\\Shoppingcart\\Exceptions\\CartAlreadyStoredException' => __DIR__ . '/..' . '/gloudemans/shoppingcart/src/Exceptions/CartAlreadyStoredException.php',
+        'Gloudemans\\Shoppingcart\\Exceptions\\InvalidRowIDException' => __DIR__ . '/..' . '/gloudemans/shoppingcart/src/Exceptions/InvalidRowIDException.php',
+        'Gloudemans\\Shoppingcart\\Exceptions\\UnknownModelException' => __DIR__ . '/..' . '/gloudemans/shoppingcart/src/Exceptions/UnknownModelException.php',
+        'Gloudemans\\Shoppingcart\\Facades\\Cart' => __DIR__ . '/..' . '/gloudemans/shoppingcart/src/Facades/Cart.php',
+        'Gloudemans\\Shoppingcart\\ShoppingcartServiceProvider' => __DIR__ . '/..' . '/gloudemans/shoppingcart/src/ShoppingcartServiceProvider.php',
         'GuzzleHttp\\Client' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/Client.php',
         'GuzzleHttp\\ClientInterface' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/ClientInterface.php',
         'GuzzleHttp\\Cookie\\CookieJar' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/Cookie/CookieJar.php',

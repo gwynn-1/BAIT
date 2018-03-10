@@ -34,6 +34,32 @@ class Blog_news extends Model
     |--------------------------------------------------------------------------
     */
 
+    public function getBreakingNews(){
+        return self::select("id","title","main_image","url_blog")->where("breaking","1")->get();
+    }
+
+    public function getBlogNewsWithLimit($limit){
+        return self::select("id","title","main_image","url_blog")->limit($limit)->get();
+    }
+
+    public function getBlogNewsPaginator($page){
+        return self::select("id","title","main_image","description","url_blog")->paginate($page);
+    }
+
+    public function getBlogNewsBySearch($input,$page){
+        return self::select("id","title","main_image","description","url_blog")
+            ->where("title","like","%".$input."%")
+            ->paginate($page);
+    }
+
+    public function getBlogNewsById($id,$url){
+        return self::select("title","content","author","created_at")->where("id",$id)->where("url_blog",$url)->first();
+    }
+
+    public function getBreakingNewsWithLimit($limit,$id_avoid){
+        return self::select("id","title","main_image","url_blog")->where("breaking","1")->where("id","<>",$id_avoid)->limit($limit)->get();
+    }
+
     /*
     |--------------------------------------------------------------------------
     | RELATIONS

@@ -5,6 +5,8 @@
     <script src="sliderengine/amazingslider.js"></script>
     <link rel="stylesheet" type="text/css" href="sliderengine/amazingslider-1.css">
     <script src="sliderengine/initslider-1.js"></script>
+
+
     <div id="amazingslider-wrapper-1">
         <div id="amazingslider-1">
             <ul class="amazingslider-slides" style="display:none;">
@@ -19,7 +21,7 @@
             <ul class="amazingslider-thumbnails" style="display:none;">
                 @foreach($breaking_news as $br)
                     <li>
-                            <img src="book_image/{{$br->main_image}}" alt="slider-111"  title="{{$br->title}}" />
+                        <img src="book_image/{{$br->main_image}}" alt="slider-111"  title="{{$br->title}}" />
                     </li>
                 @endforeach
             </ul>
@@ -60,7 +62,7 @@
                 @foreach($recommend_book as $r_books)
                 <div class="item item-book item-rec-book">
                     <div class="head-item">
-                        <div class="borrow-button">
+                        <div class="borrow-button" data-id="{{$r_books->id}}" data-author="{{$r_books->author}}" data-name="{{$r_books->name}}" data-image="{{($r_books->image==null) ? "images/convallis-pharetra.jpg": "book_image/".$r_books->image}}">
                             Quan tâm sách
                         </div>
                         <div class="item-book-image">

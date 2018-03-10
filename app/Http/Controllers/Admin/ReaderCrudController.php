@@ -49,6 +49,16 @@ class ReaderCrudController extends CrudController
              ['name'  => 'name', // DB column name (will also be the name of the input)
                  'label' => 'Tên', // the human-readable label for the input
                  'type'  => 'text'],
+             [
+                 'name'        => 'gender', // the name of the db column
+                 'label'       => 'Giới tính', // the input label
+                 'type'        => 'radio',
+                 'options'     => [ // the key will be stored in the db, the value will be shown as label;
+                     "Nam" => "Nam",
+                     "Nữ" => "Nữ"
+                 ],
+                 'inline'      => true, // show the radios all on the same line?
+             ],
              ['name'  => 'school', // DB column name (will also be the name of the input)
                  'label' => 'Trường', // the human-readable label for the input
                  'type'  => 'text'],

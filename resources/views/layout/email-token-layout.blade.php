@@ -6,9 +6,10 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <base href="{{URL::asset("")}}">
+    <link rel="icon" type="image/png" href="images/logo-bait.png"/>
     <script src="js/jquery-3.2.1.min.js"></script>
     <link rel="stylesheet" href="css/email-page.css">
-    <title>Verify</title>
+    <title>{{(isset($title)) ? $title: 'Verify' }}</title>
 </head>
 <body>
 <header class="header-email-token">
@@ -21,6 +22,6 @@
     </div>
     <div></div>
 </header>
-    @yield("mail-signuptoken")
+    @yield("section-body")
 </body>
 </html>

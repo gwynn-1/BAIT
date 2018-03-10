@@ -21,7 +21,25 @@ function sendAjax() {
     });
 }
 
+function UpdateCartContent(data) {
+    $("#cart-items").html(data.view);
+    $(".borrow-box .link-to-borrow span span").html(data.count);
+}
+
+function getCartContent(){
+    $.ajax({
+        url:"checkout/getcontent",
+        type:"GET",
+        data:{},
+        success: function(data){
+            UpdateCartContent(data);
+        }
+    });
+}
+
 $(document).ready(function(){
+    getCartContent();
+
     $('select').niceSelect();
     $(window).scroll(function() {
         if ($(this).scrollTop() >= 50) {        // If page is scrolled more than 50px
@@ -30,6 +48,7 @@ $(document).ready(function(){
             $('.to-the-top').fadeOut(200);   // Else fade out the arrow
         }
     });
+
     $('.to-the-top').click(function() {      // When arrow is clicked
         $('body,html').animate({
             scrollTop : 0                       // Scroll to top of body
@@ -63,8 +82,10 @@ $(document).ready(function(){
     });
 
     $(".borrow-box").mouseover(function(){
-        $(".cart-block").stop();
-        $(".cart-block").slideDown("fast");
+        if($(".cart-item-block").length>0){
+            $(".cart-block").stop();
+            $(".cart-block").slideDown("fast");
+        }
     });
 
     $(".borrow-box").mouseleave(function(){
@@ -137,6 +158,81 @@ $(document).ready(function(){
                $(".captcha-img").html(data)
            }
        });
+    });
+
+    $(document).on("click",".delete-item",function (e) {
+        var rowId = $(this).attr("data-rowid");
+        var current_element = $(this);
+        var count = $(".borrow-box .link-to-borrow span span").html();
+        // alert(parent);
+        // alert(rowId);
+        $.ajax({
+            url:"checkout/deletecart",
+            type:"GET",
+            data:{
+                rowid: rowId
+            },
+            success: function (data) {
+                // alert(data);
+                if(data == "success"){
+                    if($(".cart-item-block").length>1) {
+                        current_element.parents(".cart-item-block").animate({
+                            "height": "0px",
+                            "padding": "0px"
+                        }, 200, function () {
+                            $(".borrow-box .link-to-borrow span span").html(count - 1);
+                            $(this).remove();
+                            $(".cart-block").css("height", "100%");
+                        });
+                    }
+                    else{
+                        $(".borrow-box .link-to-borrow span span").html(count - 1);
+                        current_element.parents(".cart-item-block").remove();
+                        $(".cart-block").css("height", "100%");
+                        $(".cart-block").slideUp("fast");
+                    }
+                }else{
+                    $("#cart-notification .modal-body p").html(data.failed);
+                    $("#cart-notification").modal("show");
+                }
+            }
+        });
+    });
+    
+    $(document).on("click",".borrow-button",function (e) {
+        var id_data = $(this).attr("data-id");
+        var name_data = $(this).attr("data-name");
+        var image_data = $(this).attr("data-image");
+        var author_data = $(this).attr("data-author");
+        $(this).prop("disabled",true);
+        $.ajax({
+            url:"checkout/addcart",
+            type:"GET",
+            data:{
+                id: id_data,
+                name:name_data,
+                image:image_data,
+                author:author_data
+            },
+            success: function(data){
+                if (data.type == "failed") {
+                        $("#cart-notification .modal-body p").html(data.message);
+                        $("#cart-notification").modal("show");
+                } else if (data.type == "success_cartadd") {
+                    if($(".borrow-box").length>0) {
+                        $('body,html').animate({
+                            scrollTop: 0                       // Scroll to top of body
+                        }, 500);
+                        UpdateCartContent(data);
+                    }
+                    if($(".cart-available").length>0){
+                        location.href = "checkout/cart";
+                    }
+                }
+            }
+        }).done(function(data){
+            $(this).prop("disabled",false);
+        });
     });
 });
 

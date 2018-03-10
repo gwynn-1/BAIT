@@ -2,6 +2,7 @@
     <section>
         <link rel="stylesheet" href="css/category.css"/>
         <link rel="stylesheet" href="css/pretty-checkbox.css"/>
+        <?php echo $__env->make('layout.cart-notification', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
         <div class="main-section-body">
             <div class="content-title">
                 <a href="/">Home</a>
@@ -15,7 +16,7 @@
                     </div>
                     <div class="category-menu">
                         <ul>
-                            <?php $__currentLoopData = $book_type; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $bt): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <?php $__currentLoopData = $data['book_type']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $bt): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <?php if($bt->name == $current_category[0]->name): ?>
                                     <li><a class="current-category" href="category/<?php echo e($bt->type_url); ?>"><?php echo e($bt->name); ?></a></li>
                                 <?php else: ?>

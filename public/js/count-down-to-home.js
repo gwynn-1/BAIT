@@ -1,4 +1,4 @@
-var second = 6;
+var second = 10;
 
 $(document).ready(function () {
     countDowntoHome();

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Backpack\CRUD\CrudTrait;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\ImageManagerStatic as Image;
+use App\API\URLCreator;
 
 class Book extends Model
 {
@@ -42,35 +43,155 @@ class Book extends Model
         });
     }
 
-     function VN_to_URLstring($string){
-         $array = ["a"=>["à","á","ả","ã","ạ","ă","ằ","ắ","ẳ","ẵ","ặ","â","ầ","ấ","ẩ","ẫ","ậ","A","À","Á","Ả","Ã","Ạ","Ặ","Ằ","Ắ","Ẳ","Ẵ","Ặ","Ậ","Ầ","Ấ","Ẩ","Ẫ","Ậ"],
-                   "e"=>["ê","ề","ế","ể","ễ","ệ","è","é","ẻ","ẽ","ẹ","E","Ê","Ề","Ế","Ể","Ễ","Ệ","È","É","Ẻ","Ẽ","Ẹ"],
-                   "o"=>["ò","ó","ỏ","õ","ọ","ồ","ố","ổ","ỗ","ô","ộ","ơ","ờ","ớ","ở","ỡ","ợ","O","Ò","Ó","Ỏ","Õ","Ọ","Ồ","Ố","Ổ","Ỗ","Ô","Ộ","Ơ","Ờ","Ớ","Ở","Ỡ","Ợ"],
-                   "u"=>["ù","ú","ủ","ũ","ụ","ư","ừ","ứ","ử","ữ","ự","U","Ù","Ú","Ủ","Ũ","Ụ","Ự","Ừ","Ứ","Ử","Ữ","Ự"],
-                   "i"=>["ì","í","ỉ","ĩ","ị","Ì","Í","Ỉ","Ĩ","Ị","I"],
-                   "d"=>["đ","Đ"],
-                   "y"=>["ỳ","ý","ỷ","ỹ","ỵ","Ỳ","Ý","Ỷ","Ỹ","Ỵ","Y"],
-         ];
+//     function VN_to_URLstring($string){
+//         $array = ["a"=>["à","á","ả","ã","ạ","ă","ằ","ắ","ẳ","ẵ","ặ","â","ầ","ấ","ẩ","ẫ","ậ","A","À","Á","Ả","Ã","Ạ","Ặ","Ằ","Ắ","Ẳ","Ẵ","Ặ","Ậ","Ầ","Ấ","Ẩ","Ẫ","Ậ"],
+//                   "e"=>["ê","ề","ế","ể","ễ","ệ","è","é","ẻ","ẽ","ẹ","E","Ê","Ề","Ế","Ể","Ễ","Ệ","È","É","Ẻ","Ẽ","Ẹ"],
+//                   "o"=>["ò","ó","ỏ","õ","ọ","ồ","ố","ổ","ỗ","ô","ộ","ơ","ờ","ớ","ở","ỡ","ợ","O","Ò","Ó","Ỏ","Õ","Ọ","Ồ","Ố","Ổ","Ỗ","Ô","Ộ","Ơ","Ờ","Ớ","Ở","Ỡ","Ợ"],
+//                   "u"=>["ù","ú","ủ","ũ","ụ","ư","ừ","ứ","ử","ữ","ự","U","Ù","Ú","Ủ","Ũ","Ụ","Ự","Ừ","Ứ","Ử","Ữ","Ự"],
+//                   "i"=>["ì","í","ỉ","ĩ","ị","Ì","Í","Ỉ","Ĩ","Ị","I"],
+//                   "d"=>["đ","Đ"],
+//                   "y"=>["ỳ","ý","ỷ","ỹ","ỵ","Ỳ","Ý","Ỷ","Ỹ","Ỵ","Y"],
+//         ];
+//
+//         foreach ($array as $nounicode=>$unicode){
+//             $string = str_replace($unicode,$nounicode,$string);
+//         }
+//         $string = str_replace(" ","-",$string);
+//         return $string;
+//     }
+//
+//     function htaccess_String($str){
+//         $str = trim($str);
+//         $str = str_replace("@","",$str);
+//         $str = str_replace("%","",$str);
+//         $str = str_replace("$","",$str);
+//         $str = str_replace("?","",$str);
+//         $str = str_replace("/","",$str);
+//         $str = str_replace("#","",$str);
+//
+//         $str = $this->VN_to_URLstring($str);
+//         $str = strtolower($str);
+//         return $str;
+//     }
 
-         foreach ($array as $nounicode=>$unicode){
-             $string = str_replace($unicode,$nounicode,$string);
-         }
-         $string = str_replace(" ","-",$string);
-         return $string;
+     public static function isBookExists($id){
+        $result = self::where("id",$id)->count();
+        if($result>0)
+            return true;
+        else
+            return false;
      }
 
-     function htaccess_String($str){
-         $str = trim($str);
-         $str = str_replace("@","",$str);
-         $str = str_replace("%","",$str);
-         $str = str_replace("$","",$str);
-         $str = str_replace("?","",$str);
-         $str = str_replace("/","",$str);
-         $str = str_replace("#","",$str);
+     public function BookPaginator($page){
+        return self::select("id","name","author","image","available","url_book")->paginate($page);
+     }
 
-         $str = $this->VN_to_URLstring($str);
-         $str = strtolower($str);
-         return $str;
+     public function getRecommendBook($id_avoid = null,$limit = 0){
+        if($id_avoid == null && $limit == 0)
+            return self::select("id","name","author","image","available","url_book")
+                        ->where("recommend_book","1")->get();
+        else
+            return self::select("id","name","author","image","available","url_book")
+                        ->where("recommend_book","1")
+                        ->where("id","<>",$id_avoid)
+                        ->limit($limit)->get();
+     }
+
+     public function searchBookAll($input,$isajax){
+        if($isajax==true) {
+            return self::select("id", "name", "url_book")
+                ->where("name", "like", '%' . $input . '%')
+                ->limit(10)->get();
+        }
+        else{
+            return self::select("id","name","author","image","available","url_book")
+                ->where("name", "like", '%' . $input . '%')
+                ->get();
+        }
+     }
+
+     public function searchBookByIdType($idtype,$input,$isajax){
+        if($isajax==true) {
+            return self::select("id", "name", "url_book")
+                ->where("id_type", $idtype)
+                ->where("name", "like", '%' . $input . '%')
+                ->limit(10)->get();
+        }
+        else{
+            return self::select("id","name","image","author","available","url_book")
+                ->where("id_type", $idtype)
+                ->where("name", "like", '%' . $input . '%')
+                ->get();
+        }
+     }
+
+     public function getBookById($id,$url){
+        return self::select("id","name","detail","author","image","available","id_type")
+                    ->where("id",$id)
+                    ->where("url_book",$url)->first();
+     }
+
+     public function getBookSameCategoryWithLimit($id_type,$id_avoid,$limit){
+        return self::select("id","name","author","image","available","url_book")
+                    ->where("id_type",$id_type)
+                    ->where("id","<>",$id_avoid)
+                    ->limit($limit)->get();
+     }
+
+     public function getBookCategory($id,$url){
+        return self::join("book_type","books.id_type","=","book_type.id")
+                    ->select("book_type.name","book_type.type_url")
+                    ->where("books.id",$id)
+                    ->where("books.url_book",$url)->first();
+     }
+
+     public function getBooksSameCategoryPaginatorByUrl($url,$page){
+        return self::with("Book_type")
+                    ->join("book_type","book_type.id","=","books.id_type")
+                    ->select("books.name","books.author", "books.id", "books.available", "books.image", "books.url_book")
+                    ->where("book_type.type_url",$url)
+                    ->paginate($page);
+     }
+
+     public function getBooksSameCategoryByTextSearch($url,$page,$input){
+        return self::with("Book_type")
+                    ->join("book_type","book_type.id","=","books.id_type")
+                    ->select("books.name","books.author", "books.id", "books.available", "books.image", "books.url_book")
+                    ->where("book_type.type_url", $url)
+                    ->where("books.name", "like", '%' . $input . '%')
+                    ->paginate($page);
+     }
+
+     public function getBooksSameCategoryByRadioSearch($url,$page,$input){
+        switch ($input){
+            case "recommend":
+                return self::with("Book_type")
+                    ->join("book_type","book_type.id","=","books.id_type")
+                    ->select("books.name", "books.id", "books.available", "books.image", "books.url_book")
+                    ->where("book_type.type_url", $url)
+                    ->where("books.recommend_book", "1")
+                    ->paginate($page);
+            case "available":
+                return self::with("Book_type")
+                    ->join("book_type","book_type.id","=","books.id_type")
+                    ->select("books.name","books.author", "books.id", "books.available", "books.image", "books.url_book")
+                    ->where("book_type.type_url", $url)
+                    ->where("books.available", ">", "0")
+                    ->paginate($page);
+            case "favorite":
+                return self::with("Book_type")
+                    ->join("book_type","book_type.id","=","books.id_type")
+                    ->select("books.name","books.author", "books.id", "books.available", "books.image", "books.url_book")
+                    ->where("book_type.type_url", $url)
+                    ->whereRaw('books.available<=books.total/2')
+                    ->paginate($page);
+            default:
+                return self::with("Book_type")
+                    ->join("book_type","book_type.id","=","books.id_type")
+                    ->select("books.name","books.author", "books.id", "books.available", "books.image", "books.url_book")
+                    ->where("book_type.type_url", $url)
+                    ->paginate($page);
+        }
      }
 
     /*
@@ -125,7 +246,7 @@ class Book extends Model
             // 0. Make the image
             $image = Image::make($value);
             // 1. Generate a filename.
-            $readablename = $this->htaccess_String($this->attributes["name"]);
+            $readablename = URLCreator::htaccess_String("","",$this->attributes["name"],"update");
             $filename = $readablename.'-'.time().'.jpg';
             // 2. Store the image on disk.
             Storage::disk($disk)->put($destination_path.'/'.$filename, $image->stream());

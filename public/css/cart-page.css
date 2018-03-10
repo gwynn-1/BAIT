@@ -1,0 +1,160 @@
+.user-info-section{
+    width: 100%;
+    border-radius: 10px;
+    border: 1px solid #444444;
+    padding: 15px;
+}
+
+.user-info-section .title-user{
+    border-bottom: 2px solid #308C01;
+    color: #308C01;
+    font-size: 34px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.title-cart-page{
+    font-family: Arimo;
+    margin: 0;
+    padding: 5px;
+}
+
+.info-user{
+    display: block;
+    width: 100%;
+    padding:15px 5px;
+}
+
+.info-section{
+    display: inline-block;
+    width: 100%;
+    height: auto;
+}
+
+.info-section .field-section{
+    float: left;
+    width: 20%;
+    font-size: 16px;
+    font-family: Arimo;
+    font-weight: bold;
+}
+
+.info-section .field-content-section{
+    float: right;
+    width: 80%;
+    font-size: 14px;
+    font-family: Arimo;
+}
+
+.cart-info-section{
+    margin: 20px 0;
+    width: 100%;
+    border-radius: 10px;
+    border: 1px solid #444444;
+    padding: 15px;
+    display: inline-block;
+}
+
+.cart-info-section .title-cart{
+    text-transform: uppercase;
+    color: #3c3c3c;
+    padding-left: 25px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.cart-item{
+    padding: 7px;
+    display: inline-block;
+    width: 100%;
+    margin-top: 15px;
+    border-bottom: 1px solid #434343;
+}
+
+.cart-item:last-child{
+    border-bottom: none;
+}
+
+.cart-item .image-cart{
+    display: block;
+    float: left;
+}
+
+.cart-item .cart-info{
+    display: block;
+    padding-left: 15px;
+    overflow: auto;
+}
+
+.cart-info .book-name p{
+    font-size: 20px;
+    font-family: Arimo;
+    color: #308C01;
+}
+
+.book-section{
+    display: inline-block;
+    width: 100%;
+}
+
+.book-section .book-author{
+    float: left;
+}
+
+.book-section .delete-button i{
+    z-index: 100;
+    display: block;
+}
+
+.book-section .delete-button{
+    float: right;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 20px;
+    border: 1px solid #b4b4b4;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+}
+
+.book-section .delete-button:hover{
+    background-color: #308C01;
+}
+
+.image-cart img{
+    width: 180px;
+    height: 200px;
+}
+
+.cart-upload-button{
+    width: 150px;
+    height: 50px;
+    margin: auto;
+    background-color: #308C01;
+    border-radius: 25px;
+    text-align: center;
+    padding-top: 12px;
+    cursor: pointer;
+}
+
+.cart-upload-button:hover{
+    background-color: #333333;
+    -webkit-transition: background-color 300ms linear;
+    -ms-transition: background-color 300ms linear;
+    transition: background-color 300ms linear;
+}
+
+.cart-upload-button span{
+    color: white;
+
+    width: 100%;
+    font-size: 16px;
+}
+
+.empty-cart{
+    text-align: center;
+    font-size: 40px;
+    color: #308C01;
+    font-family: Arimo;
+    margin-bottom: 25px;
+}

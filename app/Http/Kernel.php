@@ -51,7 +51,8 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-        'readers' => \App\Http\Middleware\RedirectIfNotReader::class,
+        'readers' => \App\Http\Middleware\RedirectIfReader::class,
+        'not-reader'=> \App\Http\Middleware\RedirectIfNotReader::class,
         'auth' => \Illuminate\Auth\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,

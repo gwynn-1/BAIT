@@ -4,6 +4,7 @@
     <section>
         <script src="js/ap-product.js"></script>
         <link rel="stylesheet" href="css/product.css">
+        @include('layout.cart-notification')
         <div class="body-content">
             <div class="content-title">
                 <a href="/">Home</a>
@@ -27,7 +28,7 @@
                     <div class="book-author">
                         <p>{{$books_info->author}}</p>
                     </div>
-                    <div class="borrow-big-button">
+                    <div class="borrow-big-button" data-id="{{$books_info->id}}" data-author="{{$books_info->author}}" data-name="{{$books_info->name}}" data-image="{{($books_info->image==null) ? "images/convallis-pharetra.jpg": $books_info->image}}">
                         Quan tâm sách
                     </div>
                 </div>
@@ -46,9 +47,9 @@
                     </div>
                     <div class="owl-carousel owl-theme owl-carousel-book">
                         @foreach($same_books as $book)
-                        <div class="item item-book">
+                        <div class="item item-book item-book-product item-rec-book">
                             <div class="head-item">
-                                <div class="borrow-button">
+                                <div class="borrow-button" data-id="{{$book->id}}" data-author="{{$book->author}}" data-name="{{$book->name}}" data-image="{{($book->image==null) ? "images/convallis-pharetra.jpg": "book_image/".$book->image}}">
                                     Quan tâm sách
                                 </div>
                                 <div class="item-book-image">

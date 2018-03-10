@@ -19,7 +19,7 @@ class Reader extends Model
     protected $primaryKey = 'id';
      public $timestamps = true;
     // protected $guarded = ['id'];
-     protected $fillable = ['id','mssv','username','name','school','email','sdt','facebook','password'];
+     protected $fillable = ['id','mssv','username','name','gender','school','email','sdt','facebook','password'];
     // protected $hidden = [];
     // protected $dates = [];
 
@@ -28,6 +28,13 @@ class Reader extends Model
     | FUNCTIONS
     |--------------------------------------------------------------------------
     */
+
+    public static function isReaderToken($username_reader){
+        return (self::join("reader_emailtoken","reader_emailtoken.id_reader","=","readers.id")
+                    ->select("is_token")
+                    ->where("readers.username",$username_reader)
+                    ->first())->is_token;
+    }
 
     /*
     |--------------------------------------------------------------------------

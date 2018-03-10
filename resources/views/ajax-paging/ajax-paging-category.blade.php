@@ -3,7 +3,7 @@
         <div class="col-sm-4 item-book-col">
             <div class="item-book item-all-book">
                 <div class="head-item">
-                    <div class="borrow-button">
+                    <div class="borrow-button" data-id="{{$book->id}}" data-name="{{$book->name}}" data-author="{{$book->author}}" data-image="{{($book->image==null) ? "images/convallis-pharetra.jpg": "book_image/".$book->image}}">
                         Quan tâm sách
                     </div>
                     <div class="item-book-image">

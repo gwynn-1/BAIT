@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
+use App\Models\Reader;
 
 class LoginController extends Controller
 {
@@ -22,7 +23,9 @@ class LoginController extends Controller
     |
     */
 
-    use AuthenticatesUsers;
+    use AuthenticatesUsers {
+        login as protected origin_login;
+    }
 
     /**
      * Where to redirect users after login.
@@ -62,6 +65,16 @@ class LoginController extends Controller
         throw ValidationException::withMessages([
             "login_failed" => [trans('auth.failed')],
         ]);
+    }
+
+    public function login(Request $request)
+    {
+        if( Reader::isReaderToken( $request->input($this->username())) == 0){
+            throw ValidationException::withMessages([
+                "login_failed" => "Bạn chưa kích hoạt tài khoản, kiểm tra email để kich hoạt.",
+            ]);
+        }
+        return $this->origin_login($request);
     }
 
     protected function validateLogin(Request $request)

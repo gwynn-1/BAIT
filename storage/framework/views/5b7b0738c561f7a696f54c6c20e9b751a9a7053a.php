@@ -2,6 +2,7 @@
     <section>
         <script src="js/ap-product.js"></script>
         <link rel="stylesheet" href="css/product.css">
+        <?php echo $__env->make('layout.cart-notification', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
         <div class="body-content">
             <div class="content-title">
                 <a href="/">Home</a>
@@ -25,7 +26,7 @@
                     <div class="book-author">
                         <p><?php echo e($books_info->author); ?></p>
                     </div>
-                    <div class="borrow-big-button">
+                    <div class="borrow-big-button" data-id="<?php echo e($books_info->id); ?>" data-author="<?php echo e($books_info->author); ?>" data-name="<?php echo e($books_info->name); ?>" data-image="<?php echo e(($books_info->image==null) ? "images/convallis-pharetra.jpg": $books_info->image); ?>">
                         Quan tâm sách
                     </div>
                 </div>
@@ -45,9 +46,9 @@
                     </div>
                     <div class="owl-carousel owl-theme owl-carousel-book">
                         <?php $__currentLoopData = $same_books; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $book): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                        <div class="item item-book">
+                        <div class="item item-book item-book-product item-rec-book">
                             <div class="head-item">
-                                <div class="borrow-button">
+                                <div class="borrow-button" data-id="<?php echo e($book->id); ?>" data-author="<?php echo e($book->author); ?>" data-name="<?php echo e($book->name); ?>" data-image="<?php echo e(($book->image==null) ? "images/convallis-pharetra.jpg": "book_image/".$book->image); ?>">
                                     Quan tâm sách
                                 </div>
                                 <div class="item-book-image">

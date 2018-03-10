@@ -31,6 +31,9 @@ class Borrow_detail extends Model
     |--------------------------------------------------------------------------
     */
 
+    public function countBorrowDetail($id_reader){
+        return self::where("id_reader",$id_reader)->count();
+    }
 
     /*
     |--------------------------------------------------------------------------

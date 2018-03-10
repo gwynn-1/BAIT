@@ -110,7 +110,7 @@ class RegisterController extends Controller
         if($token_email ==null || $tokendate+86400<$now){
             return view("errors.404");
         }
-        if($token_email->is_token = 1){
+        if($token_email->is_token == 1){
             $is_token = 1;
             return view("mail-signuptoken",["is_token"=>$is_token]);
         }
@@ -139,6 +139,7 @@ class RegisterController extends Controller
                 'username' => $data['readername'],
                 'name'=>$data['name'],
                 'email' => $data['email'],
+                'gender'=>$data["gender"],
                 'password' => bcrypt($data['password']),
                 'mssv'=>$data["mssv"],
                 "school"=>$data["school"],
@@ -155,7 +156,7 @@ class RegisterController extends Controller
 
             DB::commit();
 
-            Mail::to($data['email'])->send(new ReaderRegisterTokenEmail($token,strtotime($token_date)));
+            Mail::to($data['email'])->queue(new ReaderRegisterTokenEmail($token,strtotime($token_date)));
             return true;
         }catch (\Exception $e){
             return false;

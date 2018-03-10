@@ -30,11 +30,20 @@ Route::group(['prefix'=>'signup'],function (){
     Route::post('/','Auth\RegisterController@register');
 });
 
-Route::post("login","Auth\LoginController@login");
+Route::post("login",[
+    'as'=>'login',
+    'uses'=>"Auth\LoginController@login"
+]);
 
-Route::post("logout","Auth\LoginController@logout");
+Route::post("logout",[
+    'as'=>'logout',
+    'uses'=>"Auth\LoginController@logout"
+]);
 
-Route::get("/registration/{token}/{tokendate}","Auth\RegisterController@confirmSignup");
+Route::get("/registration/{token}/{tokendate}",[
+    'as'=>'/registration/{token}/{tokendate}',
+    'uses'=>"Auth\RegisterController@confirmSignup"
+]);
 
 Route::get('/bn/{id}/{url}',[
     'as'=>'/bn/{id}/{url}',
@@ -42,19 +51,56 @@ Route::get('/bn/{id}/{url}',[
 ]);
 
 Route::get('/blognews',[
-    'as'=>'/blognews',
+    'as'=>'blognews',
     'uses'=>'BlogNewsController@indexblog'
 ]);
 
 Route::post('/blognews',[
-    'as'=>'/blognews',
+    'as'=>'blognews',
     'uses'=>'BlogNewsController@indexPostBlog'
 ]);
 
+Route::get('contact',[
+    'as'=>'contact',
+    'uses'=>'ContactController@index'
+]);
+
 Route::get('/search-ajax',[
-    'as'=>'/search-ajax',
+    'as'=>'search-ajax',
     'uses'=>'SearchController@searchAjax'
 ]);
+
+Route::get('search',[
+    'as'=>'search',
+    'uses'=>'SearchController@index'
+]);
+
+Route::group(['prefix'=>'checkout','middleware'=>'not-reader'],function (){
+    Route::get("addcart",[
+        "as"=>"addcart",
+        "uses"=>"CheckoutController@addCart"
+    ]);
+
+    Route::get("getcontent",[
+        'as'=>"getcontent",
+        'uses'=>'CheckoutController@viewCartContent'
+    ]);
+
+    Route::get("deletecart",[
+        "as"=>"deletecart",
+        "uses"=>"CheckoutController@deleteCart"
+    ]);
+
+    Route::get("acceptcart",[
+        "as"=>"acceptcart",
+        "uses"=>"CheckoutController@acceptCartToDB"
+    ]);
+
+    Route::get("cart",[
+        "as"=>"cart",
+        "uses"=>"CheckoutController@index"
+    ]);
+});
 
 Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
     // your CRUD resources and other admin routes here
