@@ -30,10 +30,15 @@ class Reader extends Model
     */
 
     public static function isReaderToken($username_reader){
-        return (self::join("reader_emailtoken","reader_emailtoken.id_reader","=","readers.id")
-                    ->select("is_token")
-                    ->where("readers.username",$username_reader)
-                    ->first())->is_token;
+        try{
+            return (self::join("reader_emailtoken","reader_emailtoken.id_reader","=","readers.id")
+                ->select("is_token")
+                ->where("readers.username",$username_reader)
+                ->first())->is_token;
+        }catch (\Exception $e){
+            return 1;
+        }
+
     }
 
     /*

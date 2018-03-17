@@ -60,10 +60,22 @@ Route::post('/blognews',[
     'uses'=>'BlogNewsController@indexPostBlog'
 ]);
 
-Route::get('contact',[
-    'as'=>'contact',
-    'uses'=>'ContactController@index'
-]);
+//Route::get('contact',[
+//    'as'=>'contact',
+//    'uses'=>'ContactController@index'
+//]);
+
+Route::group(['prefix'=>'contact'],function (){
+    Route::get("/",[
+        'as'=>'contact',
+        'uses'=>'ContactController@index'
+    ]);
+
+    Route::post("/send",[
+        "as"=>'contact.send',
+        'uses'=>'ContactController@sendEmailFromUser'
+    ]);
+});
 
 Route::get('/search-ajax',[
     'as'=>'search-ajax',
@@ -77,32 +89,32 @@ Route::get('search',[
 
 Route::group(['prefix'=>'checkout','middleware'=>'not-reader'],function (){
     Route::get("addcart",[
-        "as"=>"addcart",
+        "as"=>"checkout.addcart",
         "uses"=>"CheckoutController@addCart"
     ]);
 
     Route::get("getcontent",[
-        'as'=>"getcontent",
+        'as'=>"checkout.getcontent",
         'uses'=>'CheckoutController@viewCartContent'
     ]);
 
     Route::get("deletecart",[
-        "as"=>"deletecart",
+        "as"=>"checkout.deletecart",
         "uses"=>"CheckoutController@deleteCart"
     ]);
 
     Route::get("acceptcart",[
-        "as"=>"acceptcart",
+        "as"=>"checkout.acceptcart",
         "uses"=>"CheckoutController@acceptCartToDB"
     ]);
 
     Route::get("cart",[
-        "as"=>"cart",
+        "as"=>"checkout.cart",
         "uses"=>"CheckoutController@index"
     ]);
 });
 
-Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
+Route::group(['prefix' => 'adminer/bait', 'middleware' => 'admin'], function() {
     // your CRUD resources and other admin routes here
     Route::get("/dashboard","Admin\DashboardController@loadViewAction");
     Route::post("/borrow_detail/update","Admin\Borrow_detailCrudController@updateByAjax");

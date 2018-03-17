@@ -109,7 +109,7 @@ class BookCrudController extends CrudController
                  'type'  => 'text'],
              ['name'  => 'image', // DB column name (will also be the name of the input)
                  'label' => 'Hình ảnh', // the human-readable label for the input
-                 'type'  => 'image',
+                 'type'  => 'my-image',
                  'prefix'=>'book_image/',
                  'width'=>'100px',
                  'height'=>'150px'],

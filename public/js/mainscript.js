@@ -192,8 +192,10 @@ $(document).ready(function(){
                         $(".cart-block").slideUp("fast");
                     }
                 }else{
-                    $("#cart-notification .modal-body p").html(data.failed);
-                    $("#cart-notification").modal("show");
+                    swal({
+                        text : data.failed,
+                        icon : "error"
+                    });
                 }
             }
         });
@@ -216,8 +218,10 @@ $(document).ready(function(){
             },
             success: function(data){
                 if (data.type == "failed") {
-                        $("#cart-notification .modal-body p").html(data.message);
-                        $("#cart-notification").modal("show");
+                    swal({
+                        text : data.message,
+                        icon : "error"
+                    });
                 } else if (data.type == "success_cartadd") {
                     if($(".borrow-box").length>0) {
                         $('body,html').animate({

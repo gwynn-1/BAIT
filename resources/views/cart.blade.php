@@ -5,20 +5,14 @@
         <link rel="stylesheet" href="css/cart-page.css">
         <script src="js/cart.js"></script>
         @if(session()->has("accept_cart_failed"))
-            <div id="cart-accept-fail" class="modal fade" role="dialog">
-                <div class="modal-dialog">
-                    <!-- Modal content-->
-                    <div class="modal-content">
-                        <div class="modal-body">
-                            <p style="text-align: center;color: red; font-weight: bold">{!! session("accept_cart_failed") !!}</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <script>
                 $(document).ready(function () {
-                    $("#cart-accept-fail").modal("show");
+                    swal({
+                        text : "{{session("accept_cart_failed")}}",
+                        icon : "error"
+                    });
                 });
+
             </script>
         @endif
         <div class="body-content">

@@ -20,10 +20,10 @@
         <div class="menu-main">
             <nav>
                 <ul>
-                    <li><a href="/">Trang chủ</a></li>
+                    <li><a href="<?php echo e(url("/")); ?>">Trang chủ</a></li>
                     <li><a href="#">Về chúng tôi</a></li>
-                    <li><a href="/contact">Liên hệ</a></li>
-                    <li><a href="/blognews">Blog & Tin tức</a></li>
+                    <li><a href="<?php echo e(url('contact')); ?>">Liên hệ</a></li>
+                    <li><a href="<?php echo e(url('blognews')); ?>">Blog & Tin tức</a></li>
                 </ul>
             </nav>
         </div>

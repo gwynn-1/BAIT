@@ -315,6 +315,7 @@ body,html{
     height: 25px;
     background-color: #308C01;
     border-radius: 10px;
+    text-decoration: none;
     color: white;
     margin: 5px 8px;
     cursor: pointer;
@@ -325,11 +326,50 @@ body,html{
     border: none;
 }
 
+.login-signup-button p{
+    padding-top: 5px;
+}
+
 .login-signup-button:hover{
+    text-decoration: none;
+    color: white;
     background-color: #333333;
     -webkit-transition: background-color 200ms linear;
     -ms-transition: background-color 200ms linear;
     transition: background-color 200ms linear;
+}
+
+
+.modal-body-login{
+    margin:0 100px;
+}
+
+.modal-body form{
+    margin-top: 50px;
+}
+
+.modal-header{
+    text-align: center;
+}
+
+.close-form-login-signup{
+    width: 52px;
+    height: 52px;
+    border-radius: 30px;
+    background: url("/images/cancel.png") no-repeat;
+    background-position: center;
+    border: 1px solid #308C01;
+    margin: auto;
+    transition: 0.3s;
+    -moz-transition: 0.3s;
+    -webkit-transition: 0.3s;
+}
+
+.close-form-login-signup:hover{
+    transform: rotate(90deg);
+    -ms-transform: rotate(90deg); /* IE 9 */
+    -webkit-transform: rotate(90deg); /* Safari */
+    -moz-transform: rotate(90deg);
 }
 
 .header-content{
@@ -838,6 +878,7 @@ body,html{
  .modal-title{
      font-size: 24px;
      color: #308C01;
+     text-align: center;
      font-weight: bold;
  }
 

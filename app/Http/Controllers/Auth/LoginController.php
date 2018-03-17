@@ -23,9 +23,10 @@ class LoginController extends Controller
     |
     */
 
-    use AuthenticatesUsers {
-        login as protected origin_login;
-    }
+    use AuthenticatesUsers;
+//    {
+//        login as protected origin_login;
+//    }
 
     /**
      * Where to redirect users after login.
@@ -67,14 +68,39 @@ class LoginController extends Controller
         ]);
     }
 
-    public function login(Request $request)
-    {
+    public function checkToken(Request $request){
         if( Reader::isReaderToken( $request->input($this->username())) == 0){
             throw ValidationException::withMessages([
                 "login_failed" => "Bạn chưa kích hoạt tài khoản, kiểm tra email để kich hoạt.",
             ]);
         }
-        return $this->origin_login($request);
+    }
+
+    public function login(Request $request)
+    {
+        $validator = $this->validateLogin($request);
+        if($validator->fails()){
+            return redirect($this->redirectTo)->withErrors($validator, 'login_validate');
+        }
+
+        $this->checkToken($request);
+
+        if ($this->hasTooManyLoginAttempts($request)) {
+            $this->fireLockoutEvent($request);
+
+            return $this->sendLockoutResponse($request);
+        }
+
+        if ($this->attemptLogin($request)) {
+            return $this->sendLoginResponse($request);
+        }
+
+        // If the login attempt was unsuccessful we will increment the number of attempts
+        // to login and redirect the user back to the login form. Of course, when this
+        // user surpasses their maximum number of attempts they will get locked out.
+        $this->incrementLoginAttempts($request);
+
+        return $this->sendFailedLoginResponse($request);
     }
 
     protected function validateLogin(Request $request)

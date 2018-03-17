@@ -14,29 +14,49 @@
         </div>
     </div>
     @else
-    <div class="login-signup container">
-            <button type="button" class="login-signup-button" data-toggle="modal" data-target="#modallogin">
-                Login
-            </button>
 
-            <div id="modallogin" class="modal fade" role="dialog">
-                <div class="modal-dialog modal-md">
-                    <!-- Modal content-->
-                    <div class="modal-content">
+        <script>
+            $(document).ready(function () {
+                $("#login-button").animatedModal({
+                    modalTarget:"modallogin",
+                    color:"#d6d6d6",
+                    animatedIn:"lightSpeedIn",
+                    animatedOut:"lightSpeedOut"
+                });
+                $("#btnsignup").animatedModal({
+                    modalTarget:"modalsignup",
+                    color:"#d6d6d6",
+                    animatedIn:"bounceInUp",
+                    animatedOut:"bounceOutDown"
+                });
+            });
+        </script>
+        {{--<div id="runningCodeExample" style="border: 1px solid skyblue; padding: 15px; width: 300px;">--}}
+            {{--<a href="#" onclick="gigya.accounts.showScreenSet({screenSet:'Default-RegistrationLogin'});">Login</a>&nbsp;&nbsp;|&nbsp;&nbsp;--}}
+            {{--<a href="#" onclick="gigya.accounts.showScreenSet({screenSet:'Default-RegistrationLogin', startScreen:'gigya-register-screen'});">Register</a>--}}
+        {{--</div>--}}
+
+    <div class="login-signup container">
+            <a href="#modallogin" id="login-button" class="login-signup-button">
+                <p>Login</p>
+            </a>
+
+            <div id="modallogin" class="animated modallogin-off fade">
+                    <div class="modal-container">
                         <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Đăng nhập ngay</h4>
+                            <button class="close-modallogin close-form-login-signup" type="button"></button>
                         </div>
-                        <div class="modal-body">
-                            @if ($errors->any()&&$errors->has("login_failed"))
+                        <div class="modal-body modal-body-login">
+                            <h4 class="modal-title">Đăng nhập ngay</h4>
+                            @if ($errors->login_validate->any() || $errors->has("login_failed"))
                                 <script>
                                     $(document).ready(function () {
-                                        $("#modallogin").modal('show');
+                                        $("#login-button").click();
                                     });
                                 </script>
                                 <div class="alert alert-danger">
                                     <ul>
-                                        @foreach ($errors->all() as $error)
+                                        @foreach ($errors->login_validate->all() as $error)
                                             <li>{{ $error }}</li>
                                         @endforeach
                                     </ul>
@@ -61,33 +81,31 @@
                                 </div>
 
                             </form>
-                        </div>
                     </div>
 
                 </div>
             </div>
-            <button type="button" id="btnsignup" class="login-signup-button" data-toggle="modal" data-target="#modalsignup">
-                Sign up
-            </button>
+            <a id="btnsignup" href="#modalsignup" class="login-signup-button">
+                <p>Sign up</p>
+            </a>
 
-            <div id="modalsignup" class="modal fade" role="dialog">
-                <div class="modal-dialog modal-md">
+            <div id="modalsignup" class="animated modalsignup-off fade">
                     <!-- Modal content-->
-                    <div class="modal-content">
+                    <div class="modal-container">
                         <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Đăng ký ngay</h4>
+                            <button type="button" class="close-modalsignup close-form-login-signup"></button>
                         </div>
-                        <div class="modal-body">
-                            @if ($errors->any() && !$errors->has("login_failed"))
+                        <div class="modal-body modal-body-login">
+                            <h4 class="modal-title">Đăng ký ngay</h4>
+                            @if ($errors->signup_validate->any() && !$errors->has("login_failed"))
                                 <script>
                                     $(document).ready(function () {
-                                        $("#modalsignup").modal('show');
+                                        $("#btnsignup").click();
                                     });
                                 </script>
                                 <div class="alert alert-danger">
                                     <ul>
-                                        @foreach ($errors->all() as $error)
+                                        @foreach ($errors->signup_validate->all() as $error)
                                             <li>{{ $error }}</li>
                                         @endforeach
                                     </ul>
@@ -195,8 +213,6 @@
                             </form>
                         </div>
                     </div>
-
-                </div>
             </div>
             @if(session()->has("register_status"))
                 <script>
@@ -235,5 +251,7 @@
                 </div>
             @endif
         </div>
+    <script src="js/animatedModal.min.js"></script>
     @endif
+
 </div>

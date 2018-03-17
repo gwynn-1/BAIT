@@ -1,7 +1,7 @@
 <?php $__env->startSection('section-body'); ?>
     <section>
         <link rel="stylesheet" href="css/category.css"/>
-        <link rel="stylesheet" href="css/pretty-checkbox.css"/>
+
         <?php echo $__env->make('layout.cart-notification', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
         <div class="main-section-body">
             <div class="content-title">

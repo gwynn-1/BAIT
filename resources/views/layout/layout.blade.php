@@ -13,6 +13,7 @@
     <script src="js/jquery-ui.min.js"></script>
     <link rel="stylesheet" href="css/jquery-ui.min.css">
     <script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+    <script src="js/sweetalert.min.js"></script>
     <link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="owl-carousel/assets/owl.carousel.min.css">
@@ -21,8 +22,11 @@
     <link rel="stylesheet" href="css/nice-select.css">
     <link id="mainlayout" rel="stylesheet" href="css/layout.css">
     <link rel="stylesheet" href="css/pretty-checkbox.css"/>
+    <link rel="stylesheet" href="css/animate.min.css"/>
     <script src="js/mainscript.js" type="text/javascript"></script>
     <script src="owl-carousel/owl.carousel.min.js"></script>
+    <!-- gigya.js script should only be included once -->
+    {{--<script type="text/javascript" src="http://cdn.us1.gigya.com/js/gigya.js?apiKey=3_ldSa7q5M2vfB5CEOdcWHWOreWAPvjv0BvEJ2BdmaJiI5L6lG6voSd-2JO2dVUAAR"></script>--}}
     <title>{{$title}}</title>
 </head>
 <body>
@@ -34,7 +38,7 @@
     <header id="main-header">
         <div class="header-content">
             <div id="book-logo" class="col-xs-12 col-sm-12 col-md-3">
-                <a href="/" class="logo-link">
+                <a href="{{url('/')}}" class="logo-link">
                     <img src="images/logo-bait.png" alt="Logo" width="100" height="100">
                 </a>
             </div>
@@ -76,7 +80,7 @@
                             <div id="cart-items">
                             </div>
                             <div class="button-borrow-sec">
-                                <a href="/checkout/cart" class="button-borrow">
+                                <a href="{{url("checkout/cart")}}" class="button-borrow">
                                     <span>Mục Yêu Thích</span>
                                 </a>
                             </div>
@@ -88,7 +92,6 @@
         </div>
         @include('layout.menu-layout')
     </header>
-    @include('layout.cart-notification')
     @yield("section-body")
     <footer>
         {{--<style type="text/css">div.image {max-width: 256px;max-height: 256px;background-image: url(data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTYuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjY0cHgiIGhlaWdodD0iNjRweCIgdmlld0JveD0iMCAwIDUxMiA1MTIiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUxMiA1MTI7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPGc+Cgk8cGF0aCBkPSJNMjU2LDBDMTY3LjY0MSwwLDk2LDcxLjYyNSw5NiwxNjBjMCwyNC43NSw1LjYyNSw0OC4yMTksMTUuNjcyLDY5LjEyNUMxMTIuMjM0LDIzMC4zMTMsMjU2LDUxMiwyNTYsNTEybDE0Mi41OTQtMjc5LjM3NSAgIEM0MDkuNzE5LDIxMC44NDQsNDE2LDE4Ni4xNTYsNDE2LDE2MEM0MTYsNzEuNjI1LDM0NC4zNzUsMCwyNTYsMHogTTI1NiwyNTZjLTUzLjAxNiwwLTk2LTQzLTk2LTk2czQyLjk4NC05Niw5Ni05NiAgIGM1MywwLDk2LDQzLDk2LDk2UzMwOSwyNTYsMjU2LDI1NnoiIGZpbGw9IiNGRkZGRkYiLz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8L3N2Zz4K)}</style>--}}
@@ -139,5 +142,6 @@
         </div>
     </footer>
 </div>
+
 </body>
 </html>
